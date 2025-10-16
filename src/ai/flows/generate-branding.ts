@@ -1,3 +1,4 @@
+
 'use server';
 
 /**
@@ -68,7 +69,7 @@ const generateBrandingFlow = ai.defineFlow(
         },
       });
     
-    if (!media.url) {
+    if (!media?.url) {
       throw new Error('Could not generate logo');
     }
 
