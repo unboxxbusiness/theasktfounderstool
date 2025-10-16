@@ -19,6 +19,11 @@ export function Header() {
           </Link>
         </Button>
         <Button variant="ghost" asChild>
+          <Link href="/branding" className="text-sm font-medium hover:underline underline-offset-4">
+            Branding
+          </Link>
+        </Button>
+        <Button variant="ghost" asChild>
             <Link href="/funding-eligibility" className="text-sm font-medium hover:underline underline-offset-4">
                 Funding
             </Link>

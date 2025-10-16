@@ -5,6 +5,7 @@ import { generateDetailedReport, GenerateDetailedReportInput } from "@/ai/flows/
 import { generateIdeaValidationScore, IdeaValidationScoreInput } from "@/ai/flows/generate-idea-validation-score";
 import { generatePitchDeck, GeneratePitchDeckInput } from "@/ai/flows/generate-pitch-deck";
 import { checkFundingEligibility as checkFundingEligibilityFlow, FundingEligibilityCheckInput } from "@/ai/flows/check-funding-eligibility";
+import { generateBranding as generateBrandingFlow, GenerateBrandingInput } from "@/ai/flows/generate-branding";
 import { ValidationFormState } from "./types";
 
 export async function getValidationScore(formData: IdeaValidationScoreInput) {
@@ -63,4 +64,14 @@ export async function checkFundingEligibility(formData: FundingEligibilityCheckI
         console.error("Error checking funding eligibility:", error);
         throw new Error("Failed to check funding eligibility.");
     }
+}
+
+export async function generateBranding(formData: GenerateBrandingInput) {
+  try {
+    const result = await generateBrandingFlow(formData);
+    return result;
+  } catch (error) {
+    console.error("Error generating branding:", error);
+    throw new Error("Failed to generate branding.");
+  }
 }
