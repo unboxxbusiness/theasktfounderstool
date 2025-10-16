@@ -11,6 +11,7 @@
 
 import {ai} from '@/ai/genkit';
 import {z} from 'genkit';
+import { googleAI } from '@genkit-ai/google-genai';
 
 const GenerateBrandingInputSchema = z.object({
   ideaDescription: z.string().describe('A description of the startup idea.'),
@@ -62,7 +63,7 @@ const generateBrandingFlow = ai.defineFlow(
     }
 
     const { media } = await ai.generate({
-        model: 'googleai/imagen-4.0-fast-generate-001',
+        model: googleAI.model('imagen-4.0-fast-generate-001'),
         prompt: `Logo design: ${brandingIdeas.logoPrompt}`,
         config: {
           aspectRatio: '1:1',
