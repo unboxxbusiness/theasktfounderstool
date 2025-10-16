@@ -1,3 +1,4 @@
+
 'use server';
 
 /**
@@ -24,7 +25,7 @@ const GeneratePitchDeckInputSchema = z.object({
 });
 export type GeneratePitchDeckInput = z.infer<typeof GeneratePitchDeckInputSchema>;
 
-export const GeneratePitchDeckOutputSchema = z.object({
+const GeneratePitchDeckOutputSchema = z.object({
   titleSlide: SlideSchema,
   problemSlide: SlideSchema,
   solutionSlide: SlideSchema,
