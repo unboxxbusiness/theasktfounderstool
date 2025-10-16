@@ -5,6 +5,12 @@
       "description": "Abstract technology background for ValidateAI hero section",
       "imageUrl": "https://picsum.photos/seed/validateai/1200/800",
       "imageHint": "abstract technology"
+    },
+    {
+      "id": "community-image",
+      "description": "Diverse group of founders collaborating for TheASKT.org section",
+      "imageUrl": "https://picsum.photos/seed/community/800/800",
+      "imageHint": "founders community"
     }
   ]
 }

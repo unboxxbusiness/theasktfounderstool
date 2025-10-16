@@ -9,6 +9,7 @@ import {
   Banknote,
   Users,
   TrendingUp,
+  Heart,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
@@ -20,7 +21,8 @@ import {
 } from "@/components/ui/card";
 import { PlaceHolderImages } from "@/lib/placeholder-images";
 
-const placeholderImage = PlaceHolderImages.find((img) => img.id === 'hero-image');
+const heroImage = PlaceHolderImages.find((img) => img.id === 'hero-image');
+const communityImage = PlaceHolderImages.find((img) => img.id === 'community-image');
 
 export default function Home() {
   const features = [
@@ -94,13 +96,13 @@ export default function Home() {
                     100% Free for founders, from TheASKT.org
                   </p>
               </div>
-              {placeholderImage &&
+              {heroImage &&
                 <Image
                   alt="Hero"
                   className="mx-auto aspect-video overflow-hidden rounded-xl object-cover sm:w-full lg:order-last lg:aspect-square"
-                  data-ai-hint={placeholderImage.imageHint}
+                  data-ai-hint={heroImage.imageHint}
                   height="550"
-                  src={placeholderImage.imageUrl}
+                  src={heroImage.imageUrl}
                   width="550"
                 />
               }
@@ -177,15 +179,67 @@ export default function Home() {
             </div>
           </div>
         </section>
+
+        <section id="community" className="w-full py-12 md:py-24 lg:py-32">
+          <div className="container px-4 md:px-6">
+            <div className="grid gap-10 lg:grid-cols-2 lg:gap-16">
+              <div className="space-y-4">
+                <div className="inline-block rounded-lg bg-secondary px-3 py-1 text-sm">
+                  Join the Community
+                </div>
+                <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl font-headline">
+                  Built for Founders, by Founders.
+                </h2>
+                 <p className="text-muted-foreground md:text-xl/relaxed">
+                  This toolkit is a free project from{" "}
+                  <a
+                    href="https://theaskt.org"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="font-semibold text-primary underline-offset-4 hover:underline"
+                  >
+                    TheASKT.org
+                  </a>
+                  , a non-profit dedicated to providing resources, mentorship, and community for early-stage entrepreneurs. We believe every founder deserves a fair shot at success.
+                </p>
+                <p className="text-muted-foreground md:text-xl/relaxed">
+                  These tools are just the beginning. Sign up to get access to our full platform, connect with other founders, and get the support you need to grow.
+                </p>
+                <Button asChild size="lg">
+                  <a
+                    href="https://theaskt.org"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <Heart className="mr-2" />
+                    Sign Up at TheASKT.org
+                  </a>
+                </Button>
+              </div>
+              {communityImage && (
+                <div className="flex items-center justify-center">
+                  <Image
+                    alt="Community"
+                    className="mx-auto aspect-square overflow-hidden rounded-xl object-cover"
+                    data-ai-hint={communityImage.imageHint}
+                    height="550"
+                    src={communityImage.imageUrl}
+                    width="550"
+                  />
+                </div>
+              )}
+            </div>
+          </div>
+        </section>
         
-        <section className="w-full py-12 md:py-24 lg:py-32">
+        <section className="w-full py-12 md:py-24 lg:py-32 bg-card">
             <div className="container grid items-center justify-center gap-4 px-4 text-center md:px-6">
                 <div className="space-y-3">
                 <h2 className="text-3xl font-bold tracking-tighter md:text-4xl/tight">
                     Ready to Build with Unfair Confidence?
                 </h2>
                 <p className="mx-auto max-w-[600px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
-                    The difference between success and failure can be one smart decision. Start making them now. Get your free, data-driven validation report and unlock the entire toolkit.
+                    The difference between success and failure can be one smart decision. Start making them now. Get your free, data-driven validation report and unlock the entire toolkit, brought to you by TheASKT.org.
                 </p>
                 </div>
                 <div className="flex justify-center">
