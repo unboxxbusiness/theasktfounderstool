@@ -1,3 +1,10 @@
 {
-  "placeholderImages": []
+  "placeholderImages": [
+    {
+      "id": "hero-image",
+      "description": "Abstract technology background for ValidateAI hero section",
+      "imageUrl": "https://picsum.photos/seed/validateai/1200/800",
+      "imageHint": "abstract technology"
+    }
+  ]
 }
