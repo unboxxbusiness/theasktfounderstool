@@ -59,6 +59,9 @@ export function Header() {
             <DropdownMenuItem asChild>
               <Link href="/cac-ltv-calculator">CAC vs LTV Calculator</Link>
             </DropdownMenuItem>
+            <DropdownMenuItem asChild>
+              <Link href="/break-even-calculator">Break-Even Calculator</Link>
+            </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
 
