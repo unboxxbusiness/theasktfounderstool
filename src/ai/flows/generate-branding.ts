@@ -62,7 +62,7 @@ const generateBrandingFlow = ai.defineFlow(
     }
 
     const { media } = await ai.generate({
-        model: 'googleai/imagen-2',
+        model: 'googleai/imagen-4.0-fast-generate-001',
         prompt: `Logo design: ${brandingIdeas.logoPrompt}`,
         config: {
           aspectRatio: '1:1',
