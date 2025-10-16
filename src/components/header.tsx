@@ -71,6 +71,9 @@ export function Header() {
             <DropdownMenuItem asChild>
               <Link href="/fundraising-goal-calculator">Fundraising Goal Calculator</Link>
             </DropdownMenuItem>
+            <DropdownMenuItem asChild>
+              <Link href="/investor-roi-calculator">Investor ROI Calculator</Link>
+            </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
 
