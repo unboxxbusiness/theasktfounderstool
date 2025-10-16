@@ -74,6 +74,9 @@ export function Header() {
             <DropdownMenuItem asChild>
               <Link href="/investor-roi-calculator">Investor ROI Calculator</Link>
             </DropdownMenuItem>
+            <DropdownMenuItem asChild>
+              <Link href="/marketing-budget-allocator">Marketing Budget Allocator</Link>
+            </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
 
