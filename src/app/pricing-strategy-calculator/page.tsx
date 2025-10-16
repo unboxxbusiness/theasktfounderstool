@@ -1,0 +1,142 @@
+'use client';
+
+import { useState, useMemo } from 'react';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Label } from '@/components/ui/label';
+import { Input } from '@/components/ui/input';
+import { Badge } from '@/components/ui/badge';
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
+import { DollarSign, HelpCircle } from 'lucide-react';
+
+const formatCurrency = (value: number) => {
+  if (isNaN(value) || !isFinite(value)) return '$0';
+  return new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'USD',
+  }).format(value);
+};
+
+export default function PricingStrategyCalculatorPage() {
+  const [costPerUnit, setCostPerUnit] = useState(15);
+  const [desiredMargin, setDesiredMargin] = useState(70);
+  const [competitorPrice, setCompetitorPrice] = useState(60);
+
+  const pricingTiers = useMemo(() => {
+    const costPlusPrice = desiredMargin < 100 ? costPerUnit / (1 - desiredMargin / 100) : Infinity;
+    
+    const competitivePrice = competitorPrice * 0.95; // Slightly undercut
+    const premiumPrice = competitorPrice * 1.2; // Premium positioning
+
+    return {
+      costPlus: isNaN(costPlusPrice) ? 0 : costPlusPrice,
+      competitive: isNaN(competitivePrice) ? 0 : competitivePrice,
+      premium: isNaN(premiumPrice) ? 0 : premiumPrice,
+    };
+  }, [costPerUnit, desiredMargin, competitorPrice]);
+
+  return (
+    <TooltipProvider>
+      <div className="container mx-auto max-w-3xl py-12 px-4 md:px-6">
+        <Card>
+          <CardHeader>
+            <CardTitle className="text-3xl font-headline flex items-center gap-2">
+              <DollarSign className="h-8 w-8 text-primary" />
+              Pricing Strategy Calculator
+            </CardTitle>
+            <CardDescription>
+              Find your ideal price point instantly by analyzing costs, margins, and competitor pricing.
+            </CardDescription>
+          </CardHeader>
+          <CardContent className="grid gap-8">
+            <div className="space-y-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="space-y-2">
+                  <Label htmlFor="costPerUnit">Cost Per Unit (Fully-loaded)</Label>
+                  <Input
+                    id="costPerUnit"
+                    type="number"
+                    value={costPerUnit}
+                    onChange={(e) => setCostPerUnit(Number(e.target.value))}
+                    step="1"
+                    placeholder="e.g., 15"
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="desiredMargin">Desired Gross Margin (%)</Label>
+                  <Input
+                    id="desiredMargin"
+                    type="number"
+                    value={desiredMargin}
+                    onChange={(e) => setDesiredMargin(Number(e.target.value))}
+                    step="5"
+                    max="99"
+                    placeholder="e.g., 70"
+                  />
+                </div>
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="competitorPrice">Main Competitor's Price</Label>
+                <Input
+                  id="competitorPrice"
+                  type="number"
+                  value={competitorPrice}
+                  onChange={(e) => setCompetitorPrice(Number(e.target.value))}
+                  step="5"
+                  placeholder="e.g., 60"
+                />
+              </div>
+            </div>
+            
+            <div className="space-y-6">
+               <div className='flex items-center justify-center gap-2'>
+                    <Label className="text-lg text-muted-foreground">Recommended Price Points</Label>
+                     <Tooltip>
+                        <TooltipTrigger asChild>
+                            <HelpCircle className="h-4 w-4 text-muted-foreground cursor-help" />
+                        </TooltipTrigger>
+                        <TooltipContent>
+                            <p className="max-w-xs">These are suggestions based on different pricing strategies. Your final price may vary based on market positioning, brand, and other factors.</p>
+                        </TooltipContent>
+                    </Tooltip>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                  <Card className="text-center">
+                    <CardHeader>
+                      <CardTitle className="text-xl">Cost-Plus</CardTitle>
+                      <CardDescription>Margin-based</CardDescription>
+                    </CardHeader>
+                    <CardContent>
+                      <p className="text-4xl font-bold">{pricingTiers.costPlus === Infinity ? 'N/A' : formatCurrency(pricingTiers.costPlus)}</p>
+                      <Badge variant="outline" className="mt-2">Your Target</Badge>
+                    </CardContent>
+                  </Card>
+                  <Card className="text-center border-primary/50 ring-2 ring-primary/20">
+                     <CardHeader>
+                      <CardTitle className="text-xl">Competitive</CardTitle>
+                      <CardDescription>Market-based</CardDescription>
+                    </CardHeader>
+                    <CardContent>
+                      <p className="text-4xl font-bold text-primary">{formatCurrency(pricingTiers.competitive)}</p>
+                       <Badge variant="default" className="mt-2">Recommended</Badge>
+                    </CardContent>
+                  </Card>
+                   <Card className="text-center">
+                     <CardHeader>
+                      <CardTitle className="text-xl">Premium</CardTitle>
+                      <CardDescription>Value-based</CardDescription>
+                    </CardHeader>
+                    <CardContent>
+                      <p className="text-4xl font-bold">{formatCurrency(pricingTiers.premium)}</p>
+                      <Badge variant="outline" className="mt-2">High-End</Badge>
+                    </CardContent>
+                  </Card>
+                </div>
+            </div>
+
+          </CardContent>
+        </Card>
+      </div>
+    </TooltipProvider>
+  );
+}

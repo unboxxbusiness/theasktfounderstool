@@ -62,6 +62,9 @@ export function Header() {
             <DropdownMenuItem asChild>
               <Link href="/break-even-calculator">Break-Even Calculator</Link>
             </DropdownMenuItem>
+            <DropdownMenuItem asChild>
+              <Link href="/pricing-strategy-calculator">Pricing Strategy Calculator</Link>
+            </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
 
