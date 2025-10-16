@@ -1,9 +1,10 @@
+
 "use server";
 
 import { generateDetailedReport, GenerateDetailedReportInput } from "@/ai/flows/generate-detailed-report";
 import { generateIdeaValidationScore, IdeaValidationScoreInput } from "@/ai/flows/generate-idea-validation-score";
 import { generatePitchDeck, GeneratePitchDeckInput } from "@/ai/flows/generate-pitch-deck";
-import { checkFundingEligibility, FundingEligibilityCheckInput } from "@/ai/flows/check-funding-eligibility";
+import { checkFundingEligibility as checkFundingEligibilityFlow, FundingEligibilityCheckInput } from "@/ai/flows/check-funding-eligibility";
 import { ValidationFormState } from "./types";
 
 export async function getValidationScore(formData: IdeaValidationScoreInput) {
@@ -56,7 +57,7 @@ export async function getPitchDeck(formData: ValidationFormState, scores: {marke
 
 export async function checkFundingEligibility(formData: FundingEligibilityCheckInput) {
     try {
-        const result = await checkFundingEligibility(formData);
+        const result = await checkFundingEligibilityFlow(formData);
         return result;
     } catch (error) {
         console.error("Error checking funding eligibility:", error);
