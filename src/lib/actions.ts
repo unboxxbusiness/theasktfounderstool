@@ -2,6 +2,7 @@
 
 import { generateDetailedReport, GenerateDetailedReportInput } from "@/ai/flows/generate-detailed-report";
 import { generateIdeaValidationScore, IdeaValidationScoreInput } from "@/ai/flows/generate-idea-validation-score";
+import { generatePitchDeck, GeneratePitchDeckInput } from "@/ai/flows/generate-pitch-deck";
 import { ValidationFormState } from "./types";
 
 export async function getValidationScore(formData: IdeaValidationScoreInput) {
@@ -30,5 +31,24 @@ export async function getDetailedReport(formData: ValidationFormState, scores: {
   } catch (error) {
     console.error("Error generating detailed report:", error);
     throw new Error("Failed to generate detailed report.");
+  }
+}
+
+export async function getPitchDeck(formData: ValidationFormState, scores: {marketViability: number, technicalFeasibility: number, fundingReadiness: number}) {
+  try {
+    const ideaDetails = Object.entries(formData)
+      .map(([key, value]) => `${key}: ${value}`)
+      .join("\n");
+
+    const input: GeneratePitchDeckInput = {
+      ...scores,
+      ideaDetails,
+    };
+
+    const result = await generatePitchDeck(input);
+    return result;
+  } catch (error) {
+    console.error("Error generating pitch deck:", error);
+    throw new Error("Failed to generate pitch deck.");
   }
 }

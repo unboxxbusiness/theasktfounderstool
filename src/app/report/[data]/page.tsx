@@ -1,8 +1,8 @@
 "use client";
 
 import { useEffect, useState, useMemo } from "react";
-import { useParams } from "next/navigation";
-import { AlertCircle, CheckCircle, FileText, Loader2, Share2, Sparkles } from "lucide-react";
+import { useParams, useRouter } from "next/navigation";
+import { AlertCircle, CheckCircle, FileText, Loader2, Share2, Sparkles, Presentation } from "lucide-react";
 
 import { getDetailedReport, getValidationScore } from "@/lib/actions";
 import type { IdeaValidationScores, ValidationFormState, DetailedReport } from "@/lib/types";
@@ -16,6 +16,7 @@ import { MarkdownReport } from "@/components/markdown-report";
 
 export default function ReportPage() {
   const params = useParams();
+  const router = useRouter();
   const [formData, setFormData] = useState<ValidationFormState | null>(null);
   const [scores, setScores] = useState<IdeaValidationScores | null>(null);
   const [report, setReport] = useState<DetailedReport | null>(null);
@@ -75,6 +76,12 @@ export default function ReportPage() {
        setError("An error occurred while generating the detailed report. Please try again later.");
     } finally {
       setLoadingReport(false);
+    }
+  };
+
+  const handleGeneratePitchDeck = () => {
+    if (params.data) {
+      router.push(`/pitch-deck/${params.data}`);
     }
   };
 
@@ -143,7 +150,7 @@ export default function ReportPage() {
       </Card>
       
       {!report && scores && (
-        <div className="text-center my-8">
+        <div className="text-center my-8 flex flex-col sm:flex-row justify-center items-center gap-4">
             <Button onClick={handleGenerateReport} disabled={loadingReport || !scores} size="lg" className="bg-accent hover:bg-accent/90 text-accent-foreground">
                 {loadingReport ? (
                     <>
@@ -156,6 +163,10 @@ export default function ReportPage() {
                         Generate Detailed Report
                     </>
                 )}
+            </Button>
+            <Button onClick={handleGeneratePitchDeck} disabled={!scores} size="lg">
+                <Presentation className="mr-2 h-4 w-4" />
+                Generate Pitch Deck
             </Button>
         </div>
       )}
@@ -179,13 +190,21 @@ export default function ReportPage() {
       {report && (
         <Card>
           <CardHeader>
-            <CardTitle className="flex items-center gap-2 text-3xl font-headline">
-              <FileText className="h-8 w-8 text-primary" />
-              Detailed Report
-            </CardTitle>
-            <CardDescription>
-              In-depth analysis and actionable insights to strengthen your startup idea.
-            </CardDescription>
+             <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center">
+                 <div>
+                    <CardTitle className="flex items-center gap-2 text-3xl font-headline">
+                    <FileText className="h-8 w-8 text-primary" />
+                    Detailed Report
+                    </CardTitle>
+                    <CardDescription>
+                    In-depth analysis and actionable insights to strengthen your startup idea.
+                    </CardDescription>
+                </div>
+                 <Button onClick={handleGeneratePitchDeck} disabled={!scores} size="lg" className="mt-4 sm:mt-0">
+                    <Presentation className="mr-2 h-4 w-4" />
+                    Generate Pitch Deck
+                </Button>
+            </div>
           </CardHeader>
           <CardContent>
             <MarkdownReport content={report.report} />
