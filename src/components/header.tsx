@@ -28,6 +28,11 @@ export function Header() {
                 Funding
             </Link>
         </Button>
+        <Button variant="ghost" asChild>
+          <Link href="/equity-calculator" className="text-sm font-medium hover:underline underline-offset-4">
+            Equity Calculator
+          </Link>
+        </Button>
         <Button variant="default" asChild className="bg-primary hover:bg-primary/90 text-primary-foreground">
           <Link href="/validate" className="text-sm font-medium">
             Validate Idea
