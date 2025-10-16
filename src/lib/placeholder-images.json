@@ -2,15 +2,21 @@
   "placeholderImages": [
     {
       "id": "hero-image",
-      "description": "Abstract technology background for ValidateAI hero section",
-      "imageUrl": "https://picsum.photos/seed/validateai/1200/800",
-      "imageHint": "abstract technology"
+      "description": "Clean, abstract visual of a graph or chart showing upward progress.",
+      "imageUrl": "https://picsum.photos/seed/progress/1200/800",
+      "imageHint": "abstract graph"
+    },
+    {
+      "id": "before-after-image",
+      "description": "A split image or collage showing chaos vs. order, representing the before and after of using the toolkit.",
+      "imageUrl": "https://picsum.photos/seed/chaos-order/1200/600",
+      "imageHint": "chaos order"
     },
     {
       "id": "community-image",
-      "description": "Image of a founder working, to be displayed in the community section.",
-      "imageUrl": "https://picsum.photos/seed/community/800/800",
-      "imageHint": "founder working"
+      "description": "Image of diverse founders collaborating or working.",
+      "imageUrl": "https://picsum.photos/seed/founders/800/800",
+      "imageHint": "founders collaborating"
     }
   ]
 }
