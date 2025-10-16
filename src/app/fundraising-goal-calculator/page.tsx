@@ -1,0 +1,106 @@
+'use client';
+
+import { useState, useMemo } from 'react';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Label } from '@/components/ui/label';
+import { Input } from '@/components/ui/input';
+import { Landmark, HelpCircle } from 'lucide-react';
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
+
+const formatCurrency = (value: number) => {
+  return new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'USD',
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 0,
+  }).format(value);
+};
+
+export default function FundraisingGoalCalculatorPage() {
+  const [monthlyBurn, setMonthlyBurn] = useState(50000);
+  const [targetRunway, setTargetRunway] = useState(18);
+  const [buffer, setBuffer] = useState(25);
+
+  const fundingGoal = useMemo(() => {
+    const totalBurn = monthlyBurn * targetRunway;
+    const goal = totalBurn * (1 + buffer / 100);
+    return isNaN(goal) ? 0 : goal;
+  }, [monthlyBurn, targetRunway, buffer]);
+
+  return (
+    <TooltipProvider>
+      <div className="container mx-auto max-w-3xl py-12 px-4 md:px-6">
+        <Card>
+          <CardHeader>
+            <CardTitle className="text-3xl font-headline flex items-center gap-2">
+              <Landmark className="h-8 w-8 text-primary" />
+              Fundraising Goal Calculator
+            </CardTitle>
+            <CardDescription>
+              How much should you really raise? Calculate your ideal seed or pre-seed funding amount.
+            </CardDescription>
+          </CardHeader>
+          <CardContent className="grid gap-8">
+            <div className="space-y-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="space-y-2">
+                  <Label htmlFor="monthlyBurn">Current Monthly Burn Rate</Label>
+                  <Input
+                    id="monthlyBurn"
+                    type="number"
+                    value={monthlyBurn}
+                    onChange={(e) => setMonthlyBurn(Number(e.target.value))}
+                    step="5000"
+                    placeholder="e.g., 50000"
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="targetRunway">Target Runway (Months)</Label>
+                  <Input
+                    id="targetRunway"
+                    type="number"
+                    value={targetRunway}
+                    onChange={(e) => setTargetRunway(Number(e.target.value))}
+                    step="1"
+                    placeholder="e.g., 18"
+                  />
+                </div>
+              </div>
+              <div className="space-y-2">
+                <div className="flex items-center gap-2">
+                    <Label htmlFor="buffer">Contingency Buffer (%)</Label>
+                    <Tooltip>
+                        <TooltipTrigger asChild>
+                            <HelpCircle className="h-4 w-4 text-muted-foreground cursor-help" />
+                        </TooltipTrigger>
+                        <TooltipContent>
+                            <p className="max-w-xs">A 20-30% buffer is recommended to cover unexpected expenses and provide capital for growth opportunities.</p>
+                        </TooltipContent>
+                    </Tooltip>
+                </div>
+                <Input
+                  id="buffer"
+                  type="number"
+                  value={buffer}
+                  onChange={(e) => setBuffer(Number(e.target.value))}
+                  step="5"
+                  placeholder="e.g., 25"
+                />
+              </div>
+            </div>
+            
+            <div className="space-y-4 text-center bg-muted/50 p-6 rounded-lg">
+              <Label className="text-lg text-muted-foreground">Ideal Funding Goal</Label>
+              <div className="text-5xl font-bold text-primary">
+                {formatCurrency(fundingGoal)}
+              </div>
+              <p className="text-muted-foreground">
+                This gives you {targetRunway} months of runway with a {buffer}% buffer.
+              </p>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+    </TooltipProvider>
+  );
+}
