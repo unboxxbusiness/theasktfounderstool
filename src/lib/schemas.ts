@@ -12,3 +12,9 @@ export const validationSchema = z.object({
   financialProjections: z.string().min(10, { message: 'Please describe your financial projections in at least 10 characters.' }),
   investorInterest: z.string().min(10, { message: 'Please describe the level of investor interest in at least 10 characters.' }),
 });
+
+export const fundingEligibilitySchema = z.object({
+  ventureStage: z.string().min(1, { message: 'Please select your venture stage.' }),
+  domain: z.string().min(1, { message: 'Please select your domain.' }),
+  ideaDescription: z.string().min(20, { message: 'Please provide a description of at least 20 characters.' }),
+});

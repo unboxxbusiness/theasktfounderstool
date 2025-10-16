@@ -3,6 +3,7 @@
 import { generateDetailedReport, GenerateDetailedReportInput } from "@/ai/flows/generate-detailed-report";
 import { generateIdeaValidationScore, IdeaValidationScoreInput } from "@/ai/flows/generate-idea-validation-score";
 import { generatePitchDeck, GeneratePitchDeckInput } from "@/ai/flows/generate-pitch-deck";
+import { checkFundingEligibility, FundingEligibilityCheckInput } from "@/ai/flows/check-funding-eligibility";
 import { ValidationFormState } from "./types";
 
 export async function getValidationScore(formData: IdeaValidationScoreInput) {
@@ -51,4 +52,14 @@ export async function getPitchDeck(formData: ValidationFormState, scores: {marke
     console.error("Error generating pitch deck:", error);
     throw new Error("Failed to generate pitch deck.");
   }
+}
+
+export async function checkFundingEligibility(formData: FundingEligibilityCheckInput) {
+    try {
+        const result = await checkFundingEligibility(formData);
+        return result;
+    } catch (error) {
+        console.error("Error checking funding eligibility:", error);
+        throw new Error("Failed to check funding eligibility.");
+    }
 }

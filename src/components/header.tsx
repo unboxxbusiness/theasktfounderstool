@@ -12,11 +12,16 @@ export function Header() {
       <div className="ml-4 flex items-center">
         <h1 className="font-bold text-lg">ValidateAI</h1>
       </div>
-      <nav className="ml-auto flex gap-4 sm:gap-6">
+      <nav className="ml-auto flex gap-2 sm:gap-4">
         <Button variant="ghost" asChild>
           <Link href="/#features" className="text-sm font-medium hover:underline underline-offset-4">
             Features
           </Link>
+        </Button>
+        <Button variant="ghost" asChild>
+            <Link href="/funding-eligibility" className="text-sm font-medium hover:underline underline-offset-4">
+                Funding
+            </Link>
         </Button>
         <Button variant="default" asChild className="bg-primary hover:bg-primary/90 text-primary-foreground">
           <Link href="/validate" className="text-sm font-medium">
