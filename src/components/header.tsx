@@ -53,6 +53,9 @@ export function Header() {
             <DropdownMenuItem asChild>
               <Link href="/runway-calculator">Runway Calculator</Link>
             </DropdownMenuItem>
+             <DropdownMenuItem asChild>
+              <Link href="/dilution-calculator">Dilution Calculator</Link>
+            </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
 
