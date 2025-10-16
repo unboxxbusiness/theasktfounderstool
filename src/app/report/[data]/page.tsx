@@ -222,7 +222,7 @@ export default function ReportPage() {
                 <CardDescription>Share your validation score with your team, mentors, or potential investors.</CardDescription>
             </CardHeader>
             <CardContent>
-                <SocialShare shareUrl={shareUrl} text={`I just validated my startup idea with ValidateAI and got a score of ${scores.compositeScore}! Check out my report.`} />
+                <SocialShare shareUrl={shareUrl} text={`I just validated my startup idea with TheASKT Startup Toolkit and got a score of ${scores.compositeScore}/100! Check out my report.`} />
             </CardContent>
         </Card>
       )}

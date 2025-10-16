@@ -37,19 +37,19 @@ export function SocialShare({ shareUrl, text }: SocialShareProps) {
         <div className="flex items-center justify-center gap-4 pt-2">
             <Button asChild variant="ghost" size="icon" className="rounded-full h-12 w-12 hover:bg-secondary">
                 <a href={twitterUrl} target="_blank" rel="noopener noreferrer">
-                    <Twitter className="h-6 w-6 text-primary" />
+                    <Twitter className="h-6 w-6 text-[#1DA1F2]" />
                     <span className="sr-only">Share on Twitter</span>
                 </a>
             </Button>
             <Button asChild variant="ghost" size="icon" className="rounded-full h-12 w-12 hover:bg-secondary">
                 <a href={linkedinUrl} target="_blank" rel="noopener noreferrer">
-                    <Linkedin className="h-6 w-6 text-primary" />
+                    <Linkedin className="h-6 w-6 text-[#0A66C2]" />
                     <span className="sr-only">Share on LinkedIn</span>
                 </a>
             </Button>
             <Button asChild variant="ghost" size="icon" className="rounded-full h-12 w-12 hover:bg-secondary">
                 <a href={facebookUrl} target="_blank" rel="noopener noreferrer">
-                    <Facebook className="h-6 w-6 text-primary" />
+                    <Facebook className="h-6 w-6 text-[#1877F2]" />
                     <span className="sr-only">Share on Facebook</span>
                 </a>
             </Button>
