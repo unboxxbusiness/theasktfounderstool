@@ -29,8 +29,8 @@ export function Header() {
             </Link>
         </Button>
         <Button variant="ghost" asChild>
-          <Link href="/equity-calculator" className="text-sm font-medium hover:underline underline-offset-4">
-            Equity Calculator
+          <Link href="/valuation-calculator" className="text-sm font-medium hover:underline underline-offset-4">
+            Valuation Calculator
           </Link>
         </Button>
         <Button variant="default" asChild className="bg-primary hover:bg-primary/90 text-primary-foreground">
