@@ -1,6 +1,13 @@
 import Link from "next/link";
 import { AppLogo } from "./icons";
 import { Button } from "./ui/button";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { ChevronDown } from "lucide-react";
 
 export function Header() {
   return (
@@ -28,21 +35,27 @@ export function Header() {
                 Funding
             </Link>
         </Button>
-        <Button variant="ghost" asChild>
-          <Link href="/valuation-calculator" className="text-sm font-medium hover:underline underline-offset-4">
-            Valuation
-          </Link>
-        </Button>
-        <Button variant="ghost" asChild>
-          <Link href="/equity-split-calculator" className="text-sm font-medium hover:underline underline-offset-4">
-            Equity Split
-          </Link>
-        </Button>
-        <Button variant="ghost" asChild>
-          <Link href="/runway-calculator" className="text-sm font-medium hover:underline underline-offset-4">
-            Runway
-          </Link>
-        </Button>
+        
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button variant="ghost">
+              Calculators
+              <ChevronDown className="ml-1 h-4 w-4" />
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent>
+            <DropdownMenuItem asChild>
+              <Link href="/valuation-calculator">Valuation Calculator</Link>
+            </DropdownMenuItem>
+            <DropdownMenuItem asChild>
+              <Link href="/equity-split-calculator">Equity Split Calculator</Link>
+            </DropdownMenuItem>
+            <DropdownMenuItem asChild>
+              <Link href="/runway-calculator">Runway Calculator</Link>
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
+
         <Button variant="default" asChild className="bg-primary hover:bg-primary/90 text-primary-foreground">
           <Link href="/validate" className="text-sm font-medium">
             Validate Idea
