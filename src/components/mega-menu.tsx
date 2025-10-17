@@ -60,7 +60,17 @@ const menuItems = [
   },
 ];
 
-export function MegaMenu() {
+interface MegaMenuProps {
+  setMobileMenuOpen?: (isOpen: boolean) => void;
+}
+
+export function MegaMenu({ setMobileMenuOpen }: MegaMenuProps) {
+  const handleLinkClick = () => {
+    if (setMobileMenuOpen) {
+      setMobileMenuOpen(false);
+    }
+  };
+
   return (
     <>
     {/* Desktop Mega Menu */}
@@ -119,6 +129,7 @@ export function MegaMenu() {
                                     <Link
                                         href={link.href}
                                         className="text-md text-zinc-400 hover:text-foreground"
+                                        onClick={handleLinkClick}
                                     >
                                         {link.label}
                                     </Link>
