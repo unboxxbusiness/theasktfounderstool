@@ -47,7 +47,10 @@ export default function PricingStrategyCalculatorPage() {
     params.set('costPerUnit', String(costPerUnit));
     params.set('desiredMargin', String(desiredMargin));
     params.set('competitorPrice', String(competitorPrice));
-    setShareUrl(`${window.location.origin}${window.location.pathname}?${params.toString()}`);
+    
+    const newUrl = `${window.location.origin}${window.location.pathname}?${params.toString()}`;
+    setShareUrl(newUrl);
+
   }, [name, company, costPerUnit, desiredMargin, competitorPrice]);
 
 

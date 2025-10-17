@@ -42,7 +42,10 @@ export default function FundraisingGoalCalculatorPage() {
     params.set('monthlyBurn', String(monthlyBurn));
     params.set('targetRunway', String(targetRunway));
     params.set('buffer', String(buffer));
-    setShareUrl(`${window.location.origin}${window.location.pathname}?${params.toString()}`);
+    
+    const newUrl = `${window.location.origin}${window.location.pathname}?${params.toString()}`;
+    setShareUrl(newUrl);
+
   }, [name, company, monthlyBurn, targetRunway, buffer]);
 
   return (

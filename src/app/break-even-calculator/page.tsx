@@ -46,7 +46,10 @@ export default function BreakEvenCalculatorPage() {
     params.set('fixedCosts', String(fixedCosts));
     params.set('pricePerUnit', String(pricePerUnit));
     params.set('variableCostPerUnit', String(variableCostPerUnit));
-    setShareUrl(`${window.location.origin}${window.location.pathname}?${params.toString()}`);
+    
+    const newUrl = `${window.location.origin}${window.location.pathname}?${params.toString()}`;
+    setShareUrl(newUrl);
+
   }, [name, company, fixedCosts, pricePerUnit, variableCostPerUnit]);
 
 

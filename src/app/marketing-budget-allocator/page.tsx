@@ -57,7 +57,10 @@ export default function MarketingBudgetAllocatorPage() {
     params.set('company', company);
     params.set('totalBudget', String(totalBudget));
     params.set('goal', goal);
-    setShareUrl(`${window.location.origin}${window.location.pathname}?${params.toString()}`);
+    
+    const newUrl = `${window.location.origin}${window.location.pathname}?${params.toString()}`;
+    setShareUrl(newUrl);
+
   }, [name, company, totalBudget, goal]);
 
   return (

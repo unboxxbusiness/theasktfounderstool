@@ -43,7 +43,10 @@ export default function RunwayCalculatorPage() {
     params.set('currentFunds', String(currentFunds));
     params.set('monthlyBurn', String(monthlyBurn));
     params.set('teamSize', String(teamSize));
-    setShareUrl(`${window.location.origin}${window.location.pathname}?${params.toString()}`);
+    
+    const newUrl = `${window.location.origin}${window.location.pathname}?${params.toString()}`;
+    setShareUrl(newUrl);
+    
   }, [name, company, currentFunds, monthlyBurn, teamSize]);
 
   const isLowRunway = runwayMonths <= 6;

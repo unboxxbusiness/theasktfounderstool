@@ -1,3 +1,4 @@
+
 import Link from "next/link";
 import Image from "next/image";
 import {
@@ -12,6 +13,11 @@ import {
   ShieldCheck,
   Scale,
   Calculator,
+  Target,
+  Hourglass,
+  Landmark,
+  DollarSign,
+  Megaphone,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
@@ -76,6 +82,36 @@ export default function Home() {
           title: "CAC & LTV",
           description: "Analyze your customer acquisition economics.",
           link: "/cac-ltv-calculator"
+      },
+      {
+        icon: <Hourglass className="h-6 w-6 mb-2 text-primary" />,
+        title: 'Runway Calculator',
+        description: 'See how long your cash will last.',
+        link: '/runway-calculator',
+      },
+      {
+        icon: <Target className="h-6 w-6 mb-2 text-primary" />,
+        title: 'Break-Even Analysis',
+        description: 'Find your point of profitability.',
+        link: '/break-even-calculator',
+      },
+      {
+        icon: <Landmark className="h-6 w-6 mb-2 text-primary" />,
+        title: 'Fundraising Goal',
+        description: 'Determine how much you should raise.',
+        link: '/fundraising-goal-calculator',
+      },
+      {
+        icon: <DollarSign className="h-6 w-6 mb-2 text-primary" />,
+        title: 'Pricing Strategy',
+        description: 'Find your ideal product price point.',
+        link: '/pricing-strategy-calculator',
+      },
+      {
+        icon: <Megaphone className="h-6 w-6 mb-2 text-primary" />,
+        title: 'Marketing Budget',
+        description: 'Allocate your marketing spend effectively.',
+        link: '/marketing-budget-allocator',
       },
   ]
 
