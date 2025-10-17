@@ -64,6 +64,7 @@ export default function EquitySplitCalculatorPage() {
       time: Number(searchParams.get('weightTime')) || 40, 
       money: Number(searchParams.get('weightMoney')) || 20 
   });
+  const [shareUrl, setShareUrl] = useState('');
   
   const form = useForm<FounderFormState>({
     resolver: zodResolver(formSchema),
@@ -93,8 +94,7 @@ export default function EquitySplitCalculatorPage() {
     }));
   }, [founderData, weights]);
 
-  const shareUrl = useMemo(() => {
-    if (typeof window === 'undefined') return '';
+  useEffect(() => {
     const params = new URLSearchParams();
     params.set('name', name);
     params.set('company', company);
@@ -102,7 +102,7 @@ export default function EquitySplitCalculatorPage() {
     params.set('weightTime', String(weights.time));
     params.set('weightMoney', String(weights.money));
     params.set('founders', encodeURIComponent(JSON.stringify(founderData)));
-    return `${window.location.origin}${window.location.pathname}?${params.toString()}`;
+    setShareUrl(`${window.location.origin}${window.location.pathname}?${params.toString()}`);
   }, [name, company, weights, founderData]);
 
 

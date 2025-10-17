@@ -1,7 +1,7 @@
 
 'use client';
 
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip as RechartsTooltip, Legend } from 'recharts';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -32,6 +32,7 @@ export default function SafeCalculatorPage() {
   const [safeValuationCap, setSafeValuationCap] = useState(Number(searchParams.get('safeValuationCap')) || 8000000);
   const [safeDiscount, setSafeDiscount] = useState(Number(searchParams.get('safeDiscount')) || 20);
   const [safeInvestment, setSafeInvestment] = useState(Number(searchParams.get('safeInvestment')) || 500000);
+  const [shareUrl, setShareUrl] = useState('');
 
   const {
     postMoneyValuation,
@@ -66,8 +67,7 @@ export default function SafeCalculatorPage() {
     };
   }, [preMoneyValuation, newMoney, safeValuationCap, safeDiscount, safeInvestment]);
 
-  const shareUrl = useMemo(() => {
-    if (typeof window === 'undefined') return '';
+  useEffect(() => {
     const params = new URLSearchParams();
     params.set('name', name);
     params.set('company', company);
@@ -76,7 +76,7 @@ export default function SafeCalculatorPage() {
     params.set('safeValuationCap', String(safeValuationCap));
     params.set('safeDiscount', String(safeDiscount));
     params.set('safeInvestment', String(safeInvestment));
-    return `${window.location.origin}${window.location.pathname}?${params.toString()}`;
+    setShareUrl(`${window.location.origin}${window.location.pathname}?${params.toString()}`);
   }, [name, company, preMoneyValuation, newMoney, safeValuationCap, safeDiscount, safeInvestment]);
 
 

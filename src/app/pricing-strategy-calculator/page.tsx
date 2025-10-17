@@ -1,7 +1,7 @@
 
 'use client';
 
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
@@ -27,6 +27,7 @@ export default function PricingStrategyCalculatorPage() {
   const [costPerUnit, setCostPerUnit] = useState(Number(searchParams.get('costPerUnit')) || 15);
   const [desiredMargin, setDesiredMargin] = useState(Number(searchParams.get('desiredMargin')) || 70);
   const [competitorPrice, setCompetitorPrice] = useState(Number(searchParams.get('competitorPrice')) || 60);
+  const [shareUrl, setShareUrl] = useState('');
 
   const pricingTiers = useMemo(() => {
     const costPlusPrice = desiredMargin < 100 ? costPerUnit / (1 - desiredMargin / 100) : Infinity;
@@ -39,15 +40,14 @@ export default function PricingStrategyCalculatorPage() {
     };
   }, [costPerUnit, desiredMargin, competitorPrice]);
 
-  const shareUrl = useMemo(() => {
-    if (typeof window === 'undefined') return '';
+  useEffect(() => {
     const params = new URLSearchParams();
     params.set('name', name);
     params.set('company', company);
     params.set('costPerUnit', String(costPerUnit));
     params.set('desiredMargin', String(desiredMargin));
     params.set('competitorPrice', String(competitorPrice));
-    return `${window.location.origin}${window.location.pathname}?${params.toString()}`;
+    setShareUrl(`${window.location.origin}${window.location.pathname}?${params.toString()}`);
   }, [name, company, costPerUnit, desiredMargin, competitorPrice]);
 
 

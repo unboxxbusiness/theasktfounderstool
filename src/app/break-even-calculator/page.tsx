@@ -29,6 +29,7 @@ export default function BreakEvenCalculatorPage() {
   const [fixedCosts, setFixedCosts] = useState(Number(searchParams.get('fixedCosts')) || 20000);
   const [pricePerUnit, setPricePerUnit] = useState(Number(searchParams.get('pricePerUnit')) || 50);
   const [variableCostPerUnit, setVariableCostPerUnit] = useState(Number(searchParams.get('variableCostPerUnit')) || 15);
+  const [shareUrl, setShareUrl] = useState('');
 
   const { breakEvenUnits, contributionMargin } = useMemo(() => {
     const contributionMargin = pricePerUnit - variableCostPerUnit;
@@ -38,15 +39,14 @@ export default function BreakEvenCalculatorPage() {
     return { breakEvenUnits: isNaN(units) ? 0 : units, contributionMargin };
   }, [fixedCosts, pricePerUnit, variableCostPerUnit]);
   
-  const shareUrl = useMemo(() => {
-    if (typeof window === 'undefined') return '';
+  useEffect(() => {
     const params = new URLSearchParams();
     params.set('name', name);
     params.set('company', company);
     params.set('fixedCosts', String(fixedCosts));
     params.set('pricePerUnit', String(pricePerUnit));
     params.set('variableCostPerUnit', String(variableCostPerUnit));
-    return `${window.location.origin}${window.location.pathname}?${params.toString()}`;
+    setShareUrl(`${window.location.origin}${window.location.pathname}?${params.toString()}`);
   }, [name, company, fixedCosts, pricePerUnit, variableCostPerUnit]);
 
 

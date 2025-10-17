@@ -1,7 +1,7 @@
 
 'use client';
 
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
@@ -51,6 +51,7 @@ export default function ValuationCalculatorPage() {
   const [growthRate, setGrowthRate] = useState(Number(searchParams.get('growthRate')) || 50);
   const [industry, setIndustry] = useState(searchParams.get('industry') || 'SaaS');
   const [stage, setStage] = useState(searchParams.get('stage') || 'Seed');
+  const [shareUrl, setShareUrl] = useState('');
 
   const valuation = useMemo(() => {
     const baseMultiple = industryMultiples[industry] || industryMultiples['Other'];
@@ -60,8 +61,7 @@ export default function ValuationCalculatorPage() {
     return isNaN(calculatedValuation) ? 0 : calculatedValuation;
   }, [annualRevenue, growthRate, industry, stage]);
 
-  const shareUrl = useMemo(() => {
-    if (typeof window === 'undefined') return '';
+  useEffect(() => {
     const params = new URLSearchParams();
     params.set('name', name);
     params.set('company', company);
@@ -69,7 +69,7 @@ export default function ValuationCalculatorPage() {
     params.set('growthRate', String(growthRate));
     params.set('industry', industry);
     params.set('stage', stage);
-    return `${window.location.origin}${window.location.pathname}?${params.toString()}`;
+    setShareUrl(`${window.location.origin}${window.location.pathname}?${params.toString()}`);
   }, [name, company, annualRevenue, growthRate, industry, stage]);
 
   return (

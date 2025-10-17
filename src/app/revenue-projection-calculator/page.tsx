@@ -1,7 +1,7 @@
 
 'use client';
 
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip as RechartsTooltip, ResponsiveContainer, Legend } from 'recharts';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -28,6 +28,7 @@ export default function RevenueProjectionCalculatorPage() {
   const [growthRate, setGrowthRate] = useState(Number(searchParams.get('growthRate')) || 20);
   const [arpu, setArpu] = useState(Number(searchParams.get('arpu')) || 25);
   const [churnRate, setChurnRate] = useState(Number(searchParams.get('churnRate')) || 5);
+  const [shareUrl, setShareUrl] = useState('');
 
   const projectionData = useMemo(() => {
     const data = [];
@@ -55,8 +56,7 @@ export default function RevenueProjectionCalculatorPage() {
     return projectionData.reduce((acc, month) => acc + month.Revenue, 0);
   }, [projectionData]);
 
-  const shareUrl = useMemo(() => {
-    if (typeof window === 'undefined') return '';
+  useEffect(() => {
     const params = new URLSearchParams();
     params.set('name', name);
     params.set('company', company);
@@ -64,7 +64,7 @@ export default function RevenueProjectionCalculatorPage() {
     params.set('growthRate', String(growthRate));
     params.set('arpu', String(arpu));
     params.set('churnRate', String(churnRate));
-    return `${window.location.origin}${window.location.pathname}?${params.toString()}`;
+    setShareUrl(`${window.location.origin}${window.location.pathname}?${params.toString()}`);
   }, [name, company, initialUsers, growthRate, arpu, churnRate]);
 
   return (

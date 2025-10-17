@@ -1,7 +1,7 @@
 
 'use client';
 
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
@@ -40,6 +40,7 @@ export default function InvestorROICalculatorPage() {
   const [investmentAmount, setInvestmentAmount] = useState(Number(searchParams.get('investmentAmount')) || 250000);
   const [equityPercentage, setEquityPercentage] = useState(Number(searchParams.get('equityPercentage')) || 10);
   const [exitValuation, setExitValuation] = useState(Number(searchParams.get('exitValuation')) || 100000000);
+  const [shareUrl, setShareUrl] = useState('');
 
   const { payout, roiMultiple } = useMemo(() => {
     if (investmentAmount <= 0 || equityPercentage <= 0 || exitValuation <= 0) {
@@ -50,15 +51,14 @@ export default function InvestorROICalculatorPage() {
     return { payout, roiMultiple };
   }, [investmentAmount, equityPercentage, exitValuation]);
 
-  const shareUrl = useMemo(() => {
-    if (typeof window === 'undefined') return '';
+  useEffect(() => {
     const params = new URLSearchParams();
     params.set('name', name);
     params.set('company', company);
     params.set('investmentAmount', String(investmentAmount));
     params.set('equityPercentage', String(equityPercentage));
     params.set('exitValuation', String(exitValuation));
-    return `${window.location.origin}${window.location.pathname}?${params.toString()}`;
+    setShareUrl(`${window.location.origin}${window.location.pathname}?${params.toString()}`);
   }, [name, company, investmentAmount, equityPercentage, exitValuation]);
 
   return (

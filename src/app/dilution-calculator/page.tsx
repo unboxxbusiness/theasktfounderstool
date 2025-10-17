@@ -1,7 +1,7 @@
 
 'use client';
 
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip as RechartsTooltip, Legend } from 'recharts';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -42,6 +42,7 @@ export default function DilutionCalculatorPage() {
   const [founderShares, setFounderShares] = useState(Number(searchParams.get('founderShares')) || 1000000);
   const [preMoneyValuation, setPreMoneyValuation] = useState(Number(searchParams.get('preMoneyValuation')) || 5000000);
   const [investment, setInvestment] = useState(Number(searchParams.get('investment')) || 1000000);
+  const [shareUrl, setShareUrl] = useState('');
 
   const { postMoneyValuation, postMoneyShares, investorOwnership, founderOwnership } = useMemo(() => {
     if (preMoneyValuation <= 0 || investment <= 0 || founderShares <= 0) {
@@ -59,15 +60,14 @@ export default function DilutionCalculatorPage() {
     return { postMoneyValuation, postMoneyShares, investorOwnership, founderOwnership };
   }, [founderShares, preMoneyValuation, investment]);
 
-  const shareUrl = useMemo(() => {
-    if (typeof window === 'undefined') return '';
+  useEffect(() => {
     const params = new URLSearchParams();
     params.set('name', name);
     params.set('company', company);
     params.set('founderShares', String(founderShares));
     params.set('preMoneyValuation', String(preMoneyValuation));
     params.set('investment', String(investment));
-    return `${window.location.origin}${window.location.pathname}?${params.toString()}`;
+    setShareUrl(`${window.location.origin}${window.location.pathname}?${params.toString()}`);
   }, [name, company, founderShares, preMoneyValuation, investment]);
 
   const chartData = [

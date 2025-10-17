@@ -1,7 +1,7 @@
 
 'use client';
 
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip as RechartsTooltip, Legend } from 'recharts';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -40,6 +40,7 @@ export default function MarketingBudgetAllocatorPage() {
   const [company, setCompany] = useState(searchParams.get('company') || '');
   const [totalBudget, setTotalBudget] = useState(Number(searchParams.get('totalBudget')) || 50000);
   const [goal, setGoal] = useState<MarketingGoal>((searchParams.get('goal') as MarketingGoal) || 'leads');
+  const [shareUrl, setShareUrl] = useState('');
 
   const allocationData = useMemo(() => {
     const percentages = allocationPresets[goal];
@@ -50,14 +51,13 @@ export default function MarketingBudgetAllocatorPage() {
     }));
   }, [totalBudget, goal]);
 
-  const shareUrl = useMemo(() => {
-    if (typeof window === 'undefined') return '';
+  useEffect(() => {
     const params = new URLSearchParams();
     params.set('name', name);
     params.set('company', company);
     params.set('totalBudget', String(totalBudget));
     params.set('goal', goal);
-    return `${window.location.origin}${window.location.pathname}?${params.toString()}`;
+    setShareUrl(`${window.location.origin}${window.location.pathname}?${params.toString()}`);
   }, [name, company, totalBudget, goal]);
 
   return (

@@ -1,7 +1,7 @@
 
 'use client';
 
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
@@ -27,6 +27,7 @@ export default function FundraisingGoalCalculatorPage() {
   const [monthlyBurn, setMonthlyBurn] = useState(Number(searchParams.get('monthlyBurn')) || 50000);
   const [targetRunway, setTargetRunway] = useState(Number(searchParams.get('targetRunway')) || 18);
   const [buffer, setBuffer] = useState(Number(searchParams.get('buffer')) || 25);
+  const [shareUrl, setShareUrl] = useState('');
 
   const fundingGoal = useMemo(() => {
     const totalBurn = monthlyBurn * targetRunway;
@@ -34,15 +35,14 @@ export default function FundraisingGoalCalculatorPage() {
     return isNaN(goal) ? 0 : goal;
   }, [monthlyBurn, targetRunway, buffer]);
 
-  const shareUrl = useMemo(() => {
-    if (typeof window === 'undefined') return '';
+  useEffect(() => {
     const params = new URLSearchParams();
     params.set('name', name);
     params.set('company', company);
     params.set('monthlyBurn', String(monthlyBurn));
     params.set('targetRunway', String(targetRunway));
     params.set('buffer', String(buffer));
-    return `${window.location.origin}${window.location.pathname}?${params.toString()}`;
+    setShareUrl(`${window.location.origin}${window.location.pathname}?${params.toString()}`);
   }, [name, company, monthlyBurn, targetRunway, buffer]);
 
   return (

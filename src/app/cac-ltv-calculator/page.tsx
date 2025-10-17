@@ -1,7 +1,7 @@
 
 'use client';
 
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
@@ -30,6 +30,7 @@ export default function CacLtvCalculatorPage() {
   const [avgMonthlySpend, setAvgMonthlySpend] = useState(Number(searchParams.get('avgMonthlySpend')) || 50);
   const [grossMargin, setGrossMargin] = useState(Number(searchParams.get('grossMargin')) || 80);
   const [monthlyChurn, setMonthlyChurn] = useState(Number(searchParams.get('monthlyChurn')) || 5);
+  const [shareUrl, setShareUrl] = useState('');
 
   const { cac, ltv, ratio } = useMemo(() => {
     const cac = customersAcquired > 0 ? marketingSpend / customersAcquired : 0;
@@ -44,8 +45,7 @@ export default function CacLtvCalculatorPage() {
     };
   }, [marketingSpend, customersAcquired, avgMonthlySpend, grossMargin, monthlyChurn]);
 
-  const shareUrl = useMemo(() => {
-    if (typeof window === 'undefined') return '';
+  useEffect(() => {
     const params = new URLSearchParams();
     params.set('name', name);
     params.set('company', company);
@@ -54,7 +54,7 @@ export default function CacLtvCalculatorPage() {
     params.set('avgMonthlySpend', String(avgMonthlySpend));
     params.set('grossMargin', String(grossMargin));
     params.set('monthlyChurn', String(monthlyChurn));
-    return `${window.location.origin}${window.location.pathname}?${params.toString()}`;
+    setShareUrl(`${window.location.origin}${window.location.pathname}?${params.toString()}`);
   }, [name, company, marketingSpend, customersAcquired, avgMonthlySpend, grossMargin, monthlyChurn]);
 
   const getRatioMessage = () => {

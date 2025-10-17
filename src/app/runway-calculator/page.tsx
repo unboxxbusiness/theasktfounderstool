@@ -1,7 +1,7 @@
 
 'use client';
 
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
@@ -28,6 +28,7 @@ export default function RunwayCalculatorPage() {
   const [currentFunds, setCurrentFunds] = useState(Number(searchParams.get('currentFunds')) || 500000);
   const [monthlyBurn, setMonthlyBurn] = useState(Number(searchParams.get('monthlyBurn')) || 50000);
   const [teamSize, setTeamSize] = useState(Number(searchParams.get('teamSize')) || 5);
+  const [shareUrl, setShareUrl] = useState('');
 
   const runwayMonths = useMemo(() => {
     if (monthlyBurn <= 0) return Infinity;
@@ -35,15 +36,14 @@ export default function RunwayCalculatorPage() {
     return isNaN(runway) ? 0 : runway;
   }, [currentFunds, monthlyBurn]);
 
-  const shareUrl = useMemo(() => {
-    if (typeof window === 'undefined') return '';
+  useEffect(() => {
     const params = new URLSearchParams();
     params.set('name', name);
     params.set('company', company);
     params.set('currentFunds', String(currentFunds));
     params.set('monthlyBurn', String(monthlyBurn));
     params.set('teamSize', String(teamSize));
-    return `${window.location.origin}${window.location.pathname}?${params.toString()}`;
+    setShareUrl(`${window.location.origin}${window.location.pathname}?${params.toString()}`);
   }, [name, company, currentFunds, monthlyBurn, teamSize]);
 
   const isLowRunway = runwayMonths <= 6;
