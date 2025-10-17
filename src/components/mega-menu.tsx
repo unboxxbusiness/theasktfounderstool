@@ -11,6 +11,7 @@ import {
 import {
   DropdownMenu,
   DropdownMenuContent,
+  DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Button } from "./ui/button";
@@ -71,12 +72,14 @@ export function MegaMenu() {
               <ul className="space-y-1">
                 {item.links.map((link) => (
                   <li key={link.href}>
-                    <Link
-                      href={link.href}
-                      className="text-sm text-muted-foreground hover:text-foreground block p-1 rounded-md hover:bg-muted"
-                    >
-                      {link.label}
-                    </Link>
+                    <DropdownMenuItem asChild>
+                      <Link
+                        href={link.href}
+                        className="text-sm text-muted-foreground hover:text-foreground w-full justify-start"
+                      >
+                        {link.label}
+                      </Link>
+                    </DropdownMenuItem>
                   </li>
                 ))}
               </ul>
