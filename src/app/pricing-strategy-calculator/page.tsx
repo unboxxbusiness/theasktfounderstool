@@ -62,10 +62,10 @@ export default function PricingStrategyCalculatorPage() {
           <CardHeader>
             <CardTitle className="text-2xl md:text-3xl font-headline flex items-center gap-2">
               <DollarSign className="h-7 w-7 md:h-8 md:w-8 text-primary" />
-              Pricing Strategy Calculator
+              What Should You Charge For Your Product?
             </CardTitle>
             <CardDescription>
-              Find your ideal price point by analyzing costs, margins, and competitor pricing.
+              Stop guessing on price. Use this calculator to analyze your costs, desired margin, and competitor pricing to find your sweet spot.
             </CardDescription>
           </CardHeader>
           <CardContent className="grid gap-8">
@@ -82,7 +82,7 @@ export default function PricingStrategyCalculatorPage() {
               </div>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
                 <div className="space-y-2">
-                  <Label htmlFor="costPerUnit">Cost Per Unit (Fully-loaded)</Label>
+                  <Label htmlFor="costPerUnit">What's your total cost to deliver one unit?</Label>
                   <Input
                     id="costPerUnit"
                     type="number"
@@ -93,7 +93,7 @@ export default function PricingStrategyCalculatorPage() {
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="desiredMargin">Desired Gross Margin (%)</Label>
+                  <Label htmlFor="desiredMargin">What's your target profit margin? (%)</Label>
                   <Input
                     id="desiredMargin"
                     type="number"
@@ -106,7 +106,7 @@ export default function PricingStrategyCalculatorPage() {
                 </div>
               </div>
               <div className="space-y-2">
-                <Label htmlFor="competitorPrice">Main Competitor's Price</Label>
+                <Label htmlFor="competitorPrice">How much does your main competitor charge?</Label>
                 <Input
                   id="competitorPrice"
                   type="number"
@@ -122,13 +122,13 @@ export default function PricingStrategyCalculatorPage() {
 
             <div className="space-y-6">
                <div className='flex items-center justify-center gap-2'>
-                    <Label className="text-md md:text-lg text-zinc-400">Recommended Price Points</Label>
+                    <Label className="text-md md:text-lg text-zinc-400">Your Recommended Price Points</Label>
                      <Tooltip>
                         <TooltipTrigger asChild>
                             <HelpCircle className="h-4 w-4 text-zinc-400 cursor-help" />
                         </TooltipTrigger>
                         <TooltipContent>
-                            <p className="max-w-xs">These are suggestions based on different pricing strategies. Your final price may vary based on market positioning, brand, and other factors.</p>
+                            <p className="max-w-xs">These are data-driven suggestions based on different strategies. Your final price depends on your brand, market, and goals.</p>
                         </TooltipContent>
                     </Tooltip>
                 </div>
@@ -137,7 +137,7 @@ export default function PricingStrategyCalculatorPage() {
                   <Card className="text-center p-4">
                     <CardHeader className="p-2">
                       <CardTitle className="text-lg md:text-xl">Cost-Plus</CardTitle>
-                      <CardDescription className="text-sm">Margin-based</CardDescription>
+                      <CardDescription className="text-sm">Based on your margin</CardDescription>
                     </CardHeader>
                     <CardContent className="p-2">
                       <p className="text-3xl md:text-4xl font-bold">{pricingTiers.costPlus === Infinity ? 'N/A' : formatCurrency(pricingTiers.costPlus)}</p>
@@ -147,7 +147,7 @@ export default function PricingStrategyCalculatorPage() {
                   <Card className="text-center border-primary/50 ring-1 ring-primary/20 p-4">
                      <CardHeader className="p-2">
                       <CardTitle className="text-lg md:text-xl">Competitive</CardTitle>
-                      <CardDescription className="text-sm">Market-based</CardDescription>
+                      <CardDescription className="text-sm">Based on market</CardDescription>
                     </CardHeader>
                     <CardContent className="p-2">
                       <p className="text-3xl md:text-4xl font-bold text-primary">{formatCurrency(pricingTiers.competitive)}</p>
@@ -157,7 +157,7 @@ export default function PricingStrategyCalculatorPage() {
                    <Card className="text-center p-4">
                      <CardHeader className="p-2">
                       <CardTitle className="text-lg md:text-xl">Premium</CardTitle>
-                      <CardDescription className="text-sm">Value-based</CardDescription>
+                      <CardDescription className="text-sm">Based on value</CardDescription>
                     </CardHeader>
                     <CardContent className="p-2">
                       <p className="text-3xl md:text-4xl font-bold">{formatCurrency(pricingTiers.premium)}</p>
@@ -168,7 +168,7 @@ export default function PricingStrategyCalculatorPage() {
             </div>
             <SocialShare 
                 shareUrl={shareUrl}
-                text={`We're exploring pricing strategies for ${company || 'our startup'} with TheASKT's free toolkit.`}
+                text={`I'm using TheASKT's free toolkit to figure out my pricing strategy for ${company || 'my startup'}.`}
             />
           </CardContent>
         </Card>

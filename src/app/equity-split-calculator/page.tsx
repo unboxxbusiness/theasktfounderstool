@@ -127,10 +127,10 @@ export default function EquitySplitCalculatorPage() {
               <CardHeader>
                 <CardTitle className="text-2xl md:text-3xl font-headline flex items-center gap-2">
                   <Scale className="h-7 w-7 md:h-8 md:w-8 text-primary" />
-                  Fair Equity Split Calculator
+                  Co-Founder Equity Split Calculator
                 </CardTitle>
                 <CardDescription>
-                  Adjust contributions and weights to find the right balance for your co-founder team.
+                  Use this proven model to have a fair, data-driven conversation about who gets how much of the company.
                 </CardDescription>
               </CardHeader>
               <CardContent>
@@ -148,26 +148,27 @@ export default function EquitySplitCalculatorPage() {
                     </div>
                     <Card>
                       <CardHeader>
-                        <CardTitle className='text-lg md:text-xl'>Contribution Weights</CardTitle>
-                         <CardDescription>Adjust the importance of each contribution category.</CardDescription>
+                        <CardTitle className='text-lg md:text-xl'>Step 1: How important is each category?</CardTitle>
+                         <CardDescription>Adjust the weight of each contribution category to your startup.</CardDescription>
                       </CardHeader>
                       <CardContent className="space-y-4 pt-4">
                         <div className="space-y-2">
-                          <Label>Idea / IP ({weights.idea}%)</Label>
+                          <Label>Idea / Intellectual Property ({weights.idea}%)</Label>
                           <Slider value={[weights.idea]} onValueChange={([v]) => handleWeightChange('idea', v)} max={100} step={5} />
                         </div>
                         <div className="space-y-2">
-                          <Label>Time / Effort ({weights.time}%)</Label>
+                          <Label>Time & Effort ({weights.time}%)</Label>
                           <Slider value={[weights.time]} onValueChange={([v]) => handleWeightChange('time', v)} max={100} step={5} />
                         </div>
                         <div className="space-y-2">
-                          <Label>Capital / Money ({weights.money}%)</Label>
+                          <Label>Capital & Money Invested ({weights.money}%)</Label>
                           <Slider value={[weights.money]} onValueChange={([v]) => handleWeightChange('money', v)} max={100} step={5} />
                         </div>
                       </CardContent>
                     </Card>
 
                     <div>
+                      <h3 className="text-lg md:text-xl font-semibold mb-4">Step 2: How much is each founder contributing?</h3>
                       {fields.map((field, index) => (
                         <Card key={field.id} className="mb-4">
                           <CardHeader className='flex-row items-center justify-between'>
@@ -182,7 +183,7 @@ export default function EquitySplitCalculatorPage() {
                                 name={`founders.${index}.name`}
                                 render={({ field }) => (
                                     <FormItem>
-                                    <FormLabel>Name</FormLabel>
+                                    <FormLabel>Founder's Name</FormLabel>
                                     <FormControl>
                                         <Input {...field} />
                                     </FormControl>
@@ -190,13 +191,14 @@ export default function EquitySplitCalculatorPage() {
                                     </FormItem>
                                 )}
                                 />
+                            <p className="text-sm text-zinc-400">On a scale of 0-100, how much is this founder contributing in each area relative to others?</p>
                             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                                 <FormField
                                     control={form.control}
                                     name={`founders.${index}.idea`}
                                     render={({ field }) => (
                                         <FormItem>
-                                        <FormLabel>Idea %</FormLabel>
+                                        <FormLabel>Idea</FormLabel>
                                         <FormControl><Input type="number" {...field} onChange={e => field.onChange(Number(e.target.value))} /></FormControl>
                                         </FormItem>
                                     )}
@@ -206,7 +208,7 @@ export default function EquitySplitCalculatorPage() {
                                     name={`founders.${index}.time`}
                                     render={({ field }) => (
                                         <FormItem>
-                                        <FormLabel>Time %</FormLabel>
+                                        <FormLabel>Time</FormLabel>
                                         <FormControl><Input type="number" {...field} onChange={e => field.onChange(Number(e.target.value))} /></FormControl>
                                         </FormItem>
                                     )}
@@ -216,7 +218,7 @@ export default function EquitySplitCalculatorPage() {
                                     name={`founders.${index}.money`}
                                     render={({ field }) => (
                                         <FormItem>
-                                        <FormLabel>Money %</FormLabel>
+                                        <FormLabel>Money</FormLabel>
                                         <FormControl><Input type="number" {...field} onChange={e => field.onChange(Number(e.target.value))} /></FormControl>
                                         </FormItem>
                                     )}
@@ -228,7 +230,7 @@ export default function EquitySplitCalculatorPage() {
                     </div>
 
                     <Button type="button" variant="outline" onClick={addNewFounder}>
-                      <PlusCircle className="mr-2" /> Add Founder
+                      <PlusCircle className="mr-2" /> Add Another Founder
                     </Button>
                   </form>
                 </Form>
@@ -240,17 +242,17 @@ export default function EquitySplitCalculatorPage() {
             <Card>
               <CardHeader>
                 <CardTitle className="text-lg md:text-xl flex items-center gap-2">
-                    Equity Distribution
+                    Your Recommended Equity Split
                     <Tooltip>
                         <TooltipTrigger asChild>
                             <HelpCircle className="h-4 w-4 text-zinc-400 cursor-help" />
                         </TooltipTrigger>
                         <TooltipContent>
-                            <p className="max-w-xs">This is a suggested equity split based on the "Slicing Pie" model. It dynamically adjusts based on inputs.</p>
+                            <p className="max-w-xs">This is a suggested equity split based on the popular "Slicing Pie" model. It's a starting point for your conversation.</p>
                         </TooltipContent>
                     </Tooltip>
                 </CardTitle>
-                <CardDescription>A visual representation of the suggested equity split.</CardDescription>
+                <CardDescription>The final, data-driven result of your inputs.</CardDescription>
               </CardHeader>
               <CardContent>
                 <ReportHeader name={name} company={company} />
@@ -280,7 +282,7 @@ export default function EquitySplitCalculatorPage() {
             </Card>
              <SocialShare 
                 shareUrl={shareUrl}
-                text={`We just calculated a fair co-founder equity split with TheASKT's toolkit! See our breakdown.`}
+                text={`We figured out our co-founder equity split! We used TheASKT's free calculator to have a fair, data-driven conversation.`}
             />
           </div>
         </div>

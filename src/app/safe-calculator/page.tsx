@@ -100,10 +100,10 @@ export default function SafeCalculatorPage() {
                 <CardHeader>
                     <CardTitle className="text-2xl md:text-3xl flex items-center gap-2">
                         <ShieldCheck className="h-7 w-7 md:h-8 md:w-8 text-primary" />
-                        Post-Money SAFE Dilution Calculator
+                        SAFE Note Dilution Calculator
                     </CardTitle>
                     <CardDescription>
-                        Model how a SAFE note converts and impacts your ownership in a priced round.
+                        Don't get surprised. Model exactly how your SAFE notes will convert and impact your ownership in a priced funding round.
                     </CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-6">
@@ -118,31 +118,31 @@ export default function SafeCalculatorPage() {
                         </div>
                     </div>
                     <Card className='bg-muted/30'>
-                        <CardHeader><CardTitle className='text-lg md:text-xl'>Priced Round Details</CardTitle></CardHeader>
+                        <CardHeader><CardTitle className='text-lg md:text-xl'>Your Next Funding Round</CardTitle></CardHeader>
                         <CardContent className='grid grid-cols-1 md:grid-cols-2 gap-4'>
                             <div className="space-y-2">
-                                <Label htmlFor="preMoneyValuation">Pre-Money Valuation</Label>
+                                <Label htmlFor="preMoneyValuation">What's the Pre-Money Valuation of the round?</Label>
                                 <Input id="preMoneyValuation" type="number" value={preMoneyValuation} onChange={(e) => setPreMoneyValuation(Number(e.target.value))} step="500000" />
                             </div>
                             <div className="space-y-2">
-                                <Label htmlFor="newMoney">New Investment in Round</Label>
+                                <Label htmlFor="newMoney">How much new money is being invested?</Label>
                                 <Input id="newMoney" type="number" value={newMoney} onChange={(e) => setNewMoney(Number(e.target.value))} step="100000" />
                             </div>
                         </CardContent>
                     </Card>
                      <Card className='bg-muted/30'>
-                        <CardHeader><CardTitle className='text-lg md:text-xl'>SAFE Note Details</CardTitle></CardHeader>
+                        <CardHeader><CardTitle className='text-lg md:text-xl'>Your SAFE Note Details</CardTitle></CardHeader>
                         <CardContent className='grid grid-cols-1 md:grid-cols-3 gap-4'>
                             <div className="space-y-2">
-                                <Label htmlFor="safeInvestment">SAFE Investment</Label>
+                                <Label htmlFor="safeInvestment">Total SAFE Investment</Label>
                                 <Input id="safeInvestment" type="number" value={safeInvestment} onChange={(e) => setSafeInvestment(Number(e.target.value))} step="50000" />
                             </div>
                             <div className="space-y-2">
-                                <Label htmlFor="safeValuationCap">Valuation Cap</Label>
+                                <Label htmlFor="safeValuationCap">SAFE Valuation Cap</Label>
                                 <Input id="safeValuationCap" type="number" value={safeValuationCap} onChange={(e) => setSafeValuationCap(Number(e.target.value))} step="1000000" />
                             </div>
                             <div className="space-y-2">
-                                <Label htmlFor="safeDiscount">Discount (%)</Label>
+                                <Label htmlFor="safeDiscount">SAFE Discount (%)</Label>
                                 <Input id="safeDiscount" type="number" value={safeDiscount} onChange={(e) => setSafeDiscount(Number(e.target.value))} step="5" />
                             </div>
                         </CardContent>
@@ -154,13 +154,13 @@ export default function SafeCalculatorPage() {
                          <CardContent className="grid gap-4 text-sm">
                             <ReportHeader name={name} company={company} />
                              <div className="grid grid-cols-2 gap-2 md:gap-4">
-                                <div className="font-semibold">SAFE Effective Valuation:</div>
+                                <div className="font-semibold">SAFE Conversion Valuation:</div>
                                 <div>{formatCurrency(effectiveValuation)}</div>
-                                <div className="font-semibold">Founder Ownership:</div>
+                                <div className="font-semibold">Your New Founder Ownership:</div>
                                 <div>{founderOwnership.toFixed(2)}%</div>
-                                <div className="font-semibold">New Investor Ownership:</div>
+                                <div className="font-semibold">New Priced Round Investor Ownership:</div>
                                 <div>{newInvestorOwnership.toFixed(2)}%</div>
-                                <div className="font-semibold">SAFE Holder Ownership:</div>
+                                <div className="font-semibold">SAFE Investor Ownership:</div>
                                 <div>{safeInvestorOwnership.toFixed(2)}%</div>
                             </div>
                         </CardContent>
@@ -172,17 +172,17 @@ export default function SafeCalculatorPage() {
            <Card>
               <CardHeader>
                 <CardTitle className="text-lg md:text-xl flex items-center gap-2">
-                    Post-Round Cap Table
+                    Your New Cap Table
                     <Tooltip>
                         <TooltipTrigger asChild>
                             <HelpCircle className="h-4 w-4 text-zinc-400 cursor-help" />
                         </TooltipTrigger>
                         <TooltipContent>
-                            <p className="max-w-xs">This shows the ownership split after the SAFE converts and the new round closes.</p>
+                            <p className="max-w-xs">This is what your ownership structure looks like after the SAFE converts and the new funding round closes.</p>
                         </TooltipContent>
                     </Tooltip>
                 </CardTitle>
-                <CardDescription>A visual representation of the new equity distribution.</CardDescription>
+                <CardDescription>A visual breakdown of the new equity distribution.</CardDescription>
               </CardHeader>
               <CardContent>
                 <div className="w-full h-64 md:h-80">
@@ -210,7 +210,7 @@ export default function SafeCalculatorPage() {
             </Card>
             <SocialShare 
               shareUrl={shareUrl}
-              text={`I modeled our SAFE conversion using TheASKT's free toolkit. This is how it impacts our cap table.`}
+              text={`I just modeled our SAFE conversion and upcoming funding round with TheASKT's free dilution calculator. Game changer!`}
             />
         </div>
       </div>

@@ -39,7 +39,7 @@ export default function InvestorROICalculatorPage() {
   const [company, setCompany] = useState(searchParams.get('company') || '');
   const [investmentAmount, setInvestmentAmount] = useState(Number(searchParams.get('investmentAmount')) || 250000);
   const [equityPercentage, setEquityPercentage] = useState(Number(searchParams.get('equityPercentage')) || 10);
-  const [exitValuation, setExitValuation] = useState(Number(searchParams.get('exitValuation')) || 100000000);
+  const [exitValuation, setExitValuation] = useState(Number(searchPajams.get('exitValuation')) || 100000000);
   const [shareUrl, setShareUrl] = useState('');
 
   const { payout, roiMultiple } = useMemo(() => {
@@ -71,10 +71,10 @@ export default function InvestorROICalculatorPage() {
         <CardHeader>
           <CardTitle className="text-2xl md:text-3xl flex items-center gap-2">
             <PiggyBank className="h-7 w-7 md:h-8 md:w-8 text-primary" />
-            Investor ROI Calculator
+            What Could Your Investors Make? (ROI Calculator)
           </CardTitle>
           <CardDescription>
-            Estimate the potential return on investment for your investors based on a future exit valuation.
+            Show investors their potential return with this simple ROI calculator. It's a great way to get them excited about your vision.
           </CardDescription>
         </CardHeader>
         <CardContent className="grid gap-8">
@@ -91,7 +91,7 @@ export default function InvestorROICalculatorPage() {
               </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
               <div className="space-y-2">
-                <Label htmlFor="investmentAmount">Investment Amount</Label>
+                <Label htmlFor="investmentAmount">How much is the investor putting in?</Label>
                 <Input
                   id="investmentAmount"
                   type="number"
@@ -101,7 +101,7 @@ export default function InvestorROICalculatorPage() {
                 />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="equityPercentage">Equity Percentage (%)</Label>
+                <Label htmlFor="equityPercentage">What percentage of the company are they getting?</Label>
                 <Input
                   id="equityPercentage"
                   type="number"
@@ -112,7 +112,7 @@ export default function InvestorROICalculatorPage() {
               </div>
             </div>
             <div className="space-y-2">
-                <Label htmlFor="exitValuation">Projected Exit Valuation</Label>
+                <Label htmlFor="exitValuation">What's your dream exit valuation for the company?</Label>
               <Input
                 id="exitValuation"
                 type="number"
@@ -127,13 +127,13 @@ export default function InvestorROICalculatorPage() {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div className="space-y-4 text-center bg-muted/50 p-6 rounded-lg">
-                  <Label className="text-md md:text-lg text-muted-foreground">Investor Payout at Exit</Label>
+                  <Label className="text-md md:text-lg text-zinc-400">Potential Investor Payout</Label>
                   <div className="text-4xl md:text-5xl font-bold text-primary">
                       {formatCompactCurrency(payout)}
                   </div>
               </div>
               <div className="space-y-4 text-center bg-muted/50 p-6 rounded-lg">
-                  <Label className="text-md md:text-lg text-muted-foreground">Return on Investment (ROI)</Label>
+                  <Label className="text-md md:text-lg text-zinc-400">Potential Return on Investment</Label>
                   <div className="text-4xl md:text-5xl font-bold text-primary">
                       {roiMultiple.toFixed(1)}x
                   </div>
@@ -142,7 +142,7 @@ export default function InvestorROICalculatorPage() {
 
           <SocialShare 
             shareUrl={shareUrl}
-            text={`A ${formatCurrency(investmentAmount)} investment could yield a ${roiMultiple.toFixed(1)}x return! Modeled with TheASKT's free toolkit.`}
+            text={`A ${formatCurrency(investmentAmount)} investment in our startup could yield a ${roiMultiple.toFixed(1)}x return! I modeled it with TheASKT's free toolkit.`}
            />
         </CardContent>
       </Card>

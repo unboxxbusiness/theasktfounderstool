@@ -18,29 +18,29 @@ import { Button } from "./ui/button";
 
 const menuItems = [
   {
-    category: "Financial Tools",
+    category: "Financial Planning",
     icon: <Banknote className="h-5 w-5 text-primary" />,
     links: [
-      { href: "/valuation-calculator", label: "Valuation Calculator" },
+      { href: "/valuation-calculator", label: "Valuation" },
       { href: "/fundraising-goal-calculator", label: "Fundraising Goal" },
-      { href: "/runway-calculator", label: "Runway Calculator" },
+      { href: "/runway-calculator", label: "Runway" },
       { href: "/break-even-calculator", label: "Break-Even Point" },
-      { href: "/cac-ltv-calculator", label: "CAC vs LTV" },
+      { href: "/cac-ltv-calculator", label: "CAC & LTV" },
       { href: "/pricing-strategy-calculator", label: "Pricing Strategy" },
       { href: "/investor-roi-calculator", label: "Investor ROI" },
     ],
   },
   {
-    category: "Team & Equity",
+    category: "Ownership & Equity",
     icon: <Users className="h-5 w-5 text-primary" />,
     links: [
-      { href: "/equity-split-calculator", label: "Equity Split" },
-      { href: "/dilution-calculator", label: "Dilution Calculator" },
-      { href: "/safe-calculator", label: "SAFE Calculator" },
+      { href: "/equity-split-calculator", label: "Co-Founder Equity" },
+      { href: "/dilution-calculator", label: "Dilution" },
+      { href: "/safe-calculator", label: "SAFE Conversion" },
     ],
   },
   {
-    category: "Growth Tools",
+    category: "Growth & Marketing",
     icon: <TrendingUp className="h-5 w-5 text-primary" />,
     links: [
       { href: "/revenue-projection-calculator", label: "Revenue Projection" },
@@ -57,7 +57,7 @@ export function MegaMenu() {
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button variant="ghost">
-          Calculators
+          All Calculators
           <ChevronDown className="ml-2 h-4 w-4" />
         </Button>
       </DropdownMenuTrigger>

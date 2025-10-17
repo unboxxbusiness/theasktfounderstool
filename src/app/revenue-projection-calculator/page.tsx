@@ -20,6 +20,15 @@ const formatCurrency = (value: number) => {
   }).format(value);
 };
 
+const fullCurrency = (value: number) => {
+    return new Intl.NumberFormat('en-US', {
+      style: 'currency',
+      currency: 'USD',
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 0,
+    }).format(value);
+  };
+
 export default function RevenueProjectionCalculatorPage() {
   const searchParams = useSearchParams();
   const [name, setName] = useState(searchParams.get('name') || '');
@@ -77,10 +86,10 @@ export default function RevenueProjectionCalculatorPage() {
         <CardHeader>
           <CardTitle className="text-2xl md:text-3xl font-headline flex items-center gap-2">
             <TrendingUp className="h-7 w-7 md:h-8 md:w-8 text-primary" />
-            Revenue Projection Calculator
+            How Fast Could You Grow? (Revenue Projection)
           </CardTitle>
           <CardDescription>
-            Visualize your startup’s next 12 months of revenue based on your key growth metrics.
+            See what the next 12 months could look like for your startup. Model your revenue and user growth based on your key metrics.
           </CardDescription>
         </CardHeader>
         <CardContent className="grid gap-8">
@@ -97,7 +106,7 @@ export default function RevenueProjectionCalculatorPage() {
             </div>
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
               <div className="space-y-2">
-                <Label htmlFor="initialUsers" className='flex items-center gap-1 text-sm'><Users className='h-4 w-4' />Initial Users</Label>
+                <Label htmlFor="initialUsers" className='flex items-center gap-1 text-sm'><Users className='h-4 w-4' />Current Users</Label>
                 <Input
                   id="initialUsers"
                   type="number"
@@ -107,7 +116,7 @@ export default function RevenueProjectionCalculatorPage() {
                 />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="growthRate" className='flex items-center gap-1 text-sm'><TrendingUp className='h-4 w-4' />Growth (%)</Label>
+                <Label htmlFor="growthRate" className='flex items-center gap-1 text-sm'><TrendingUp className='h-4 w-4' />Monthly Growth (%)</Label>
                 <Input
                   id="growthRate"
                   type="number"
@@ -117,7 +126,7 @@ export default function RevenueProjectionCalculatorPage() {
                 />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="arpu" className='flex items-center gap-1 text-sm'><DollarSign className='h-4 w-4' />ARPU</Label>
+                <Label htmlFor="arpu" className='flex items-center gap-1 text-sm'><DollarSign className='h-4 w-4' />Monthly Revenue/User</Label>
                 <Input
                   id="arpu"
                   type="number"
@@ -127,7 +136,7 @@ export default function RevenueProjectionCalculatorPage() {
                 />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="churnRate" className='flex items-center gap-1 text-sm'><Percent className='h-4 w-4' />Churn (%)</Label>
+                <Label htmlFor="churnRate" className='flex items-center gap-1 text-sm'><Percent className='h-4 w-4' />Monthly Churn (%)</Label>
                 <Input
                   id="churnRate"
                   type="number"
@@ -141,12 +150,12 @@ export default function RevenueProjectionCalculatorPage() {
           
           <Card className="bg-muted/50">
             <CardHeader>
-                <CardTitle className="text-lg md:text-xl">12-Month Projection</CardTitle>
+                <CardTitle className="text-lg md:text-xl">Your 12-Month Growth Projection</CardTitle>
             </CardHeader>
             <CardContent>
                 <ReportHeader name={name} company={company} />
                 <div className='text-center mb-6'>
-                    <p className="text-md text-zinc-400">Estimated Annual Revenue</p>
+                    <p className="text-md text-zinc-400">Projected Annual Recurring Revenue (ARR)</p>
                     <p className="text-3xl md:text-4xl font-bold text-primary">{formatCurrency(totalRevenue)}</p>
                 </div>
                 <div className="w-full h-72 md:h-80">
@@ -156,7 +165,7 @@ export default function RevenueProjectionCalculatorPage() {
                         <XAxis dataKey="month" fontSize={12} tickLine={false} axisLine={false} />
                         <YAxis yAxisId="left" tickFormatter={(value) => formatCurrency(value)} fontSize={12} tickLine={false} axisLine={false} />
                         <YAxis yAxisId="right" orientation="right" tickFormatter={(value) => value.toLocaleString()} fontSize={12} tickLine={false} axisLine={false} />
-                        <RechartsTooltip formatter={(value, name) => name === 'Revenue' ? formatCurrency(value as number) : (value as number).toLocaleString()} />
+                        <RechartsTooltip formatter={(value, name) => name === 'Revenue' ? fullCurrency(value as number) : (value as number).toLocaleString()} />
                         <Legend />
                         <Line yAxisId="left" type="monotone" dataKey="Revenue" stroke="hsl(var(--primary))" strokeWidth={2} activeDot={{ r: 8 }} dot={false} />
                         <Line yAxisId="right" type="monotone" dataKey="Users" stroke="hsl(var(--accent))" strokeWidth={2} dot={false} />
@@ -168,7 +177,7 @@ export default function RevenueProjectionCalculatorPage() {
 
           <SocialShare 
             shareUrl={shareUrl}
-            text={`Projecting ${formatCurrency(totalRevenue)} in ARR for ${company || 'my startup'}! Modeled with TheASKT's free toolkit.`}
+            text={`I'm projecting ${formatCurrency(totalRevenue)} in ARR for ${company || 'my startup'}! I used TheASKT's free toolkit to model it.`}
           />
         </CardContent>
       </Card>

@@ -75,7 +75,7 @@ export default function MarketingBudgetAllocatorPage() {
                   <Megaphone className="h-7 w-7 md:h-8 md:w-8 text-primary" />
                   Marketing Budget Allocator
                 </CardTitle>
-                <CardDescription>Get a recommended marketing mix based on your startup's primary goal.</CardDescription>
+                <CardDescription>Get a recommended marketing mix based on your startup's #1 goal. Stop wasting money and start getting results.</CardDescription>
               </CardHeader>
               <CardContent className="space-y-8">
                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
@@ -89,7 +89,7 @@ export default function MarketingBudgetAllocatorPage() {
                     </div>
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="totalBudget">Total Monthly Marketing Budget</Label>
+                  <Label htmlFor="totalBudget">What's your total monthly marketing budget?</Label>
                   <Input
                     id="totalBudget"
                     type="number"
@@ -100,13 +100,13 @@ export default function MarketingBudgetAllocatorPage() {
                 </div>
                 <div className="space-y-4">
                     <div className="flex items-center gap-2">
-                        <Label>Primary Marketing Goal</Label>
+                        <Label>What's your primary marketing goal right now?</Label>
                         <Tooltip>
                             <TooltipTrigger asChild>
                                 <HelpCircle className="h-4 w-4 text-zinc-400 cursor-help" />
                             </TooltipTrigger>
                             <TooltipContent>
-                                <p className="max-w-xs">Your primary goal will influence which channels get more budget.</p>
+                                <p className="max-w-xs">Your main goal determines where you should focus your budget for the biggest impact.</p>
                             </TooltipContent>
                         </Tooltip>
                     </div>
@@ -114,19 +114,19 @@ export default function MarketingBudgetAllocatorPage() {
                     <div>
                       <RadioGroupItem value="brand" id="brand" className="peer sr-only" />
                       <Label htmlFor="brand" className="flex h-full flex-col items-center justify-center rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary">
-                        Brand Awareness
+                        Build My Brand
                       </Label>
                     </div>
                     <div>
                       <RadioGroupItem value="leads" id="leads" className="peer sr-only" />
                       <Label htmlFor="leads" className="flex h-full flex-col items-center justify-center rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary">
-                        Lead Generation
+                        Get More Leads
                       </Label>
                     </div>
                     <div>
                       <RadioGroupItem value="sales" id="sales" className="peer sr-only" />
                       <Label htmlFor="sales" className="flex h-full flex-col items-center justify-center rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary">
-                        Sales/Conversions
+                        Drive Sales
                       </Label>
                     </div>
                   </RadioGroup>
@@ -137,8 +137,8 @@ export default function MarketingBudgetAllocatorPage() {
           <div className="lg:col-span-2 space-y-8">
             <Card>
               <CardHeader>
-                <CardTitle className="text-lg md:text-xl">Budget Allocation</CardTitle>
-                <CardDescription>A visual breakdown of your recommended marketing mix.</CardDescription>
+                <CardTitle className="text-lg md:text-xl">Your Recommended Budget</CardTitle>
+                <CardDescription>Here's how you should think about allocating your marketing dollars.</CardDescription>
               </CardHeader>
               <CardContent>
                  <ReportHeader name={name} company={company} />
@@ -180,7 +180,7 @@ export default function MarketingBudgetAllocatorPage() {
             </Card>
             <SocialShare 
                 shareUrl={shareUrl}
-                text={`Here's the marketing budget allocation for ${company || 'my startup'}! Calculated via TheASKT.org.`}
+                text={`Here's the marketing budget allocation I generated for ${company || 'my startup'} with TheASKT's free toolkit!`}
             />
           </div>
         </div>

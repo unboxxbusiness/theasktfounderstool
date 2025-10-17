@@ -83,10 +83,10 @@ export default function ValuationCalculatorPage() {
           <CardHeader>
             <CardTitle className="text-2xl md:text-3xl font-headline flex items-center gap-2">
               <Calculator className="h-7 w-7 md:h-8 md:w-8 text-primary" />
-              Startup Valuation Calculator
+              What's Your Startup Really Worth?
             </CardTitle>
             <CardDescription>
-              Get a quick, data-driven estimate of your startup's worth based on standard multiples.
+              Get a data-driven valuation estimate in 60 seconds. Stop guessing and start negotiating with confidence.
             </CardDescription>
           </CardHeader>
           <CardContent className="grid gap-8">
@@ -103,7 +103,7 @@ export default function ValuationCalculatorPage() {
               </div>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
                 <div className="space-y-2">
-                  <Label htmlFor="annualRevenue">Annual Revenue (ARR)</Label>
+                  <Label htmlFor="annualRevenue">What's your current Annual Recurring Revenue (ARR)?</Label>
                   <Input
                     id="annualRevenue"
                     type="number"
@@ -114,7 +114,7 @@ export default function ValuationCalculatorPage() {
                   />
                 </div>
                  <div className="space-y-2">
-                  <Label htmlFor="growthRate">Annual Growth Rate (%)</Label>
+                  <Label htmlFor="growthRate">What's your year-over-year growth rate? (%)</Label>
                    <Input
                     id="growthRate"
                     type="number"
@@ -127,7 +127,7 @@ export default function ValuationCalculatorPage() {
               </div>
                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
                 <div className="space-y-2">
-                    <Label htmlFor="industry">Industry</Label>
+                    <Label htmlFor="industry">What industry are you in?</Label>
                     <Select value={industry} onValueChange={setIndustry}>
                         <SelectTrigger id="industry">
                             <SelectValue placeholder="Select Industry" />
@@ -140,7 +140,7 @@ export default function ValuationCalculatorPage() {
                     </Select>
                 </div>
                 <div className="space-y-2">
-                    <Label htmlFor="stage">Venture Stage</Label>
+                    <Label htmlFor="stage">What's your current funding stage?</Label>
                     <Select value={stage} onValueChange={setStage}>
                         <SelectTrigger id="stage">
                             <SelectValue placeholder="Select Stage" />
@@ -159,13 +159,13 @@ export default function ValuationCalculatorPage() {
 
             <div className="space-y-4 text-center bg-muted/50 p-6 rounded-lg">
                 <div className='flex items-center justify-center gap-2'>
-                    <Label className="text-md md:text-lg text-zinc-400">Estimated Valuation</Label>
+                    <Label className="text-md md:text-lg text-zinc-400">Your Estimated Valuation Is</Label>
                      <Tooltip>
                         <TooltipTrigger asChild>
                             <HelpCircle className="h-4 w-4 text-zinc-400 cursor-help" />
                         </TooltipTrigger>
                         <TooltipContent>
-                            <p className="max-w-xs">This is a simplified estimate for pre-revenue and early-stage startups. Actual valuations can vary significantly based on team, market, traction, and other factors.</p>
+                            <p className="max-w-xs">This is a simplified, high-level estimate. Your actual valuation will depend on your team, market, traction, and narrative.</p>
                         </TooltipContent>
                     </Tooltip>
                 </div>
@@ -174,7 +174,7 @@ export default function ValuationCalculatorPage() {
 
             <SocialShare 
                 shareUrl={shareUrl}
-                text={`Our estimated startup valuation is ${formatCurrency(valuation)}! Calculated with TheASKT's free toolkit.`}
+                text={`Our estimated startup valuation is ${formatCurrency(valuation)}! I calculated it with TheASKT's free toolkit.`}
             />
 
           </CardContent>

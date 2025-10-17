@@ -14,13 +14,14 @@ export function Footer() {
         >
           TheASKT.org
         </a>
+        . We're on a mission to help founders succeed.
       </p>
       <nav className="sm:ml-auto flex gap-4 sm:gap-6">
         <Link href="#" className="text-xs text-zinc-400 hover:text-primary underline-offset-4" prefetch={false}>
           Terms of Service
         </Link>
         <Link href="#" className="text-xs text-zinc-400 hover:text-primary underline-offset-4" prefetch={false}>
-          Privacy
+          Privacy Policy
         </Link>
       </nav>
     </footer>

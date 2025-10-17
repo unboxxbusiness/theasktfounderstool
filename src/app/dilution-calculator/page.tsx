@@ -64,8 +64,8 @@ export default function DilutionCalculatorPage() {
   }, [name, company, founderShares, preMoneyValuation, investment, shareUrl]);
 
   const chartData = [
-    { name: 'Founder(s)', value: founderOwnership },
-    { name: 'New Investor(s)', value: investorOwnership },
+    { name: 'Your (Founders) Ownership', value: founderOwnership },
+    { name: 'New Investor Ownership', value: investorOwnership },
   ];
 
   return (
@@ -77,10 +77,10 @@ export default function DilutionCalculatorPage() {
                 <CardHeader>
                     <CardTitle className="text-2xl md:text-3xl font-headline flex items-center gap-2">
                         <TrendingDown className="h-7 w-7 md:h-8 md:w-8 text-primary" />
-                        Funding Round Dilution Calculator
+                        How Much Will This Funding Round Dilute You?
                     </CardTitle>
                     <CardDescription>
-                        Model the impact of a new investment on your cap table.
+                        Model the impact of a new investment on your cap table and see exactly how much of your company you'll be giving away.
                     </CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-6">
@@ -95,7 +95,7 @@ export default function DilutionCalculatorPage() {
                       </div>
                     </div>
                     <div className="space-y-2">
-                        <Label htmlFor="founderShares">Current Total Shares (Founder Pool)</Label>
+                        <Label htmlFor="founderShares">How many shares do you (and co-founders) own now?</Label>
                         <Input
                             id="founderShares"
                             type="number"
@@ -105,7 +105,7 @@ export default function DilutionCalculatorPage() {
                         />
                     </div>
                      <div className="space-y-2">
-                        <Label htmlFor="preMoneyValuation">Pre-Money Valuation</Label>
+                        <Label htmlFor="preMoneyValuation">What is your Pre-Money Valuation?</Label>
                         <Input
                             id="preMoneyValuation"
                             type="number"
@@ -115,7 +115,7 @@ export default function DilutionCalculatorPage() {
                         />
                     </div>
                      <div className="space-y-2">
-                        <Label htmlFor="investment">New Investment Amount</Label>
+                        <Label htmlFor="investment">How much money are you raising?</Label>
                         <Input
                             id="investment"
                             type="number"
@@ -126,25 +126,25 @@ export default function DilutionCalculatorPage() {
                     </div>
                     <Card className="bg-muted/50">
                         <CardHeader>
-                            <CardTitle className="text-lg md:text-xl">Post-Funding Summary</CardTitle>
+                            <CardTitle className="text-lg md:text-xl">Your Post-Funding Summary</CardTitle>
                         </CardHeader>
                         <CardContent className="grid gap-4 text-sm">
                             <ReportHeader name={name} company={company} />
                              <div className="grid grid-cols-2 gap-2 md:gap-4">
-                                <div className="font-semibold">Post-Money Valuation:</div>
+                                <div className="font-semibold">New Post-Money Valuation:</div>
                                 <div>{formatCurrency(postMoneyValuation)}</div>
-                                <div className="font-semibold">Founder Ownership:</div>
+                                <div className="font-semibold">Your New Ownership:</div>
                                 <div>{founderOwnership.toFixed(2)}%</div>
-                                <div className="font-semibold">Investor Ownership:</div>
+                                <div className="font-semibold">Investor's New Ownership:</div>
                                 <div>{investorOwnership.toFixed(2)}%</div>
-                                <div className="font-semibold">Total Shares:</div>
+                                <div className="font-semibold">New Total Shares:</div>
                                 <div>{Math.round(postMoneyShares).toLocaleString()}</div>
                              </div>
                         </CardContent>
                     </Card>
                      <SocialShare 
                         shareUrl={shareUrl}
-                        text={`I modeled my next funding round with TheASKT's free dilution calculator. Check out the potential impact on your cap table.`}
+                        text={`After our next round, my ownership will be ${founderOwnership.toFixed(2)}%. I modeled my dilution with TheASKT's free toolkit.`}
                     />
                 </CardContent>
             </Card>
@@ -153,17 +153,17 @@ export default function DilutionCalculatorPage() {
            <Card>
               <CardHeader>
                 <CardTitle className="text-lg md:text-xl flex items-center gap-2">
-                    Post-Funding Cap Table
+                    Post-Funding Ownership
                     <Tooltip>
                         <TooltipTrigger asChild>
                             <HelpCircle className="h-4 w-4 text-zinc-400 cursor-help" />
                         </TooltipTrigger>
                         <TooltipContent>
-                            <p className="max-w-xs">This shows the ownership split after the new investment.</p>
+                            <p className="max-w-xs">This chart shows the ownership split AFTER the new investment is complete.</p>
                         </TooltipContent>
                     </Tooltip>
                 </CardTitle>
-                <CardDescription>A visual representation of the new equity distribution.</CardDescription>
+                <CardDescription>A visual breakdown of your new cap table.</CardDescription>
               </CardHeader>
               <CardContent>
                 <div className="w-full h-64 md:h-80">
@@ -176,13 +176,13 @@ export default function DilutionCalculatorPage() {
                         cx="50%"
                         cy="50%"
                         outerRadius="80%"
-                        label={({ name, value }) => `${name}: ${value.toFixed(1)}%`}
+                        label={({ name, value }) => `${value.toFixed(1)}%`}
                       >
                         {chartData.map((entry, index) => (
                           <Cell key={`cell-${index}`} fill={CHART_COLORS[index % CHART_COLORS.length]} />
                         ))}
                       </Pie>
-                      <RechartsTooltip formatter={(value: number) => `${value.toFixed(2)}%`} />
+                      <RechartsTooltip formatter={(value: number, name: string) => [`${value.toFixed(2)}%`, name]} />
                       <Legend />
                     </PieChart>
                   </ResponsiveContainer>

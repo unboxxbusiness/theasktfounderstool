@@ -64,23 +64,23 @@ export default function CacLtvCalculatorPage() {
   const getRatioMessage = () => {
     if (ratio >= 3) {
       return {
-        title: 'Healthy Business Model',
-        description: 'Your LTV:CAC ratio is in a great spot, indicating a very healthy and profitable customer acquisition strategy. Keep it up!',
+        title: "You've Got a Great Business Model!",
+        description: "Your LTV to CAC ratio is fantastic. This means your customer acquisition strategy is highly profitable and sustainable. Keep doing what you're doing!",
         variant: 'default',
         color: 'text-green-500'
       };
     }
     if (ratio >= 1) {
       return {
-        title: 'Needs Improvement',
-        description: 'Your LTV is higher than your CAC, which is good. However, a ratio below 3:1 suggests there is room to improve profitability. Focus on increasing LTV or decreasing CAC.',
+        title: 'You a on the Right Track, but Could Improve',
+        description: "It's good that you're making more from customers than you spend to get them, but a ratio below 3:1 suggests there's room to boost profitability. Try to increase your customer LTV or lower your CAC.",
         variant: 'default',
         color: 'text-yellow-500'
       };
     }
     return {
-      title: 'Action Required',
-      description: 'Your Customer Acquisition Cost is higher than your Lifetime Value. This is an unsustainable model. You need to urgently find ways to either increase LTV or drastically reduce CAC.',
+      title: 'Warning: Unsustainable Business Model',
+      description: "You're spending more to acquire customers than they're worth to your business. This is a red flag. You must find ways to increase LTV or drastically reduce your CAC.",
       variant: 'destructive',
       color: ''
     };
@@ -96,10 +96,10 @@ export default function CacLtvCalculatorPage() {
             <CardHeader>
               <CardTitle className="text-2xl md:text-3xl font-headline flex items-center gap-2">
                 <Scale className="h-7 w-7 md:h-8 md:w-8 text-primary" />
-                CAC vs. LTV Calculator
+                Are Your Customers Actually Profitable? (LTV vs CAC)
               </CardTitle>
               <CardDescription>
-                Analyze the relationship between Customer Lifetime Value (LTV) and Customer Acquisition Cost (CAC).
+                Quickly analyze the relationship between your Customer Lifetime Value (LTV) and Customer Acquisition Cost (CAC) to see if your business model is sustainable.
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-6">
@@ -114,7 +114,7 @@ export default function CacLtvCalculatorPage() {
                 </div>
               </div>
               <div className="space-y-2">
-                <Label htmlFor="marketingSpend">Total Marketing & Sales Spend</Label>
+                <Label htmlFor="marketingSpend">Total Marketing & Sales Spend (in one month)</Label>
                 <Input
                   id="marketingSpend"
                   type="number"
@@ -124,7 +124,7 @@ export default function CacLtvCalculatorPage() {
                 />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="customersAcquired">New Customers Acquired</Label>
+                <Label htmlFor="customersAcquired">New Customers Acquired (in that month)</Label>
                 <Input
                   id="customersAcquired"
                   type="number"
@@ -134,7 +134,7 @@ export default function CacLtvCalculatorPage() {
                 />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="avgMonthlySpend">Average Revenue Per User (ARPU, Monthly)</Label>
+                <Label htmlFor="avgMonthlySpend">How much does a customer pay you per month?</Label>
                 <Input
                   id="avgMonthlySpend"
                   type="number"
@@ -144,7 +144,7 @@ export default function CacLtvCalculatorPage() {
                 />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="grossMargin">Gross Margin (%)</Label>
+                <Label htmlFor="grossMargin">What's your Gross Margin? (%)</Label>
                 <Input
                   id="grossMargin"
                   type="number"
@@ -154,7 +154,7 @@ export default function CacLtvCalculatorPage() {
                 />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="monthlyChurn">Monthly Churn Rate (%)</Label>
+                <Label htmlFor="monthlyChurn">What percentage of customers cancel each month?</Label>
                 <Input
                   id="monthlyChurn"
                   type="number"
@@ -169,8 +169,8 @@ export default function CacLtvCalculatorPage() {
         <div className="space-y-8">
            <Card>
               <CardHeader>
-                <CardTitle className="text-xl">Key Metrics</CardTitle>
-                <CardDescription>Your calculated CAC, LTV, and the all-important ratio.</CardDescription>
+                <CardTitle className="text-xl">Your Key Growth Metrics</CardTitle>
+                <CardDescription>Here's your calculated CAC, LTV, and the all-important ratio.</CardDescription>
               </CardHeader>
               <CardContent className="space-y-4">
                  <ReportHeader name={name} company={company} />
@@ -204,7 +204,7 @@ export default function CacLtvCalculatorPage() {
             </Alert>
              <SocialShare 
                 shareUrl={shareUrl}
-                text={`My startup's LTV:CAC ratio is ${ratio.toFixed(2)}:1! Calculated with TheASKT's free toolkit.`}
+                text={`My startup's LTV:CAC ratio is ${ratio.toFixed(2)}:1! I analyzed it with TheASKT's free toolkit.`}
             />
         </div>
       </div>

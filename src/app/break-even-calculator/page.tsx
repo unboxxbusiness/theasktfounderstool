@@ -2,7 +2,7 @@
 'use client';
 
 import { useState, useMemo, useEffect } from 'react';
-import { useSearchParams, useRouter } from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
@@ -58,10 +58,10 @@ export default function BreakEvenCalculatorPage() {
         <CardHeader>
           <CardTitle className="text-2xl md:text-3xl font-headline flex items-center gap-2">
             <Target className="h-7 w-7 md:h-8 md:w-8 text-primary" />
-            Break-Even Calculator
+            Break-Even Point Calculator
           </CardTitle>
           <CardDescription>
-            Find out how many units you need to sell to cover your costs and start making a profit.
+            Find the magic number of sales you need to cover all your costs and start making a profit.
           </CardDescription>
         </CardHeader>
         <CardContent className="grid gap-8">
@@ -77,7 +77,7 @@ export default function BreakEvenCalculatorPage() {
                 </div>
             </div>
             <div className="space-y-2">
-              <Label htmlFor="fixedCosts">Total Monthly Fixed Costs</Label>
+              <Label htmlFor="fixedCosts">Total Monthly Fixed Costs (Rent, Salaries, etc.)</Label>
               <Input
                 id="fixedCosts"
                 type="number"
@@ -89,7 +89,7 @@ export default function BreakEvenCalculatorPage() {
             </div>
              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
                 <div className="space-y-2">
-                    <Label htmlFor="pricePerUnit">Sale Price Per Unit</Label>
+                    <Label htmlFor="pricePerUnit">Sale Price (Per Item or Subscription)</Label>
                     <Input
                         id="pricePerUnit"
                         type="number"
@@ -100,7 +100,7 @@ export default function BreakEvenCalculatorPage() {
                     />
                 </div>
                 <div className="space-y-2">
-                    <Label htmlFor="variableCostPerUnit">Variable Cost Per Unit</Label>
+                    <Label htmlFor="variableCostPerUnit">Variable Cost (Per Item or Subscription)</Label>
                     <Input
                         id="variableCostPerUnit"
                         type="number"
@@ -116,32 +116,32 @@ export default function BreakEvenCalculatorPage() {
           <ReportHeader name={name} company={company} />
 
           <div className="space-y-4 text-center bg-muted/50 p-6 rounded-lg">
-            <Label className="text-md md:text-lg text-zinc-400">Units to Break Even</Label>
+            <Label className="text-md md:text-lg text-zinc-400">Your Break-Even Point Is</Label>
             {breakEvenUnits === Infinity ? (
               <div className="text-4xl md:text-5xl font-bold text-destructive">Unprofitable</div>
             ) : (
               <div className="text-4xl md:text-5xl font-bold text-primary">
-                {Math.ceil(breakEvenUnits).toLocaleString()} <span className="text-2xl md:text-3xl">units/month</span>
+                {Math.ceil(breakEvenUnits).toLocaleString()} <span className="text-2xl md:text-3xl">sales/month</span>
               </div>
             )}
             <p className="text-sm md:text-base text-zinc-400">
-              Your contribution margin is {formatCurrency(contributionMargin)} per unit.
+              This is based on a contribution margin of {formatCurrency(contributionMargin)} per sale.
             </p>
           </div>
 
           {breakEvenUnits === Infinity && (
             <Alert variant="destructive">
               <Info className="h-4 w-4" />
-              <AlertTitle>Pricing Alert</AlertTitle>
+              <AlertTitle>Pricing Alert!</AlertTitle>
               <AlertDescription>
-                Your price per unit must be greater than your variable cost per unit to be profitable.
+                Your sale price must be higher than your variable cost per sale. Right now, you're losing money on every sale.
               </AlertDescription>
             </Alert>
           )}
 
            <SocialShare 
             shareUrl={shareUrl}
-            text={`I calculated my break-even point with TheASKT's free startup toolkit! Check it out.`}
+            text={`I need to make ${Math.ceil(breakEvenUnits).toLocaleString()} sales per month to be profitable! I just calculated my break-even point with TheASKT's free toolkit.`}
            />
         </CardContent>
       </Card>

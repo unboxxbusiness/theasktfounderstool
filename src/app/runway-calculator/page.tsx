@@ -51,6 +51,12 @@ export default function RunwayCalculatorPage() {
 
   const isLowRunway = runwayMonths <= 6;
   const isVeryLowRunway = runwayMonths <= 3;
+  const zeroCashDate = useMemo(() => {
+    if (runwayMonths === Infinity) return 'Never!';
+    const date = new Date();
+    date.setMonth(date.getMonth() + Math.floor(runwayMonths));
+    return date.toLocaleDateString('en-US', { year: 'numeric', month: 'long' });
+  }, [runwayMonths]);
 
   return (
     <div className="container mx-auto max-w-4xl py-8 md:py-12 px-4 md:px-6">
@@ -58,10 +64,10 @@ export default function RunwayCalculatorPage() {
         <CardHeader>
           <CardTitle className="text-2xl md:text-3xl font-headline flex items-center gap-2">
             <Hourglass className="h-7 w-7 md:h-8 md:w-8 text-primary" />
-            Startup Runway Calculator
+            How Long Until You Run Out Of Money?
           </CardTitle>
           <CardDescription>
-            See how long your startup can survive with your current cash and burn rate.
+            Calculate your startup's cash runway and find your "zero cash date" based on your current burn rate.
           </CardDescription>
         </CardHeader>
         <CardContent className="grid gap-8">
@@ -78,7 +84,7 @@ export default function RunwayCalculatorPage() {
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
               <div className="space-y-2">
-                <Label htmlFor="currentFunds">Current Funds</Label>
+                <Label htmlFor="currentFunds">How much cash do you have in the bank?</Label>
                 <Input
                   id="currentFunds"
                   type="number"
@@ -89,7 +95,7 @@ export default function RunwayCalculatorPage() {
                 />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="monthlyBurn">Monthly Burn Rate</Label>
+                <Label htmlFor="monthlyBurn">How much money are you losing each month?</Label>
                 <Input
                   id="monthlyBurn"
                   type="number"
@@ -105,34 +111,34 @@ export default function RunwayCalculatorPage() {
           <ReportHeader name={name} company={company} />
 
           <div className="space-y-4 text-center bg-muted/50 p-6 rounded-lg">
-            <Label className="text-md md:text-lg text-zinc-400">Estimated Runway</Label>
+            <Label className="text-md md:text-lg text-zinc-400">You Have</Label>
             {runwayMonths === Infinity ? (
-              <div className="text-4xl md:text-5xl font-bold text-accent">Infinite</div>
+              <div className="text-4xl md:text-5xl font-bold text-accent">Infinite Runway</div>
             ) : (
               <div className="text-4xl md:text-5xl font-bold text-primary">
-                {runwayMonths.toFixed(1)} <span className="text-2xl md:text-3xl">months</span>
+                {runwayMonths.toFixed(1)} <span className="text-2xl md:text-3xl">months of runway</span>
               </div>
             )}
             <p className="text-sm md:text-base text-zinc-400">
-              Your remaining runway is based on a burn rate of {formatCurrency(monthlyBurn)}/month.
+             Based on your current numbers, you will run out of money around <strong className="text-primary">{zeroCashDate}</strong>.
             </p>
           </div>
 
           {isLowRunway && runwayMonths !== Infinity && (
             <Alert variant={isVeryLowRunway ? "destructive" : "default"} className={!isVeryLowRunway ? 'border-yellow-500/50 text-yellow-600 dark:border-yellow-500/50 dark:text-yellow-400' : ''}>
               <AlertTriangle className={`h-4 w-4 ${isVeryLowRunway ? '' : 'text-yellow-600 dark:text-yellow-400'}`} />
-              <AlertTitle>{isVeryLowRunway ? 'Critical Alert!' : 'Low Runway Warning'}</AlertTitle>
+              <AlertTitle>{isVeryLowRunway ? 'Code Red: You Are Almost Out of Money!' : 'Warning: Your Runway Is Getting Short!'}</AlertTitle>
               <AlertDescription>
                 {isVeryLowRunway 
-                  ? "Your runway is critically low. It's time to take immediate action to either raise funds or drastically cut costs." 
-                  : "Your runway is less than 6 months. It's recommended to start your next fundraising round now."}
+                  ? "Your runway is critically low. It's time to take immediate and drastic action. Either raise more money or cut costs NOW." 
+                  : "You have less than 6 months of cash left. Now is the time to start your next fundraising round or find a path to profitability."}
               </AlertDescription>
             </Alert>
           )}
 
            <SocialShare 
             shareUrl={shareUrl}
-            text={`We have ${runwayMonths.toFixed(1)} months of runway! Calculated with TheASKT's free startup toolkit.`}
+            text={`We have ${runwayMonths.toFixed(1)} months of runway left! I just calculated it with TheASKT's free toolkit.`}
           />
 
         </CardContent>

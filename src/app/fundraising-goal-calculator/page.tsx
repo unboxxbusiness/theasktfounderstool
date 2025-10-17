@@ -56,10 +56,10 @@ export default function FundraisingGoalCalculatorPage() {
           <CardHeader>
             <CardTitle className="text-2xl md:text-3xl font-headline flex items-center gap-2">
               <Landmark className="h-7 w-7 md:h-8 md:w-8 text-primary" />
-              Fundraising Goal Calculator
+              How Much Money Should You *Really* Raise?
             </CardTitle>
             <CardDescription>
-              How much should you really raise? Calculate your ideal seed or pre-seed funding amount.
+              Stop pulling numbers out of thin air. Calculate a strategic fundraising goal that gives you enough runway to hit your next milestones.
             </CardDescription>
           </CardHeader>
           <CardContent className="grid gap-8">
@@ -76,7 +76,7 @@ export default function FundraisingGoalCalculatorPage() {
               </div>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
                 <div className="space-y-2">
-                  <Label htmlFor="monthlyBurn">Current Monthly Burn Rate</Label>
+                  <Label htmlFor="monthlyBurn">What's your estimated monthly burn rate (after funding)?</Label>
                   <Input
                     id="monthlyBurn"
                     type="number"
@@ -87,7 +87,7 @@ export default function FundraisingGoalCalculatorPage() {
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="targetRunway">Target Runway (Months)</Label>
+                  <Label htmlFor="targetRunway">How many months of runway do you want?</Label>
                   <Input
                     id="targetRunway"
                     type="number"
@@ -100,13 +100,13 @@ export default function FundraisingGoalCalculatorPage() {
               </div>
               <div className="space-y-2">
                 <div className="flex items-center gap-2">
-                    <Label htmlFor="buffer">Contingency Buffer (%)</Label>
+                    <Label htmlFor="buffer">How big of a safety buffer do you want? (%)</Label>
                     <Tooltip>
                         <TooltipTrigger asChild>
                             <HelpCircle className="h-4 w-4 text-zinc-400 cursor-help" />
                         </TooltipTrigger>
                         <TooltipContent>
-                            <p className="max-w-xs">A 20-30% buffer is recommended to cover unexpected expenses and provide capital for growth opportunities.</p>
+                            <p className="max-w-xs">A 20-30% buffer is smart. It covers unexpected costs and lets you jump on surprise opportunities without worry.</p>
                         </TooltipContent>
                     </Tooltip>
                 </div>
@@ -124,18 +124,18 @@ export default function FundraisingGoalCalculatorPage() {
             <ReportHeader name={name} company={company} />
             
             <div className="space-y-4 text-center bg-muted/50 p-6 rounded-lg">
-              <Label className="text-md md:text-lg text-zinc-400">Ideal Funding Goal</Label>
+              <Label className="text-md md:text-lg text-zinc-400">Your Ideal Funding Goal Is</Label>
               <div className="text-4xl md:text-5xl font-bold text-primary">
                 {formatCurrency(fundingGoal)}
               </div>
               <p className="text-sm md:text-base text-zinc-400">
-                This gives you {targetRunway} months of runway with a {buffer}% buffer.
+                This would give you {targetRunway} months of runway with a {buffer}% safety buffer.
               </p>
             </div>
 
             <SocialShare 
                 shareUrl={shareUrl}
-                text={`Our fundraising goal is ${formatCurrency(fundingGoal)}! Calculated with TheASKT's free startup toolkit.`}
+                text={`Our next fundraising goal is ${formatCurrency(fundingGoal)}! Calculated our target with TheASKT's free toolkit.`}
             />
 
           </CardContent>

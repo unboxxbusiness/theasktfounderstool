@@ -26,92 +26,77 @@ import {
 import { ShieldCheck, PiggyBank } from "@/components/icons";
 
 export default function Home() {
-  const features = [
-    {
-      icon: <CheckCircle className="h-6 w-6 mr-2 text-primary" />,
-      text: "Stop guessing. Get data-driven answers.",
-    },
-    {
-      icon: <CheckCircle className="h-6 w-6 mr-2 text-primary" />,
-      text: "Impress investors with clear financial models.",
-    },
-    {
-      icon: <CheckCircle className="h-6 w-6 mr-2 text-primary" />,
-      text: "Make smarter decisions, faster.",
-    },
-  ];
-
   const tools = [
       {
           icon: <Calculator className="h-8 w-8 text-primary"/>,
-          title: "Valuation Calculator",
-          description: "Get a data-backed estimate of your startup's worth.",
+          title: "What's Your Startup Worth?",
+          description: "Get a data-backed valuation estimate in seconds.",
           link: "/valuation-calculator"
       },
       {
           icon: <Scale className="h-8 w-8 text-primary"/>,
-          title: "Equity Split Calculator",
+          title: "How Should You Split Equity?",
           description: "Define a fair equity split for your co-founders.",
            link: "/equity-split-calculator"
       },
       {
           icon: <TrendingUp className="h-8 w-8 text-primary"/>,
-          title: "Revenue Projection",
-          description: "Visualize your next 12 months of growth.",
+          title: "How Fast Will You Grow?",
+          description: "Project your next 12 months of revenue and users.",
           link: "/revenue-projection-calculator"
       },
       {
           icon: <ShieldCheck className="h-8 w-8 text-primary"/>,
-          title: "SAFE Calculator",
+          title: "What's That SAFE Note Costing You?",
           description: "Model how a SAFE note impacts your ownership.",
           link: "/safe-calculator"
       },
       {
           icon: <TrendingDown className="h-8 w-8 text-primary"/>,
-          title: "Dilution Calculator",
-          description: "Understand the impact of a new funding round.",
+          title: "How Much Will New Funding Dilute You?",
+          description: "See the true impact of a new funding round.",
           link: "/dilution-calculator"
       },
       {
           icon: <Banknote className="h-8 w-8 text-primary"/>,
-          title: "CAC & LTV Calculator",
-          description: "Analyze your customer acquisition economics.",
+          title: "Are Your Customers Profitable?",
+          description: "Analyze your LTV:CAC ratio and acquisition economics.",
           link: "/cac-ltv-calculator"
       },
       {
         icon: <Hourglass className="h-8 w-8 text-primary" />,
-        title: 'Runway Calculator',
-        description: 'See how long your cash will last.',
+        title: 'How Long Until You Run Out of Money?',
+        description: 'Calculate your cash runway and "zero cash" date.',
         link: '/runway-calculator',
       },
       {
         icon: <Target className="h-8 w-8 text-primary" />,
-        title: 'Break-Even Analysis',
-        description: 'Find your point of profitability.',
+        title: 'How Many Sales Do You Need to Be Profitable?',
+        description: 'Find your break-even point in units and revenue.',
         link: '/break-even-calculator',
       },
       {
         icon: <Landmark className="h-8 w-8 text-primary" />,
-        title: 'Fundraising Goal',
-        description: 'Determine how much you should raise.',
+        title: 'How Much Money Should You Raise?',
+        description: 'Set a smart fundraising goal based on your burn.',
         link: '/fundraising-goal-calculator',
       },
        {
         icon: <PiggyBank className="h-8 w-8 text-primary" />,
-        title: 'Investor ROI Calculator',
-        description: 'Estimate the potential return for your investors.',
+        title: 'What Could Your Investors Make?',
+        description: 'Estimate the potential ROI for your investors.',
         link: '/investor-roi-calculator',
       },
       {
         icon: <DollarSign className="h-8 w-8 text-primary" />,
-        title: 'Pricing Strategy',
-        description: 'Find your ideal product price point.',
+        title: 'What Should You Charge for Your Product?',
+        description: 'Find your ideal price point with data-driven models.',
         link: '/pricing-strategy-calculator',
       },
       {
         icon: <Megaphone className="h-8 w-8 text-primary" />,
-        title: 'Marketing Budget',
-        description: 'Allocate your marketing spend effectively.',
+        title: 'Where Should Your Marketing Dollars Go?',
+        description: 'Allocate your marketing spend for maximum results.',
         link: '/marketing-budget-allocator',
       },
   ];
@@ -122,21 +107,21 @@ export default function Home() {
         <section className="w-full py-20 md:py-28 bg-background">
           <div className="container px-4 md:px-6">
             <div className="flex flex-col items-center space-y-6 text-center">
-              <p className="text-primary font-bold">ATTENTION: STARTUP FOUNDERS</p>
+              <p className="text-primary font-bold">FOR STARTUP FOUNDERS WHO HATE GUESSING</p>
               <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight font-headline max-w-4xl">
-                The Financial Blind Spots That Are Secretly Killing Your Startup
+                Finally! The Financial Clarity You Need To Build An Empire
               </h1>
-              <p className="max-w-[700px] text-zinc-400 text-base sm:text-lg md:text-xl">
-                Finally! A complete (and 100% free) toolkit of financial calculators to give you the clarity you need to build, grow, and fund your business like a pro.
+              <p className="max-w-[700px] text-zinc-300 text-base sm:text-lg md:text-xl">
+                This 100% free toolkit of battle-tested financial calculators gives you the power to <strong className="text-primary">stop guessing</strong> and <strong className="text-primary">start knowing</strong> your numbers—so you can build, grow, and fund your business like a seasoned pro.
               </p>
               <div className="flex flex-col gap-4">
                  <Button asChild size="lg" className="mt-4 !text-lg !py-7 !px-10">
                     <Link href="#tools">
-                        Get FREE Instant Access To The Calculators
+                        Get Instant Access To The FREE Calculators
                         <ArrowRight className="ml-2 h-5 w-5"/>
                     </Link>
                 </Button>
-                <p className="text-xs text-zinc-400">No sign-up required. Ever.</p>
+                <p className="text-xs text-zinc-400">No catch. No sign-up. No credit card. Ever.</p>
               </div>
             </div>
           </div>
@@ -146,10 +131,10 @@ export default function Home() {
           <div className="container px-4 md:px-6">
              <div className="text-center mb-12">
                  <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tighter font-headline">
-                    Your Secret Financial Toolkit
+                    Your Secret Financial Weapon
                  </h2>
                  <p className="max-w-[700px] mx-auto text-zinc-400 text-base sm:text-lg md:text-xl mt-4">
-                    From valuation to dilution, get the answers you need in seconds. Stop guessing and start knowing.
+                    From valuation to dilution, get the mission-critical answers you need in seconds.
                  </p>
             </div>
             <div className="mx-auto grid max-w-6xl items-stretch gap-6 sm:grid-cols-2 lg:grid-cols-3">
@@ -174,18 +159,24 @@ export default function Home() {
           <div className="container px-4 md:px-6">
             <div className="flex flex-col items-center space-y-6 text-center">
               <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tighter font-headline max-w-3xl">
-                Don't Let Bad Math Kill Your Dream
+                Don't Let Bad Math Kill Your Startup
               </h2>
               <p className="max-w-[600px] text-zinc-400 text-lg">
-                This toolkit was built by founders, for founders, because we got tired of seeing great ideas fail due to simple, avoidable financial mistakes. We're making it free to give every founder a fighting chance.
+                This toolkit was built by founders who got tired of seeing great ideas fail from avoidable financial mistakes. We're making these tools free to give you a fighting chance.
               </p>
               <div className="w-full max-w-md space-y-3">
-                {features.map((feature, i) => (
-                    <div key={i} className="flex items-center text-left p-3 bg-background/50 rounded-lg">
-                        {feature.icon}
-                        <span className="text-foreground">{feature.text}</span>
+                    <div className="flex items-center text-left p-3 bg-background/50 rounded-lg">
+                        <CheckCircle className="h-6 w-6 mr-2 text-primary" />
+                        <span className="text-foreground">Stop guessing and get data-driven answers.</span>
                     </div>
-                ))}
+                    <div className="flex items-center text-left p-3 bg-background/50 rounded-lg">
+                        <CheckCircle className="h-6 w-6 mr-2 text-primary" />
+                        <span className="text-foreground">Impress investors with clear financial models.</span>
+                    </div>
+                    <div className="flex items-center text-left p-3 bg-background/50 rounded-lg">
+                        <CheckCircle className="h-6 w-6 mr-2 text-primary" />
+                        <span className="text-foreground">Make smarter, faster, and more profitable decisions.</span>
+                    </div>
               </div>
               <Button asChild size="lg" className="mt-6 !text-lg !py-7 !px-10">
                 <Link href="#tools">
