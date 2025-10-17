@@ -122,9 +122,8 @@ export default function Home() {
   return (
     <div className="flex flex-col min-h-dvh">
       <main className="flex-1">
-        <section className="w-full py-20 md:py-28 relative">
-          <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-purple-50/50 via-white to-blue-50/50 z-0"></div>
-          <div className="container px-4 md:px-6 relative z-10">
+        <section className="w-full py-20 md:py-28">
+          <div className="container px-4 md:px-6">
             <div className="flex flex-col items-center space-y-4 text-center">
               <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight font-headline max-w-4xl">
                 Free Financial Calculators for Ambitious Startups
