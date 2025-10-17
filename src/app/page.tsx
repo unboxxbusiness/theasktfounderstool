@@ -117,7 +117,7 @@ export default function Home() {
               <div className="flex flex-col gap-4">
                  <Button asChild size="lg" className="mt-4 !text-lg !py-7 !px-10">
                     <Link href="#tools">
-                        Get Instant Access To The FREE Calculators
+                        Access All Calculators
                         <ArrowRight className="ml-2 h-5 w-5"/>
                     </Link>
                 </Button>
@@ -180,7 +180,7 @@ export default function Home() {
               </div>
               <Button asChild size="lg" className="mt-6 !text-lg !py-7 !px-10">
                 <Link href="#tools">
-                    Use The FREE Calculators Now
+                    Explore The Toolkit
                     <ArrowRight className="ml-2 h-5 w-5"/>
                 </Link>
               </Button>

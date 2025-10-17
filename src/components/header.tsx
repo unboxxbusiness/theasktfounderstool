@@ -17,7 +17,7 @@ export function Header() {
         <MegaMenu />
       </nav>
       <div className="ml-auto flex items-center gap-2">
-         <Button asChild variant="default" size="sm" className="hidden sm:inline-flex rounded-full shadow-lg shadow-primary/30 font-bold">
+         <Button asChild variant="default" size="sm" className="hidden sm:inline-flex rounded-full font-bold">
             <a href="https://theaskt.org" target="_blank" rel="noopener noreferrer">
                 <span>Join TheASKT Founders Group</span>
             </a>
