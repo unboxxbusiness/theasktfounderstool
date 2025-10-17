@@ -8,7 +8,6 @@ import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { Hourglass, AlertTriangle, TrendingDown } from 'lucide-react';
-import { ReportHeader } from '@/components/report-header';
 import { SocialShare } from '@/components/social-share';
 
 
@@ -23,8 +22,6 @@ const formatCurrency = (value: number) => {
 
 export default function RunwayCalculatorPage() {
   const searchParams = useSearchParams();
-  const [name, setName] = useState(searchParams.get('name') || '');
-  const [company, setCompany] = useState(searchParams.get('company') || '');
   const [currentFunds, setCurrentFunds] = useState(Number(searchParams.get('currentFunds')) || 500000);
   const [monthlyBurn, setMonthlyBurn] = useState(Number(searchParams.get('monthlyBurn')) || 50000);
   const [shareUrl, setShareUrl] = useState('');
@@ -37,8 +34,6 @@ export default function RunwayCalculatorPage() {
 
   useEffect(() => {
     const params = new URLSearchParams();
-    params.set('name', name);
-    params.set('company', company);
     params.set('currentFunds', String(currentFunds));
     params.set('monthlyBurn', String(monthlyBurn));
     
@@ -47,7 +42,7 @@ export default function RunwayCalculatorPage() {
       setShareUrl(newUrl);
     }
     
-  }, [name, company, currentFunds, monthlyBurn, shareUrl]);
+  }, [currentFunds, monthlyBurn, shareUrl]);
 
   const isLowRunway = runwayMonths <= 6;
   const isVeryLowRunway = runwayMonths <= 3;
@@ -72,16 +67,6 @@ export default function RunwayCalculatorPage() {
         </CardHeader>
         <CardContent className="grid gap-8">
           <div className="space-y-6">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
-                <div className="space-y-2">
-                    <Label htmlFor="name">Your Name</Label>
-                    <Input id="name" value={name} onChange={(e) => setName(e.target.value)} placeholder="e.g., Jane Doe" />
-                </div>
-                <div className="space-y-2">
-                    <Label htmlFor="company">Company Name</Label>
-                    <Input id="company" value={company} onChange={(e) => setCompany(e.target.value)} placeholder="e.g., Acme Inc." />
-                </div>
-            </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
               <div className="space-y-2">
                 <Label htmlFor="currentFunds">How much cash do you have in the bank?</Label>
@@ -108,8 +93,6 @@ export default function RunwayCalculatorPage() {
             </div>
           </div>
           
-          <ReportHeader name={name} company={company} />
-
           <div className="space-y-4 text-center bg-muted/50 p-6 rounded-lg">
             <Label className="text-md md:text-lg text-zinc-400">You Have</Label>
             {runwayMonths === Infinity ? (

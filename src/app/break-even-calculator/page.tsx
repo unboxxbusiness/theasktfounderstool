@@ -8,7 +8,6 @@ import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { Target, Info } from 'lucide-react';
-import { ReportHeader } from '@/components/report-header';
 import { SocialShare } from '@/components/social-share';
 
 const formatCurrency = (value: number) => {
@@ -22,8 +21,6 @@ const formatCurrency = (value: number) => {
 
 export default function BreakEvenCalculatorPage() {
   const searchParams = useSearchParams();
-  const [name, setName] = useState(searchParams.get('name') || '');
-  const [company, setCompany] = useState(searchParams.get('company') || '');
   const [fixedCosts, setFixedCosts] = useState(Number(searchParams.get('fixedCosts')) || 20000);
   const [pricePerUnit, setPricePerUnit] = useState(Number(searchParams.get('pricePerUnit')) || 50);
   const [variableCostPerUnit, setVariableCostPerUnit] = useState(Number(searchParams.get('variableCostPerUnit')) || 15);
@@ -39,8 +36,6 @@ export default function BreakEvenCalculatorPage() {
   
   useEffect(() => {
     const params = new URLSearchParams();
-    params.set('name', name);
-    params.set('company', company);
     params.set('fixedCosts', String(fixedCosts));
     params.set('pricePerUnit', String(pricePerUnit));
     params.set('variableCostPerUnit', String(variableCostPerUnit));
@@ -49,7 +44,7 @@ export default function BreakEvenCalculatorPage() {
     if (shareUrl !== newUrl) {
       setShareUrl(newUrl);
     }
-  }, [name, company, fixedCosts, pricePerUnit, variableCostPerUnit, shareUrl]);
+  }, [fixedCosts, pricePerUnit, variableCostPerUnit, shareUrl]);
 
 
   return (
@@ -66,16 +61,6 @@ export default function BreakEvenCalculatorPage() {
         </CardHeader>
         <CardContent className="grid gap-8">
           <div className="space-y-6">
-             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
-                <div className="space-y-2">
-                    <Label htmlFor="name">Your Name</Label>
-                    <Input id="name" value={name} onChange={(e) => setName(e.target.value)} placeholder="e.g., Jane Doe" />
-                </div>
-                <div className="space-y-2">
-                    <Label htmlFor="company">Company Name</Label>
-                    <Input id="company" value={company} onChange={(e) => setCompany(e.target.value)} placeholder="e.g., Acme Inc." />
-                </div>
-            </div>
             <div className="space-y-2">
               <Label htmlFor="fixedCosts">Total Monthly Fixed Costs (Rent, Salaries, etc.)</Label>
               <Input
@@ -113,8 +98,6 @@ export default function BreakEvenCalculatorPage() {
             </div>
           </div>
           
-          <ReportHeader name={name} company={company} />
-
           <div className="space-y-4 text-center bg-muted/50 p-6 rounded-lg">
             <Label className="text-md md:text-lg text-zinc-400">Your Break-Even Point Is</Label>
             {breakEvenUnits === Infinity ? (

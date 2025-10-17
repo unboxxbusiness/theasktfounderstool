@@ -8,7 +8,6 @@ import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
 import { Landmark, HelpCircle } from 'lucide-react';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
-import { ReportHeader } from '@/components/report-header';
 import { SocialShare } from '@/components/social-share';
 
 const formatCurrency = (value: number) => {
@@ -22,8 +21,6 @@ const formatCurrency = (value: number) => {
 
 export default function FundraisingGoalCalculatorPage() {
   const searchParams = useSearchParams();
-  const [name, setName] = useState(searchParams.get('name') || '');
-  const [company, setCompany] = useState(searchParams.get('company') || '');
   const [monthlyBurn, setMonthlyBurn] = useState(Number(searchParams.get('monthlyBurn')) || 50000);
   const [targetRunway, setTargetRunway] = useState(Number(searchParams.get('targetRunway')) || 18);
   const [buffer, setBuffer] = useState(Number(searchParams.get('buffer')) || 25);
@@ -37,8 +34,6 @@ export default function FundraisingGoalCalculatorPage() {
 
   useEffect(() => {
     const params = new URLSearchParams();
-    params.set('name', name);
-    params.set('company', company);
     params.set('monthlyBurn', String(monthlyBurn));
     params.set('targetRunway', String(targetRunway));
     params.set('buffer', String(buffer));
@@ -47,7 +42,7 @@ export default function FundraisingGoalCalculatorPage() {
     if (newUrl !== shareUrl) {
       setShareUrl(newUrl);
     }
-  }, [name, company, monthlyBurn, targetRunway, buffer, shareUrl]);
+  }, [monthlyBurn, targetRunway, buffer, shareUrl]);
 
   return (
     <TooltipProvider>
@@ -64,16 +59,6 @@ export default function FundraisingGoalCalculatorPage() {
           </CardHeader>
           <CardContent className="grid gap-8">
             <div className="space-y-6">
-               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
-                <div className="space-y-2">
-                    <Label htmlFor="name">Your Name</Label>
-                    <Input id="name" value={name} onChange={(e) => setName(e.target.value)} placeholder="e.g., Jane Doe" />
-                </div>
-                <div className="space-y-2">
-                    <Label htmlFor="company">Company Name</Label>
-                    <Input id="company" value={company} onChange={(e) => setCompany(e.target.value)} placeholder="e.g., Acme Inc." />
-                </div>
-              </div>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
                 <div className="space-y-2">
                   <Label htmlFor="monthlyBurn">What's your estimated monthly burn rate (after funding)?</Label>
@@ -120,8 +105,6 @@ export default function FundraisingGoalCalculatorPage() {
                 />
               </div>
             </div>
-            
-            <ReportHeader name={name} company={company} />
             
             <div className="space-y-4 text-center bg-muted/50 p-6 rounded-lg">
               <Label className="text-md md:text-lg text-zinc-400">Your Ideal Funding Goal Is</Label>

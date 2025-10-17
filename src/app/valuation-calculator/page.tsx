@@ -9,7 +9,6 @@ import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Calculator, HelpCircle } from 'lucide-react';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
-import { ReportHeader } from '@/components/report-header';
 import { SocialShare } from '@/components/social-share';
 
 const industryMultiples: Record<string, number> = {
@@ -45,8 +44,6 @@ const formatCurrency = (value: number) => {
 
 export default function ValuationCalculatorPage() {
   const searchParams = useSearchParams();
-  const [name, setName] = useState(searchParams.get('name') || '');
-  const [company, setCompany] = useState(searchParams.get('company') || '');
   const [annualRevenue, setAnnualRevenue] = useState(Number(searchParams.get('annualRevenue')) || 100000);
   const [growthRate, setGrowthRate] = useState(Number(searchParams.get('growthRate')) || 50);
   const [industry, setIndustry] = useState(searchParams.get('industry') || 'SaaS');
@@ -63,8 +60,6 @@ export default function ValuationCalculatorPage() {
 
   useEffect(() => {
     const params = new URLSearchParams();
-    params.set('name', name);
-    params.set('company', company);
     params.set('annualRevenue', String(annualRevenue));
     params.set('growthRate', String(growthRate));
     params.set('industry', industry);
@@ -74,7 +69,7 @@ export default function ValuationCalculatorPage() {
     if (newUrl !== shareUrl) {
       setShareUrl(newUrl);
     }
-  }, [name, company, annualRevenue, growthRate, industry, stage, shareUrl]);
+  }, [annualRevenue, growthRate, industry, stage, shareUrl]);
 
   return (
     <TooltipProvider>
@@ -91,16 +86,6 @@ export default function ValuationCalculatorPage() {
           </CardHeader>
           <CardContent className="grid gap-8">
             <div className="space-y-6">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
-                <div className="space-y-2">
-                    <Label htmlFor="name">Your Name</Label>
-                    <Input id="name" value={name} onChange={(e) => setName(e.target.value)} placeholder="e.g., Jane Doe" />
-                </div>
-                <div className="space-y-2">
-                    <Label htmlFor="company">Company Name</Label>
-                    <Input id="company" value={company} onChange={(e) => setCompany(e.target.value)} placeholder="e.g., Acme Inc." />
-                </div>
-              </div>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
                 <div className="space-y-2">
                   <Label htmlFor="annualRevenue">What's your current Annual Recurring Revenue (ARR)?</Label>
@@ -155,8 +140,6 @@ export default function ValuationCalculatorPage() {
                </div>
             </div>
             
-            <ReportHeader name={name} company={company} />
-
             <div className="space-y-4 text-center bg-muted/50 p-6 rounded-lg">
                 <div className='flex items-center justify-center gap-2'>
                     <Label className="text-md md:text-lg text-zinc-400">Your Estimated Valuation Is</Label>

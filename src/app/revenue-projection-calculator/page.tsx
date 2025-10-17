@@ -8,7 +8,6 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
 import { TrendingUp, Users, DollarSign, Percent } from 'lucide-react';
-import { ReportHeader } from '@/components/report-header';
 import { SocialShare } from '@/components/social-share';
 
 const formatCurrency = (value: number) => {
@@ -31,8 +30,6 @@ const fullCurrency = (value: number) => {
 
 export default function RevenueProjectionCalculatorPage() {
   const searchParams = useSearchParams();
-  const [name, setName] = useState(searchParams.get('name') || '');
-  const [company, setCompany] = useState(searchParams.get('company') || '');
   const [initialUsers, setInitialUsers] = useState(Number(searchParams.get('initialUsers')) || 100);
   const [growthRate, setGrowthRate] = useState(Number(searchParams.get('growthRate')) || 20);
   const [arpu, setArpu] = useState(Number(searchParams.get('arpu')) || 25);
@@ -67,8 +64,6 @@ export default function RevenueProjectionCalculatorPage() {
 
   useEffect(() => {
     const params = new URLSearchParams();
-    params.set('name', name);
-    params.set('company', company);
     params.set('initialUsers', String(initialUsers));
     params.set('growthRate', String(growthRate));
     params.set('arpu', String(arpu));
@@ -78,7 +73,7 @@ export default function RevenueProjectionCalculatorPage() {
     if (newUrl !== shareUrl) {
       setShareUrl(newUrl);
     }
-  }, [name, company, initialUsers, growthRate, arpu, churnRate, shareUrl]);
+  }, [initialUsers, growthRate, arpu, churnRate, shareUrl]);
 
   return (
     <div className="container mx-auto max-w-5xl py-8 md:py-12 px-4 md:px-6">
@@ -94,16 +89,6 @@ export default function RevenueProjectionCalculatorPage() {
         </CardHeader>
         <CardContent className="grid gap-8">
           <div className="space-y-6">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
-              <div className="space-y-2">
-                  <Label htmlFor="name">Your Name</Label>
-                  <Input id="name" value={name} onChange={(e) => setName(e.target.value)} placeholder="e.g., Jane Doe" />
-              </div>
-              <div className="space-y-2">
-                  <Label htmlFor="company">Company Name</Label>
-                  <Input id="company" value={company} onChange={(e) => setCompany(e.target.value)} placeholder="e.g., Acme Inc." />
-              </div>
-            </div>
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
               <div className="space-y-2">
                 <Label htmlFor="initialUsers" className='flex items-center gap-1 text-sm'><Users className='h-4 w-4' />Current Users</Label>
@@ -152,8 +137,7 @@ export default function RevenueProjectionCalculatorPage() {
             <CardHeader>
                 <CardTitle className="text-lg md:text-xl">Your 12-Month Growth Projection</CardTitle>
             </CardHeader>
-            <CardContent>
-                <ReportHeader name={name} company={company} />
+            <CardContent className="pt-4">
                 <div className='text-center mb-6'>
                     <p className="text-md text-zinc-400">Projected Annual Recurring Revenue (ARR)</p>
                     <p className="text-3xl md:text-4xl font-bold text-primary">{formatCurrency(totalRevenue)}</p>
@@ -177,7 +161,7 @@ export default function RevenueProjectionCalculatorPage() {
 
           <SocialShare 
             shareUrl={shareUrl}
-            text={`I'm projecting ${formatCurrency(totalRevenue)} in ARR for ${company || 'my startup'}! I used TheASKT's free toolkit to model it.`}
+            text={`I'm projecting ${formatCurrency(totalRevenue)} in ARR for my startup! I used TheASKT's free toolkit to model it.`}
           />
         </CardContent>
       </Card>

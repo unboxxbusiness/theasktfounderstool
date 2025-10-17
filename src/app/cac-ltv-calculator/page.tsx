@@ -8,7 +8,6 @@ import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { DollarSign, Percent, Users, Scale } from 'lucide-react';
-import { ReportHeader } from '@/components/report-header';
 import { SocialShare } from '@/components/social-share';
 
 const formatCurrency = (value: number) => {
@@ -23,8 +22,6 @@ const formatCurrency = (value: number) => {
 
 export default function CacLtvCalculatorPage() {
   const searchParams = useSearchParams();
-  const [name, setName] = useState(searchParams.get('name') || '');
-  const [company, setCompany] = useState(searchParams.get('company') || '');
   const [marketingSpend, setMarketingSpend] = useState(Number(searchParams.get('marketingSpend')) || 10000);
   const [customersAcquired, setCustomersAcquired] = useState(Number(searchParams.get('customersAcquired')) || 500);
   const [avgMonthlySpend, setAvgMonthlySpend] = useState(Number(searchParams.get('avgMonthlySpend')) || 50);
@@ -47,8 +44,6 @@ export default function CacLtvCalculatorPage() {
 
   useEffect(() => {
     const params = new URLSearchParams();
-    params.set('name', name);
-    params.set('company', company);
     params.set('marketingSpend', String(marketingSpend));
     params.set('customersAcquired', String(customersAcquired));
     params.set('avgMonthlySpend', String(avgMonthlySpend));
@@ -59,7 +54,7 @@ export default function CacLtvCalculatorPage() {
     if(newUrl !== shareUrl) {
       setShareUrl(newUrl);
     }
-  }, [name, company, marketingSpend, customersAcquired, avgMonthlySpend, grossMargin, monthlyChurn, shareUrl]);
+  }, [marketingSpend, customersAcquired, avgMonthlySpend, grossMargin, monthlyChurn, shareUrl]);
 
   const getRatioMessage = () => {
     if (ratio >= 3) {
@@ -72,7 +67,7 @@ export default function CacLtvCalculatorPage() {
     }
     if (ratio >= 1) {
       return {
-        title: 'You a on the Right Track, but Could Improve',
+        title: 'You are on the Right Track, but Could Improve',
         description: "It's good that you're making more from customers than you spend to get them, but a ratio below 3:1 suggests there's room to boost profitability. Try to increase your customer LTV or lower your CAC.",
         variant: 'default',
         color: 'text-yellow-500'
@@ -103,16 +98,6 @@ export default function CacLtvCalculatorPage() {
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-6">
-               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
-                <div className="space-y-2">
-                    <Label htmlFor="name">Your Name</Label>
-                    <Input id="name" value={name} onChange={(e) => setName(e.target.value)} placeholder="e.g., Jane Doe" />
-                </div>
-                <div className="space-y-2">
-                    <Label htmlFor="company">Company Name</Label>
-                    <Input id="company" value={company} onChange={(e) => setCompany(e.target.value)} placeholder="e.g., Acme Inc." />
-                </div>
-              </div>
               <div className="space-y-2">
                 <Label htmlFor="marketingSpend">Total Marketing & Sales Spend (in one month)</Label>
                 <Input
@@ -173,7 +158,6 @@ export default function CacLtvCalculatorPage() {
                 <CardDescription>Here's your calculated CAC, LTV, and the all-important ratio.</CardDescription>
               </CardHeader>
               <CardContent className="space-y-4">
-                 <ReportHeader name={name} company={company} />
                 <div className="flex justify-between items-center p-3 md:p-4 bg-muted/50 rounded-lg">
                     <div className='flex items-center gap-2'>
                         <DollarSign className='h-5 w-5 text-zinc-400'/>

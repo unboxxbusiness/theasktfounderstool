@@ -10,7 +10,6 @@ import { Label } from '@/components/ui/label';
 import { ShieldCheck } from '@/components/icons';
 import { HelpCircle } from 'lucide-react';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
-import { ReportHeader } from '@/components/report-header';
 import { SocialShare } from '@/components/social-share';
 
 const CHART_COLORS = ['hsl(var(--chart-1))', 'hsl(var(--chart-2))', 'hsl(var(--chart-3))'];
@@ -26,8 +25,6 @@ const formatCurrency = (value: number) => {
 
 export default function SafeCalculatorPage() {
   const searchParams = useSearchParams();
-  const [name, setName] = useState(searchParams.get('name') || '');
-  const [company, setCompany] = useState(searchParams.get('company') || '');
   const [preMoneyValuation, setPreMoneyValuation] = useState(Number(searchParams.get('preMoneyValuation')) || 5000000);
   const [newMoney, setNewMoney] = useState(Number(searchParams.get('newMoney')) || 1000000);
   const [safeValuationCap, setSafeValuationCap] = useState(Number(searchParams.get('safeValuationCap')) || 8000000);
@@ -70,8 +67,6 @@ export default function SafeCalculatorPage() {
 
   useEffect(() => {
     const params = new URLSearchParams();
-    params.set('name', name);
-    params.set('company', company);
     params.set('preMoneyValuation', String(preMoneyValuation));
     params.set('newMoney', String(newMoney));
     params.set('safeValuationCap', String(safeValuationCap));
@@ -82,7 +77,7 @@ export default function SafeCalculatorPage() {
     if (newUrl !== shareUrl) {
       setShareUrl(newUrl);
     }
-  }, [name, company, preMoneyValuation, newMoney, safeValuationCap, safeDiscount, safeInvestment, shareUrl]);
+  }, [preMoneyValuation, newMoney, safeValuationCap, safeDiscount, safeInvestment, shareUrl]);
 
 
   const chartData = [
@@ -107,19 +102,9 @@ export default function SafeCalculatorPage() {
                     </CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-6">
-                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
-                        <div className="space-y-2">
-                            <Label htmlFor="name">Your Name</Label>
-                            <Input id="name" value={name} onChange={(e) => setName(e.target.value)} placeholder="e.g., Jane Doe" />
-                        </div>
-                        <div className="space-y-2">
-                            <Label htmlFor="company">Company Name</Label>
-                            <Input id="company" value={company} onChange={(e) => setCompany(e.target.value)} placeholder="e.g., Acme Inc." />
-                        </div>
-                    </div>
                     <Card className='bg-muted/30'>
                         <CardHeader><CardTitle className='text-lg md:text-xl'>Your Next Funding Round</CardTitle></CardHeader>
-                        <CardContent className='grid grid-cols-1 md:grid-cols-2 gap-4'>
+                        <CardContent className='grid grid-cols-1 md:grid-cols-2 gap-4 pt-4'>
                             <div className="space-y-2">
                                 <Label htmlFor="preMoneyValuation">What's the Pre-Money Valuation of the round?</Label>
                                 <Input id="preMoneyValuation" type="number" value={preMoneyValuation} onChange={(e) => setPreMoneyValuation(Number(e.target.value))} step="500000" />
@@ -132,7 +117,7 @@ export default function SafeCalculatorPage() {
                     </Card>
                      <Card className='bg-muted/30'>
                         <CardHeader><CardTitle className='text-lg md:text-xl'>Your SAFE Note Details</CardTitle></CardHeader>
-                        <CardContent className='grid grid-cols-1 md:grid-cols-3 gap-4'>
+                        <CardContent className='grid grid-cols-1 md:grid-cols-3 gap-4 pt-4'>
                             <div className="space-y-2">
                                 <Label htmlFor="safeInvestment">Total SAFE Investment</Label>
                                 <Input id="safeInvestment" type="number" value={safeInvestment} onChange={(e) => setSafeInvestment(Number(e.target.value))} step="50000" />
@@ -151,8 +136,7 @@ export default function SafeCalculatorPage() {
                         <CardHeader>
                             <CardTitle className="text-lg md:text-xl">Post-Conversion Summary</CardTitle>
                         </CardHeader>
-                         <CardContent className="grid gap-4 text-sm">
-                            <ReportHeader name={name} company={company} />
+                         <CardContent className="grid gap-4 text-sm pt-4">
                              <div className="grid grid-cols-2 gap-2 md:gap-4">
                                 <div className="font-semibold">SAFE Conversion Valuation:</div>
                                 <div>{formatCurrency(effectiveValuation)}</div>

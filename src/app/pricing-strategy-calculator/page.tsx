@@ -9,7 +9,6 @@ import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { DollarSign, HelpCircle } from 'lucide-react';
-import { ReportHeader } from '@/components/report-header';
 import { SocialShare } from '@/components/social-share';
 
 const formatCurrency = (value: number) => {
@@ -22,8 +21,6 @@ const formatCurrency = (value: number) => {
 
 export default function PricingStrategyCalculatorPage() {
   const searchParams = useSearchParams();
-  const [name, setName] = useState(searchParams.get('name') || '');
-  const [company, setCompany] = useState(searchParams.get('company') || '');
   const [costPerUnit, setCostPerUnit] = useState(Number(searchParams.get('costPerUnit')) || 15);
   const [desiredMargin, setDesiredMargin] = useState(Number(searchParams.get('desiredMargin')) || 70);
   const [competitorPrice, setCompetitorPrice] = useState(Number(searchParams.get('competitorPrice')) || 60);
@@ -42,8 +39,6 @@ export default function PricingStrategyCalculatorPage() {
 
   useEffect(() => {
     const params = new URLSearchParams();
-    params.set('name', name);
-    params.set('company', company);
     params.set('costPerUnit', String(costPerUnit));
     params.set('desiredMargin', String(desiredMargin));
     params.set('competitorPrice', String(competitorPrice));
@@ -52,7 +47,7 @@ export default function PricingStrategyCalculatorPage() {
     if (newUrl !== shareUrl) {
       setShareUrl(newUrl);
     }
-  }, [name, company, costPerUnit, desiredMargin, competitorPrice, shareUrl]);
+  }, [costPerUnit, desiredMargin, competitorPrice, shareUrl]);
 
 
   return (
@@ -70,16 +65,6 @@ export default function PricingStrategyCalculatorPage() {
           </CardHeader>
           <CardContent className="grid gap-8">
             <div className="space-y-6">
-               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
-                <div className="space-y-2">
-                    <Label htmlFor="name">Your Name</Label>
-                    <Input id="name" value={name} onChange={(e) => setName(e.target.value)} placeholder="e.g., Jane Doe" />
-                </div>
-                <div className="space-y-2">
-                    <Label htmlFor="company">Company Name</Label>
-                    <Input id="company" value={company} onChange={(e) => setCompany(e.target.value)} placeholder="e.g., Acme Inc." />
-                </div>
-              </div>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
                 <div className="space-y-2">
                   <Label htmlFor="costPerUnit">What's your total cost to deliver one unit?</Label>
@@ -118,8 +103,6 @@ export default function PricingStrategyCalculatorPage() {
               </div>
             </div>
             
-            <ReportHeader name={name} company={company} />
-
             <div className="space-y-6">
                <div className='flex items-center justify-center gap-2'>
                     <Label className="text-md md:text-lg text-zinc-400">Your Recommended Price Points</Label>
@@ -168,7 +151,7 @@ export default function PricingStrategyCalculatorPage() {
             </div>
             <SocialShare 
                 shareUrl={shareUrl}
-                text={`I'm using TheASKT's free toolkit to figure out my pricing strategy for ${company || 'my startup'}.`}
+                text={`I'm using TheASKT's free toolkit to figure out my pricing strategy for my startup.`}
             />
           </CardContent>
         </Card>

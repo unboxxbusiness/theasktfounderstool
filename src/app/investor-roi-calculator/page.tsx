@@ -7,7 +7,6 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
 import { PiggyBank } from '@/components/icons';
-import { ReportHeader } from '@/components/report-header';
 import { SocialShare } from '@/components/social-share';
 
 const formatCurrency = (value: number) => {
@@ -35,8 +34,6 @@ const formatCompactCurrency = (value: number) => {
 
 export default function InvestorROICalculatorPage() {
   const searchParams = useSearchParams();
-  const [name, setName] = useState(searchParams.get('name') || '');
-  const [company, setCompany] = useState(searchParams.get('company') || '');
   const [investmentAmount, setInvestmentAmount] = useState(Number(searchParams.get('investmentAmount')) || 250000);
   const [equityPercentage, setEquityPercentage] = useState(Number(searchParams.get('equityPercentage')) || 10);
   const [exitValuation, setExitValuation] = useState(Number(searchParams.get('exitValuation')) || 100000000);
@@ -53,8 +50,6 @@ export default function InvestorROICalculatorPage() {
 
   useEffect(() => {
     const params = new URLSearchParams();
-    params.set('name', name);
-    params.set('company', company);
     params.set('investmentAmount', String(investmentAmount));
     params.set('equityPercentage', String(equityPercentage));
     params.set('exitValuation', String(exitValuation));
@@ -63,7 +58,7 @@ export default function InvestorROICalculatorPage() {
     if(newUrl !== shareUrl) {
       setShareUrl(newUrl);
     }
-  }, [name, company, investmentAmount, equityPercentage, exitValuation, shareUrl]);
+  }, [investmentAmount, equityPercentage, exitValuation, shareUrl]);
 
   return (
     <div className="container mx-auto max-w-4xl py-8 md:py-12 px-4 md:px-6">
@@ -79,16 +74,6 @@ export default function InvestorROICalculatorPage() {
         </CardHeader>
         <CardContent className="grid gap-8">
           <div className="space-y-6">
-             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
-                <div className="space-y-2">
-                    <Label htmlFor="name">Your Name</Label>
-                    <Input id="name" value={name} onChange={(e) => setName(e.target.value)} placeholder="e.g., Jane Doe" />
-                </div>
-                <div className="space-y-2">
-                    <Label htmlFor="company">Company Name</Label>
-                    <Input id="company" value={company} onChange={(e) => setCompany(e.target.value)} placeholder="e.g., Acme Inc." />
-                </div>
-              </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
               <div className="space-y-2">
                 <Label htmlFor="investmentAmount">How much is the investor putting in?</Label>
@@ -123,8 +108,6 @@ export default function InvestorROICalculatorPage() {
             </div>
           </div>
           
-          <ReportHeader name={name} company={company} />
-
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div className="space-y-4 text-center bg-muted/50 p-6 rounded-lg">
                   <Label className="text-md md:text-lg text-zinc-400">Potential Investor Payout</Label>

@@ -15,7 +15,6 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '
 import { PlusCircle, Trash2, Scale, HelpCircle } from 'lucide-react';
 import { Slider } from '@/components/ui/slider';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
-import { ReportHeader } from '@/components/report-header';
 import { SocialShare } from '@/components/social-share';
 
 const founderSchema = z.object({
@@ -57,8 +56,6 @@ const getDefaultFounders = (searchParams: URLSearchParams) => {
 
 export default function EquitySplitCalculatorPage() {
   const searchParams = useSearchParams();
-  const [name, setName] = useState(searchParams.get('name') || '');
-  const [company, setCompany] = useState(searchParams.get('company') || '');
   const [weights, setWeights] = useState({ 
       idea: Number(searchParams.get('weightIdea')) || 40, 
       time: Number(searchParams.get('weightTime')) || 40, 
@@ -96,8 +93,6 @@ export default function EquitySplitCalculatorPage() {
 
   useEffect(() => {
     const params = new URLSearchParams();
-    params.set('name', name);
-    params.set('company', company);
     params.set('weightIdea', String(weights.idea));
     params.set('weightTime', String(weights.time));
     params.set('weightMoney', String(weights.money));
@@ -107,7 +102,7 @@ export default function EquitySplitCalculatorPage() {
     if (newUrl !== shareUrl) {
       setShareUrl(newUrl);
     }
-  }, [name, company, weights, founderData, shareUrl]);
+  }, [weights, founderData, shareUrl]);
 
 
   const handleWeightChange = (category: 'idea' | 'time' | 'money', value: number) => {
@@ -136,16 +131,6 @@ export default function EquitySplitCalculatorPage() {
               <CardContent>
                 <Form {...form}>
                   <form className="space-y-8">
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
-                      <div className="space-y-2">
-                          <Label htmlFor="name">Your Name</Label>
-                          <Input id="name" value={name} onChange={(e) => setName(e.target.value)} placeholder="e.g., Jane Doe" />
-                      </div>
-                      <div className="space-y-2">
-                          <Label htmlFor="company">Company Name</Label>
-                          <Input id="company" value={company} onChange={(e) => setCompany(e.target.value)} placeholder="e.g., Acme Inc." />
-                      </div>
-                    </div>
                     <Card>
                       <CardHeader>
                         <CardTitle className='text-lg md:text-xl'>Step 1: How important is each category?</CardTitle>
@@ -172,25 +157,23 @@ export default function EquitySplitCalculatorPage() {
                       {fields.map((field, index) => (
                         <Card key={field.id} className="mb-4">
                           <CardHeader className='flex-row items-center justify-between'>
-                            <CardTitle className='text-lg md:text-xl'>{form.getValues(`founders.${index}.name`)}</CardTitle>
-                            <Button variant="ghost" size="icon" onClick={() => remove(index)} disabled={fields.length <= 1}>
-                              <Trash2 className="h-4 w-4" />
-                            </Button>
-                          </CardHeader>
-                          <CardContent className="space-y-4">
-                             <FormField
+                            <FormField
                                 control={form.control}
                                 name={`founders.${index}.name`}
                                 render={({ field }) => (
-                                    <FormItem>
-                                    <FormLabel>Founder's Name</FormLabel>
+                                    <FormItem className='flex-grow'>
                                     <FormControl>
-                                        <Input {...field} />
+                                        <Input {...field} className='text-lg md:text-xl font-semibold border-0 bg-transparent -ml-2 !ring-0 !shadow-none' />
                                     </FormControl>
                                     <FormMessage />
                                     </FormItem>
                                 )}
                                 />
+                            <Button variant="ghost" size="icon" onClick={() => remove(index)} disabled={fields.length <= 1}>
+                              <Trash2 className="h-4 w-4" />
+                            </Button>
+                          </CardHeader>
+                          <CardContent className="space-y-4">
                             <p className="text-sm text-zinc-400">On a scale of 0-100, how much is this founder contributing in each area relative to others?</p>
                             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                                 <FormField
@@ -255,7 +238,6 @@ export default function EquitySplitCalculatorPage() {
                 <CardDescription>The final, data-driven result of your inputs.</CardDescription>
               </CardHeader>
               <CardContent>
-                <ReportHeader name={name} company={company} />
                 <div className="w-full h-64 md:h-80">
                   <ResponsiveContainer>
                     <PieChart>
