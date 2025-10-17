@@ -24,17 +24,6 @@ const formatCurrency = (value: number) => {
   }).format(value);
 };
 
-const formatCompactCurrency = (value: number) => {
-  return new Intl.NumberFormat('en-US', {
-    style: 'currency',
-    currency: 'USD',
-    notation: 'compact',
-    compactDisplay: 'short',
-    minimumFractionDigits: 1,
-    maximumFractionDigits: 1,
-  }).format(value);
-}
-
 export default function DilutionCalculatorPage() {
   const searchParams = useSearchParams();
   const [name, setName] = useState(searchParams.get('name') || '');
@@ -67,8 +56,12 @@ export default function DilutionCalculatorPage() {
     params.set('founderShares', String(founderShares));
     params.set('preMoneyValuation', String(preMoneyValuation));
     params.set('investment', String(investment));
-    setShareUrl(`${window.location.origin}${window.location.pathname}?${params.toString()}`);
-  }, [name, company, founderShares, preMoneyValuation, investment]);
+
+    const newUrl = `${window.location.origin}${window.location.pathname}?${params.toString()}`;
+    if (newUrl !== shareUrl) {
+      setShareUrl(newUrl);
+    }
+  }, [name, company, founderShares, preMoneyValuation, investment, shareUrl]);
 
   const chartData = [
     { name: 'Founder(s)', value: founderOwnership },
@@ -77,21 +70,21 @@ export default function DilutionCalculatorPage() {
 
   return (
     <TooltipProvider>
-    <div className="container mx-auto max-w-5xl py-12 px-4 md:px-6">
-      <div className="grid grid-cols-1 lg:grid-cols-5 gap-8">
+    <div className="container mx-auto max-w-5xl py-8 md:py-12 px-4 md:px-6">
+      <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 lg:gap-12">
         <div className="lg:col-span-3">
             <Card>
                 <CardHeader>
-                    <CardTitle className="text-3xl font-headline flex items-center gap-2">
-                        <TrendingDown className="h-8 w-8 text-primary" />
+                    <CardTitle className="text-2xl md:text-3xl font-headline flex items-center gap-2">
+                        <TrendingDown className="h-7 w-7 md:h-8 md:w-8 text-primary" />
                         Funding Round Dilution Calculator
                     </CardTitle>
                     <CardDescription>
-                        See how much equity you’ll lose in your next round. Model the impact of a new investment on your cap table.
+                        Model the impact of a new investment on your cap table.
                     </CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-6">
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
                       <div className="space-y-2">
                           <Label htmlFor="name">Your Name</Label>
                           <Input id="name" value={name} onChange={(e) => setName(e.target.value)} placeholder="e.g., Jane Doe" />
@@ -133,11 +126,11 @@ export default function DilutionCalculatorPage() {
                     </div>
                     <Card className="bg-muted/50">
                         <CardHeader>
-                            <CardTitle className="text-xl">Post-Funding Summary</CardTitle>
+                            <CardTitle className="text-lg md:text-xl">Post-Funding Summary</CardTitle>
                         </CardHeader>
                         <CardContent className="grid gap-4 text-sm">
                             <ReportHeader name={name} company={company} />
-                             <div className="grid grid-cols-2 gap-4">
+                             <div className="grid grid-cols-2 gap-2 md:gap-4">
                                 <div className="font-semibold">Post-Money Valuation:</div>
                                 <div>{formatCurrency(postMoneyValuation)}</div>
                                 <div className="font-semibold">Founder Ownership:</div>
@@ -159,7 +152,7 @@ export default function DilutionCalculatorPage() {
         <div className="lg:col-span-2">
            <Card>
               <CardHeader>
-                <CardTitle className="text-xl flex items-center gap-2">
+                <CardTitle className="text-lg md:text-xl flex items-center gap-2">
                     Post-Funding Cap Table
                     <Tooltip>
                         <TooltipTrigger asChild>
@@ -173,7 +166,7 @@ export default function DilutionCalculatorPage() {
                 <CardDescription>A visual representation of the new equity distribution.</CardDescription>
               </CardHeader>
               <CardContent>
-                <div className="w-full h-80">
+                <div className="w-full h-64 md:h-80">
                   <ResponsiveContainer>
                     <PieChart>
                       <Pie
@@ -182,7 +175,7 @@ export default function DilutionCalculatorPage() {
                         nameKey="name"
                         cx="50%"
                         cy="50%"
-                        outerRadius={100}
+                        outerRadius="80%"
                         label={({ name, value }) => `${name}: ${value.toFixed(1)}%`}
                       >
                         {chartData.map((entry, index) => (

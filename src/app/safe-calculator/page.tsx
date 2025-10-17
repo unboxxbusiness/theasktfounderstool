@@ -76,8 +76,12 @@ export default function SafeCalculatorPage() {
     params.set('safeValuationCap', String(safeValuationCap));
     params.set('safeDiscount', String(safeDiscount));
     params.set('safeInvestment', String(safeInvestment));
-    setShareUrl(`${window.location.origin}${window.location.pathname}?${params.toString()}`);
-  }, [name, company, preMoneyValuation, newMoney, safeValuationCap, safeDiscount, safeInvestment]);
+    
+    const newUrl = `${window.location.origin}${window.location.pathname}?${params.toString()}`;
+    if (newUrl !== shareUrl) {
+      setShareUrl(newUrl);
+    }
+  }, [name, company, preMoneyValuation, newMoney, safeValuationCap, safeDiscount, safeInvestment, shareUrl]);
 
 
   const chartData = [
@@ -88,13 +92,13 @@ export default function SafeCalculatorPage() {
 
   return (
     <TooltipProvider>
-    <div className="container mx-auto max-w-5xl py-12 px-4 md:px-6">
-      <div className="grid grid-cols-1 lg:grid-cols-5 gap-8">
+    <div className="container mx-auto max-w-5xl py-8 md:py-12 px-4 md:px-6">
+      <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 lg:gap-12">
         <div className="lg:col-span-3">
             <Card>
                 <CardHeader>
-                    <CardTitle className="text-3xl font-headline flex items-center gap-2">
-                        <ShieldCheck className="h-8 w-8 text-primary" />
+                    <CardTitle className="text-2xl md:text-3xl font-headline flex items-center gap-2">
+                        <ShieldCheck className="h-7 w-7 md:h-8 md:w-8 text-primary" />
                         Post-Money SAFE Dilution Calculator
                     </CardTitle>
                     <CardDescription>
@@ -102,7 +106,7 @@ export default function SafeCalculatorPage() {
                     </CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-6">
-                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
                         <div className="space-y-2">
                             <Label htmlFor="name">Your Name</Label>
                             <Input id="name" value={name} onChange={(e) => setName(e.target.value)} placeholder="e.g., Jane Doe" />
@@ -113,7 +117,7 @@ export default function SafeCalculatorPage() {
                         </div>
                     </div>
                     <Card className='bg-muted/30'>
-                        <CardHeader><CardTitle className='text-lg'>Priced Round Details</CardTitle></CardHeader>
+                        <CardHeader><CardTitle className='text-lg md:text-xl'>Priced Round Details</CardTitle></CardHeader>
                         <CardContent className='grid grid-cols-1 md:grid-cols-2 gap-4'>
                             <div className="space-y-2">
                                 <Label htmlFor="preMoneyValuation">Pre-Money Valuation</Label>
@@ -126,10 +130,10 @@ export default function SafeCalculatorPage() {
                         </CardContent>
                     </Card>
                      <Card className='bg-muted/30'>
-                        <CardHeader><CardTitle className='text-lg'>SAFE Note Details</CardTitle></CardHeader>
+                        <CardHeader><CardTitle className='text-lg md:text-xl'>SAFE Note Details</CardTitle></CardHeader>
                         <CardContent className='grid grid-cols-1 md:grid-cols-3 gap-4'>
                             <div className="space-y-2">
-                                <Label htmlFor="safeInvestment">SAFE Investment Amount</Label>
+                                <Label htmlFor="safeInvestment">SAFE Investment</Label>
                                 <Input id="safeInvestment" type="number" value={safeInvestment} onChange={(e) => setSafeInvestment(Number(e.target.value))} step="50000" />
                             </div>
                             <div className="space-y-2">
@@ -144,11 +148,11 @@ export default function SafeCalculatorPage() {
                     </Card>
                     <Card className="bg-muted/50">
                         <CardHeader>
-                            <CardTitle className="text-xl">Post-Conversion Summary</CardTitle>
+                            <CardTitle className="text-lg md:text-xl">Post-Conversion Summary</CardTitle>
                         </CardHeader>
                          <CardContent className="grid gap-4 text-sm">
                             <ReportHeader name={name} company={company} />
-                             <div className="grid grid-cols-2 gap-4">
+                             <div className="grid grid-cols-2 gap-2 md:gap-4">
                                 <div className="font-semibold">SAFE Effective Valuation:</div>
                                 <div>{formatCurrency(effectiveValuation)}</div>
                                 <div className="font-semibold">Founder Ownership:</div>
@@ -166,7 +170,7 @@ export default function SafeCalculatorPage() {
         <div className="lg:col-span-2 space-y-8">
            <Card>
               <CardHeader>
-                <CardTitle className="text-xl flex items-center gap-2">
+                <CardTitle className="text-lg md:text-xl flex items-center gap-2">
                     Post-Round Cap Table
                     <Tooltip>
                         <TooltipTrigger asChild>
@@ -180,7 +184,7 @@ export default function SafeCalculatorPage() {
                 <CardDescription>A visual representation of the new equity distribution.</CardDescription>
               </CardHeader>
               <CardContent>
-                <div className="w-full h-80">
+                <div className="w-full h-64 md:h-80">
                   <ResponsiveContainer>
                     <PieChart>
                       <Pie
@@ -189,7 +193,7 @@ export default function SafeCalculatorPage() {
                         nameKey="name"
                         cx="50%"
                         cy="50%"
-                        outerRadius={100}
+                        outerRadius="80%"
                         label={({ name, value }) => `${name}: ${value.toFixed(1)}%`}
                       >
                         {chartData.map((entry, index) => (

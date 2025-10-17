@@ -3,11 +3,9 @@ import Link from "next/link";
 import Image from "next/image";
 import {
   ArrowRight,
-  CheckCircle,
   Banknote,
   Users,
   TrendingUp,
-  Heart,
   Frown,
   Smile,
   ShieldCheck,
@@ -18,6 +16,7 @@ import {
   Landmark,
   DollarSign,
   Megaphone,
+  Heart,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
@@ -29,7 +28,7 @@ import {
 } from "@/components/ui/card";
 import { PlaceHolderImages } from "@/lib/placeholder-images";
 
-const heroImage = PlaceHolderImages.find((img) => img.id === 'hero-image');
+const heroImage = PlaceHolderImages.find((img) => img.id === 'community-image');
 
 export default function Home() {
   const beforeItems = [
@@ -101,6 +100,12 @@ export default function Home() {
         description: 'Determine how much you should raise.',
         link: '/fundraising-goal-calculator',
       },
+       {
+        icon: <DollarSign className="h-6 w-6 mb-2 text-primary" />,
+        title: 'Investor ROI',
+        description: 'Estimate the potential return for your investors.',
+        link: '/investor-roi-calculator',
+      },
       {
         icon: <DollarSign className="h-6 w-6 mb-2 text-primary" />,
         title: 'Pricing Strategy',
@@ -118,21 +123,21 @@ export default function Home() {
   return (
     <div className="flex flex-col min-h-dvh">
       <main className="flex-1">
-        <section className="w-full py-24 md:py-32 lg:py-48 text-center relative overflow-hidden">
+        <section className="w-full py-20 md:py-32 lg:py-40 text-center relative overflow-hidden">
           <div
-            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary/20 rounded-full blur-[150px] animate-pulse"
+            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-[800px] h-[800px] bg-primary/10 rounded-full blur-[150px] animate-pulse"
             aria-hidden="true"
           />
           <div className="container px-4 md:px-6 relative">
             <div className="flex flex-col items-center space-y-6">
-              <h1 className="text-4xl font-bold tracking-tighter sm:text-5xl md:text-6xl lg:text-7xl/none font-headline bg-clip-text text-transparent bg-gradient-to-br from-foreground to-muted-foreground">
+              <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tighter font-headline bg-clip-text text-transparent bg-gradient-to-br from-foreground to-muted-foreground leading-tight">
                 Stop Guessing. Start Building.
               </h1>
-              <p className="max-w-[700px] text-muted-foreground md:text-xl">
+              <p className="max-w-[700px] text-muted-foreground text-base sm:text-lg md:text-xl">
                 The ultimate free toolkit for founders. Master your financials, make data-driven decisions, and build a startup that’s investor-ready from day one.
               </p>
-              <Button asChild size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground text-lg px-8 py-6 rounded-full shadow-lg shadow-primary/30">
-                <Link href="/valuation-calculator">
+              <Button asChild size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground text-md md:text-lg px-8 py-6 rounded-full shadow-lg shadow-primary/30">
+                <Link href="#tools">
                   Explore Calculators
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </Link>
@@ -154,29 +159,29 @@ export default function Home() {
         <section id="before-after" className="w-full py-12 md:py-24 lg:py-32">
             <div className="container px-4 md:px-6">
                  <div className="text-center max-w-3xl mx-auto">
-                    <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl font-headline">From Founder Chaos to Financial Clarity</h2>
+                    <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tighter font-headline">From Founder Chaos to Financial Clarity</h2>
                     <p className="mt-4 text-muted-foreground md:text-xl">Go from spreadsheets and uncertainty to a clear, fundable plan. </p>
                 </div>
 
-                <div className="mt-12 grid gap-8 md:grid-cols-2 items-center max-w-4xl mx-auto">
-                    <div className="rounded-xl bg-card p-8 border">
-                        <h3 className="text-2xl font-semibold mb-4 text-muted-foreground">Before</h3>
+                <div className="mt-12 grid gap-6 md:gap-8 md:grid-cols-2 items-center max-w-4xl mx-auto">
+                    <div className="rounded-xl bg-card p-6 md:p-8 border">
+                        <h3 className="text-xl md:text-2xl font-semibold mb-4 text-muted-foreground">Before</h3>
                         <ul className="space-y-3">
                             {beforeItems.map((item, index) => (
                                 <li key={index} className="flex items-center gap-3">
                                     <Frown className="h-5 w-5 text-destructive" />
-                                    <span className="text-lg text-muted-foreground">{item.text}</span>
+                                    <span className="text-md md:text-lg text-muted-foreground">{item.text}</span>
                                 </li>
                             ))}
                         </ul>
                     </div>
-                     <div className="rounded-xl bg-card p-8 border-2 border-primary/50 shadow-2xl shadow-primary/20">
-                        <h3 className="text-2xl font-semibold mb-4 text-foreground">After</h3>
+                     <div className="rounded-xl bg-card p-6 md:p-8 border-2 border-primary/50 shadow-2xl shadow-primary/20">
+                        <h3 className="text-xl md:text-2xl font-semibold mb-4 text-foreground">After</h3>
                         <ul className="space-y-3">
                              {afterItems.map((item, index) => (
                                 <li key={index} className="flex items-center gap-3">
                                     <Smile className="h-5 w-5 text-primary" />
-                                    <span className="text-lg font-medium text-foreground">{item.text}</span>
+                                    <span className="text-md md:text-lg font-medium text-foreground">{item.text}</span>
                                 </li>
                             ))}
                         </ul>
@@ -190,15 +195,15 @@ export default function Home() {
              <div className="flex flex-col items-center justify-center space-y-4 text-center">
               <div className="space-y-2">
                  <div className="inline-block rounded-lg bg-muted px-3 py-1 text-sm font-medium text-primary">The Toolkit</div>
-                <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl font-headline">
+                <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tighter font-headline">
                   Everything You Need. <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary to-purple-400">Nothing You Don't.</span>
                 </h2>
-                <p className="max-w-[900px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
+                <p className="max-w-[900px] text-muted-foreground md:text-xl/relaxed">
                   Ditch the complex software and expensive consultants. These simple, powerful calculators are all you need to plan, build, and grow.
                 </p>
               </div>
             </div>
-            <div className="mx-auto grid max-w-6xl items-stretch gap-6 sm:grid-cols-2 lg:grid-cols-3 mt-12">
+            <div className="mx-auto grid max-w-6xl items-stretch gap-4 sm:grid-cols-2 lg:grid-cols-3 mt-12">
                 {tools.map((tool) => (
                     <Card key={tool.title} className="flex flex-col hover:border-primary/50 hover:bg-muted/30 transition-all duration-200">
                         <CardHeader>
@@ -206,10 +211,10 @@ export default function Home() {
                             <CardTitle>{tool.title}</CardTitle>
                         </CardHeader>
                         <CardContent className="flex-grow">
-                            <p className="text-muted-foreground">{tool.description}</p>
+                            <p className="text-muted-foreground text-sm">{tool.description}</p>
                         </CardContent>
                         <div className="p-6 pt-0">
-                            <Button asChild variant="link" className="p-0">
+                            <Button asChild variant="link" className="p-0 text-sm">
                                 <Link href={tool.link}>
                                     Use Calculator <ArrowRight className="ml-2 h-4 w-4"/>
                                 </Link>
@@ -228,7 +233,7 @@ export default function Home() {
                 <div className="inline-block rounded-lg bg-muted px-3 py-1 text-sm font-medium text-primary">
                   For Founders, By Founders
                 </div>
-                <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl font-headline">
+                <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tighter font-headline">
                   You're Not Alone on This Journey.
                 </h2>
                  <p className="text-muted-foreground md:text-xl/relaxed">
@@ -259,10 +264,10 @@ export default function Home() {
                     <Image
                         alt="Community"
                         className="mx-auto aspect-video overflow-hidden rounded-xl object-cover"
-                        data-ai-hint="abstract network"
-                        height="550"
+                        data-ai-hint={heroImage.imageHint}
+                        height={heroImage.imageUrl.split('/').pop()?.split('x')[1] || 550}
                         src={heroImage.imageUrl}
-                        width="555"
+                        width={heroImage.imageUrl.split('/').pop()?.split('x')[0] || 550}
                     />
                     </div>
               )}
@@ -273,7 +278,7 @@ export default function Home() {
         <section className="w-full py-20 md:py-32 bg-card">
             <div className="container grid items-center justify-center gap-4 px-4 text-center md:px-6">
                 <div className="space-y-4">
-                <h2 className="text-4xl font-bold tracking-tighter md:text-5xl/tight font-headline">
+                <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tighter font-headline">
                     Ready to build something amazing?
                 </h2>
                 <p className="mx-auto max-w-[600px] text-muted-foreground md:text-xl/relaxed">
@@ -281,7 +286,7 @@ export default function Home() {
                 </p>
                 </div>
                 <div className="flex justify-center">
-                    <Button asChild size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground text-lg px-8 py-6 rounded-full shadow-lg shadow-primary/30 animate-pulse">
+                    <Button asChild size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground text-md md:text-lg px-8 py-6 rounded-full shadow-lg shadow-primary/30 animate-pulse">
                         <Link href="/valuation-calculator">
                         Start Planning for Free
                         <ArrowRight className="ml-2 h-5 w-5" />

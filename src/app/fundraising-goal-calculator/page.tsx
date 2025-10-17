@@ -44,17 +44,18 @@ export default function FundraisingGoalCalculatorPage() {
     params.set('buffer', String(buffer));
     
     const newUrl = `${window.location.origin}${window.location.pathname}?${params.toString()}`;
-    setShareUrl(newUrl);
-
-  }, [name, company, monthlyBurn, targetRunway, buffer]);
+    if (newUrl !== shareUrl) {
+      setShareUrl(newUrl);
+    }
+  }, [name, company, monthlyBurn, targetRunway, buffer, shareUrl]);
 
   return (
     <TooltipProvider>
-      <div className="container mx-auto max-w-3xl py-12 px-4 md:px-6">
+      <div className="container mx-auto max-w-4xl py-8 md:py-12 px-4 md:px-6">
         <Card>
           <CardHeader>
-            <CardTitle className="text-3xl font-headline flex items-center gap-2">
-              <Landmark className="h-8 w-8 text-primary" />
+            <CardTitle className="text-2xl md:text-3xl font-headline flex items-center gap-2">
+              <Landmark className="h-7 w-7 md:h-8 md:w-8 text-primary" />
               Fundraising Goal Calculator
             </CardTitle>
             <CardDescription>
@@ -63,7 +64,7 @@ export default function FundraisingGoalCalculatorPage() {
           </CardHeader>
           <CardContent className="grid gap-8">
             <div className="space-y-6">
-               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
                 <div className="space-y-2">
                     <Label htmlFor="name">Your Name</Label>
                     <Input id="name" value={name} onChange={(e) => setName(e.target.value)} placeholder="e.g., Jane Doe" />
@@ -73,7 +74,7 @@ export default function FundraisingGoalCalculatorPage() {
                     <Input id="company" value={company} onChange={(e) => setCompany(e.target.value)} placeholder="e.g., Acme Inc." />
                 </div>
               </div>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
                 <div className="space-y-2">
                   <Label htmlFor="monthlyBurn">Current Monthly Burn Rate</Label>
                   <Input
@@ -123,11 +124,11 @@ export default function FundraisingGoalCalculatorPage() {
             <ReportHeader name={name} company={company} />
             
             <div className="space-y-4 text-center bg-muted/50 p-6 rounded-lg">
-              <Label className="text-lg text-muted-foreground">Ideal Funding Goal</Label>
-              <div className="text-5xl font-bold text-primary">
+              <Label className="text-md md:text-lg text-muted-foreground">Ideal Funding Goal</Label>
+              <div className="text-4xl md:text-5xl font-bold text-primary">
                 {formatCurrency(fundingGoal)}
               </div>
-              <p className="text-muted-foreground">
+              <p className="text-sm md:text-base text-muted-foreground">
                 This gives you {targetRunway} months of runway with a {buffer}% buffer.
               </p>
             </div>

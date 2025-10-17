@@ -4,7 +4,7 @@
 import { useState, useMemo, useEffect } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Label } from '@/components/ui/label';
+import { Label } from '@/componentsui/label';
 import { Input } from '@/components/ui/input';
 import { PiggyBank } from 'lucide-react';
 import { ReportHeader } from '@/components/report-header';
@@ -58,24 +58,28 @@ export default function InvestorROICalculatorPage() {
     params.set('investmentAmount', String(investmentAmount));
     params.set('equityPercentage', String(equityPercentage));
     params.set('exitValuation', String(exitValuation));
-    setShareUrl(`${window.location.origin}${window.location.pathname}?${params.toString()}`);
-  }, [name, company, investmentAmount, equityPercentage, exitValuation]);
+    
+    const newUrl = `${window.location.origin}${window.location.pathname}?${params.toString()}`;
+    if(newUrl !== shareUrl) {
+      setShareUrl(newUrl);
+    }
+  }, [name, company, investmentAmount, equityPercentage, exitValuation, shareUrl]);
 
   return (
-    <div className="container mx-auto max-w-3xl py-12 px-4 md:px-6">
+    <div className="container mx-auto max-w-4xl py-8 md:py-12 px-4 md:px-6">
       <Card>
         <CardHeader>
-          <CardTitle className="text-3xl font-headline flex items-center gap-2">
-            <PiggyBank className="h-8 w-8 text-primary" />
+          <CardTitle className="text-2xl md:text-3xl font-headline flex items-center gap-2">
+            <PiggyBank className="h-7 w-7 md:h-8 md:w-8 text-primary" />
             Investor ROI Calculator
           </CardTitle>
           <CardDescription>
-            Estimate the potential return on investment for your investors based on a future exit valuation. See what your investors could make.
+            Estimate the potential return on investment for your investors based on a future exit valuation.
           </CardDescription>
         </CardHeader>
         <CardContent className="grid gap-8">
           <div className="space-y-6">
-             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
                 <div className="space-y-2">
                     <Label htmlFor="name">Your Name</Label>
                     <Input id="name" value={name} onChange={(e) => setName(e.target.value)} placeholder="e.g., Jane Doe" />
@@ -85,7 +89,7 @@ export default function InvestorROICalculatorPage() {
                     <Input id="company" value={company} onChange={(e) => setCompany(e.target.value)} placeholder="e.g., Acme Inc." />
                 </div>
               </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
               <div className="space-y-2">
                 <Label htmlFor="investmentAmount">Investment Amount</Label>
                 <Input
@@ -123,14 +127,14 @@ export default function InvestorROICalculatorPage() {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div className="space-y-4 text-center bg-muted/50 p-6 rounded-lg">
-                  <Label className="text-lg text-muted-foreground">Investor Payout at Exit</Label>
-                  <div className="text-5xl font-bold text-primary">
+                  <Label className="text-md md:text-lg text-muted-foreground">Investor Payout at Exit</Label>
+                  <div className="text-4xl md:text-5xl font-bold text-primary">
                       {formatCompactCurrency(payout)}
                   </div>
               </div>
               <div className="space-y-4 text-center bg-muted/50 p-6 rounded-lg">
-                  <Label className="text-lg text-muted-foreground">Return on Investment (ROI)</Label>
-                  <div className="text-5xl font-bold text-accent">
+                  <Label className="text-md md:text-lg text-muted-foreground">Return on Investment (ROI)</Label>
+                  <div className="text-4xl md:text-5xl font-bold text-accent">
                       {roiMultiple.toFixed(1)}x
                   </div>
               </div>

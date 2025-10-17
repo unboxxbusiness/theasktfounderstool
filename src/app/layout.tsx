@@ -1,3 +1,4 @@
+
 import type { Metadata } from "next";
 import "./globals.css";
 import { Inter } from "next/font/google";
@@ -31,7 +32,7 @@ export default function RootLayout({
       >
         <div className="relative flex min-h-dvh flex-col bg-background">
           <Header />
-          <main className="flex-1">{children}</main>
+          <main className="flex-1 py-6 md:py-10">{children}</main>
           <Footer />
         </div>
         <Toaster />

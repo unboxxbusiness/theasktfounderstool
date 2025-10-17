@@ -64,15 +64,19 @@ export default function RevenueProjectionCalculatorPage() {
     params.set('growthRate', String(growthRate));
     params.set('arpu', String(arpu));
     params.set('churnRate', String(churnRate));
-    setShareUrl(`${window.location.origin}${window.location.pathname}?${params.toString()}`);
-  }, [name, company, initialUsers, growthRate, arpu, churnRate]);
+    
+    const newUrl = `${window.location.origin}${window.location.pathname}?${params.toString()}`;
+    if (newUrl !== shareUrl) {
+      setShareUrl(newUrl);
+    }
+  }, [name, company, initialUsers, growthRate, arpu, churnRate, shareUrl]);
 
   return (
-    <div className="container mx-auto max-w-5xl py-12 px-4 md:px-6">
+    <div className="container mx-auto max-w-5xl py-8 md:py-12 px-4 md:px-6">
       <Card>
         <CardHeader>
-          <CardTitle className="text-3xl font-headline flex items-center gap-2">
-            <TrendingUp className="h-8 w-8 text-primary" />
+          <CardTitle className="text-2xl md:text-3xl font-headline flex items-center gap-2">
+            <TrendingUp className="h-7 w-7 md:h-8 md:w-8 text-primary" />
             Revenue Projection Calculator
           </CardTitle>
           <CardDescription>
@@ -81,7 +85,7 @@ export default function RevenueProjectionCalculatorPage() {
         </CardHeader>
         <CardContent className="grid gap-8">
           <div className="space-y-6">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
               <div className="space-y-2">
                   <Label htmlFor="name">Your Name</Label>
                   <Input id="name" value={name} onChange={(e) => setName(e.target.value)} placeholder="e.g., Jane Doe" />
@@ -91,9 +95,9 @@ export default function RevenueProjectionCalculatorPage() {
                   <Input id="company" value={company} onChange={(e) => setCompany(e.target.value)} placeholder="e.g., Acme Inc." />
               </div>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
               <div className="space-y-2">
-                <Label htmlFor="initialUsers" className='flex items-center gap-1'><Users className='h-4 w-4' />Initial Users</Label>
+                <Label htmlFor="initialUsers" className='flex items-center gap-1 text-sm'><Users className='h-4 w-4' />Initial Users</Label>
                 <Input
                   id="initialUsers"
                   type="number"
@@ -103,7 +107,7 @@ export default function RevenueProjectionCalculatorPage() {
                 />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="growthRate" className='flex items-center gap-1'><TrendingUp className='h-4 w-4' />Monthly Growth (%)</Label>
+                <Label htmlFor="growthRate" className='flex items-center gap-1 text-sm'><TrendingUp className='h-4 w-4' />Growth (%)</Label>
                 <Input
                   id="growthRate"
                   type="number"
@@ -113,7 +117,7 @@ export default function RevenueProjectionCalculatorPage() {
                 />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="arpu" className='flex items-center gap-1'><DollarSign className='h-4 w-4' />ARPU (Monthly)</Label>
+                <Label htmlFor="arpu" className='flex items-center gap-1 text-sm'><DollarSign className='h-4 w-4' />ARPU</Label>
                 <Input
                   id="arpu"
                   type="number"
@@ -123,7 +127,7 @@ export default function RevenueProjectionCalculatorPage() {
                 />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="churnRate" className='flex items-center gap-1'><Percent className='h-4 w-4' />Monthly Churn (%)</Label>
+                <Label htmlFor="churnRate" className='flex items-center gap-1 text-sm'><Percent className='h-4 w-4' />Churn (%)</Label>
                 <Input
                   id="churnRate"
                   type="number"
@@ -137,25 +141,25 @@ export default function RevenueProjectionCalculatorPage() {
           
           <Card className="bg-muted/50">
             <CardHeader>
-                <CardTitle className="text-xl">12-Month Projection</CardTitle>
+                <CardTitle className="text-lg md:text-xl">12-Month Projection</CardTitle>
             </CardHeader>
             <CardContent>
                 <ReportHeader name={name} company={company} />
                 <div className='text-center mb-6'>
-                    <p className="text-muted-foreground">Estimated Annual Revenue</p>
-                    <p className="text-4xl font-bold text-primary">{formatCurrency(totalRevenue)}</p>
+                    <p className="text-md text-muted-foreground">Estimated Annual Revenue</p>
+                    <p className="text-3xl md:text-4xl font-bold text-primary">{formatCurrency(totalRevenue)}</p>
                 </div>
-                <div className="w-full h-80">
+                <div className="w-full h-72 md:h-80">
                     <ResponsiveContainer>
                         <LineChart data={projectionData}>
                         <CartesianGrid strokeDasharray="3 3" />
-                        <XAxis dataKey="month" />
-                        <YAxis yAxisId="left" tickFormatter={(value) => formatCurrency(value)} />
-                        <YAxis yAxisId="right" orientation="right" tickFormatter={(value) => value.toLocaleString()} />
+                        <XAxis dataKey="month" fontSize={12} tickLine={false} axisLine={false} />
+                        <YAxis yAxisId="left" tickFormatter={(value) => formatCurrency(value)} fontSize={12} tickLine={false} axisLine={false} />
+                        <YAxis yAxisId="right" orientation="right" tickFormatter={(value) => value.toLocaleString()} fontSize={12} tickLine={false} axisLine={false} />
                         <RechartsTooltip formatter={(value, name) => name === 'Revenue' ? formatCurrency(value as number) : (value as number).toLocaleString()} />
                         <Legend />
-                        <Line yAxisId="left" type="monotone" dataKey="Revenue" stroke="hsl(var(--primary))" strokeWidth={2} activeDot={{ r: 8 }} />
-                        <Line yAxisId="right" type="monotone" dataKey="Users" stroke="hsl(var(--accent))" strokeWidth={2} />
+                        <Line yAxisId="left" type="monotone" dataKey="Revenue" stroke="hsl(var(--primary))" strokeWidth={2} activeDot={{ r: 8 }} dot={false} />
+                        <Line yAxisId="right" type="monotone" dataKey="Users" stroke="hsl(var(--accent))" strokeWidth={2} dot={false} />
                         </LineChart>
                     </ResponsiveContainer>
                 </div>

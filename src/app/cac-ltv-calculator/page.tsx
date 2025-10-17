@@ -54,8 +54,12 @@ export default function CacLtvCalculatorPage() {
     params.set('avgMonthlySpend', String(avgMonthlySpend));
     params.set('grossMargin', String(grossMargin));
     params.set('monthlyChurn', String(monthlyChurn));
-    setShareUrl(`${window.location.origin}${window.location.pathname}?${params.toString()}`);
-  }, [name, company, marketingSpend, customersAcquired, avgMonthlySpend, grossMargin, monthlyChurn]);
+    
+    const newUrl = `${window.location.origin}${window.location.pathname}?${params.toString()}`;
+    if(newUrl !== shareUrl) {
+      setShareUrl(newUrl);
+    }
+  }, [name, company, marketingSpend, customersAcquired, avgMonthlySpend, grossMargin, monthlyChurn, shareUrl]);
 
   const getRatioMessage = () => {
     if (ratio >= 3) {
@@ -85,21 +89,21 @@ export default function CacLtvCalculatorPage() {
   const ratioAlert = getRatioMessage();
 
   return (
-    <div className="container mx-auto max-w-4xl py-12 px-4 md:px-6">
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+    <div className="container mx-auto max-w-5xl py-8 md:py-12 px-4 md:px-6">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
         <div>
           <Card>
             <CardHeader>
-              <CardTitle className="text-3xl font-headline flex items-center gap-2">
-                <Scale className="h-8 w-8 text-primary" />
+              <CardTitle className="text-2xl md:text-3xl font-headline flex items-center gap-2">
+                <Scale className="h-7 w-7 md:h-8 md:w-8 text-primary" />
                 CAC vs. LTV Calculator
               </CardTitle>
               <CardDescription>
-                Is your startup profitable per customer? Analyze the relationship between Customer Lifetime Value (LTV) and Customer Acquisition Cost (CAC).
+                Analyze the relationship between Customer Lifetime Value (LTV) and Customer Acquisition Cost (CAC).
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-6">
-               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
                 <div className="space-y-2">
                     <Label htmlFor="name">Your Name</Label>
                     <Input id="name" value={name} onChange={(e) => setName(e.target.value)} placeholder="e.g., Jane Doe" />
@@ -170,26 +174,26 @@ export default function CacLtvCalculatorPage() {
               </CardHeader>
               <CardContent className="space-y-4">
                  <ReportHeader name={name} company={company} />
-                <div className="flex justify-between items-center p-4 bg-muted/50 rounded-lg">
+                <div className="flex justify-between items-center p-3 md:p-4 bg-muted/50 rounded-lg">
                     <div className='flex items-center gap-2'>
                         <DollarSign className='h-5 w-5 text-muted-foreground'/>
-                        <span className="font-semibold">Customer Acquisition Cost (CAC)</span>
+                        <span className="font-semibold text-sm md:text-base">Customer Acquisition Cost (CAC)</span>
                     </div>
-                    <span className="text-2xl font-bold">{formatCurrency(cac)}</span>
+                    <span className="text-xl md:text-2xl font-bold">{formatCurrency(cac)}</span>
                 </div>
-                <div className="flex justify-between items-center p-4 bg-muted/50 rounded-lg">
+                <div className="flex justify-between items-center p-3 md:p-4 bg-muted/50 rounded-lg">
                     <div className='flex items-center gap-2'>
                         <Users className='h-5 w-5 text-muted-foreground'/>
-                        <span className="font-semibold">Customer Lifetime Value (LTV)</span>
+                        <span className="font-semibold text-sm md:text-base">Customer Lifetime Value (LTV)</span>
                     </div>
-                    <span className="text-2xl font-bold">{formatCurrency(ltv)}</span>
+                    <span className="text-xl md:text-2xl font-bold">{formatCurrency(ltv)}</span>
                 </div>
-                 <div className="flex justify-between items-center p-4 bg-muted/50 rounded-lg">
+                 <div className="flex justify-between items-center p-3 md:p-4 bg-muted/50 rounded-lg">
                     <div className='flex items-center gap-2'>
                         <Percent className='h-5 w-5 text-muted-foreground'/>
-                        <span className="font-semibold">LTV to CAC Ratio</span>
+                        <span className="font-semibold text-sm md:text-base">LTV to CAC Ratio</span>
                     </div>
-                    <span className={`text-2xl font-bold ${ratioAlert.color}`}>{ratio.toFixed(2)} : 1</span>
+                    <span className={`text-xl md:text-2xl font-bold ${ratioAlert.color}`}>{ratio.toFixed(2)} : 1</span>
                 </div>
               </CardContent>
             </Card>

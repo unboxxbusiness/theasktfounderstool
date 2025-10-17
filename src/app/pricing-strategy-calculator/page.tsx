@@ -49,27 +49,28 @@ export default function PricingStrategyCalculatorPage() {
     params.set('competitorPrice', String(competitorPrice));
     
     const newUrl = `${window.location.origin}${window.location.pathname}?${params.toString()}`;
-    setShareUrl(newUrl);
-
-  }, [name, company, costPerUnit, desiredMargin, competitorPrice]);
+    if (newUrl !== shareUrl) {
+      setShareUrl(newUrl);
+    }
+  }, [name, company, costPerUnit, desiredMargin, competitorPrice, shareUrl]);
 
 
   return (
     <TooltipProvider>
-      <div className="container mx-auto max-w-3xl py-12 px-4 md:px-6">
+      <div className="container mx-auto max-w-4xl py-8 md:py-12 px-4 md:px-6">
         <Card>
           <CardHeader>
-            <CardTitle className="text-3xl font-headline flex items-center gap-2">
-              <DollarSign className="h-8 w-8 text-primary" />
+            <CardTitle className="text-2xl md:text-3xl font-headline flex items-center gap-2">
+              <DollarSign className="h-7 w-7 md:h-8 md:w-8 text-primary" />
               Pricing Strategy Calculator
             </CardTitle>
             <CardDescription>
-              Find your ideal price point instantly by analyzing costs, margins, and competitor pricing.
+              Find your ideal price point by analyzing costs, margins, and competitor pricing.
             </CardDescription>
           </CardHeader>
           <CardContent className="grid gap-8">
             <div className="space-y-6">
-               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
                 <div className="space-y-2">
                     <Label htmlFor="name">Your Name</Label>
                     <Input id="name" value={name} onChange={(e) => setName(e.target.value)} placeholder="e.g., Jane Doe" />
@@ -79,7 +80,7 @@ export default function PricingStrategyCalculatorPage() {
                     <Input id="company" value={company} onChange={(e) => setCompany(e.target.value)} placeholder="e.g., Acme Inc." />
                 </div>
               </div>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
                 <div className="space-y-2">
                   <Label htmlFor="costPerUnit">Cost Per Unit (Fully-loaded)</Label>
                   <Input
@@ -121,7 +122,7 @@ export default function PricingStrategyCalculatorPage() {
 
             <div className="space-y-6">
                <div className='flex items-center justify-center gap-2'>
-                    <Label className="text-lg text-muted-foreground">Recommended Price Points</Label>
+                    <Label className="text-md md:text-lg text-muted-foreground">Recommended Price Points</Label>
                      <Tooltip>
                         <TooltipTrigger asChild>
                             <HelpCircle className="h-4 w-4 text-muted-foreground cursor-help" />
@@ -133,33 +134,33 @@ export default function PricingStrategyCalculatorPage() {
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                  <Card className="text-center">
-                    <CardHeader>
-                      <CardTitle className="text-xl">Cost-Plus</CardTitle>
-                      <CardDescription>Margin-based</CardDescription>
+                  <Card className="text-center p-4">
+                    <CardHeader className="p-2">
+                      <CardTitle className="text-lg md:text-xl">Cost-Plus</CardTitle>
+                      <CardDescription className="text-sm">Margin-based</CardDescription>
                     </CardHeader>
-                    <CardContent>
-                      <p className="text-4xl font-bold">{pricingTiers.costPlus === Infinity ? 'N/A' : formatCurrency(pricingTiers.costPlus)}</p>
+                    <CardContent className="p-2">
+                      <p className="text-3xl md:text-4xl font-bold">{pricingTiers.costPlus === Infinity ? 'N/A' : formatCurrency(pricingTiers.costPlus)}</p>
                       <Badge variant="outline" className="mt-2">Your Target</Badge>
                     </CardContent>
                   </Card>
-                  <Card className="text-center border-primary/50 ring-2 ring-primary/20">
-                     <CardHeader>
-                      <CardTitle className="text-xl">Competitive</CardTitle>
-                      <CardDescription>Market-based</CardDescription>
+                  <Card className="text-center border-primary/50 ring-1 ring-primary/20 p-4">
+                     <CardHeader className="p-2">
+                      <CardTitle className="text-lg md:text-xl">Competitive</CardTitle>
+                      <CardDescription className="text-sm">Market-based</CardDescription>
                     </CardHeader>
-                    <CardContent>
-                      <p className="text-4xl font-bold text-primary">{formatCurrency(pricingTiers.competitive)}</p>
+                    <CardContent className="p-2">
+                      <p className="text-3xl md:text-4xl font-bold text-primary">{formatCurrency(pricingTiers.competitive)}</p>
                        <Badge variant="default" className="mt-2">Recommended</Badge>
                     </CardContent>
                   </Card>
-                   <Card className="text-center">
-                     <CardHeader>
-                      <CardTitle className="text-xl">Premium</CardTitle>
-                      <CardDescription>Value-based</CardDescription>
+                   <Card className="text-center p-4">
+                     <CardHeader className="p-2">
+                      <CardTitle className="text-lg md:text-xl">Premium</CardTitle>
+                      <CardDescription className="text-sm">Value-based</CardDescription>
                     </CardHeader>
-                    <CardContent>
-                      <p className="text-4xl font-bold">{formatCurrency(pricingTiers.premium)}</p>
+                    <CardContent className="p-2">
+                      <p className="text-3xl md:text-4xl font-bold">{formatCurrency(pricingTiers.premium)}</p>
                       <Badge variant="outline" className="mt-2">High-End</Badge>
                     </CardContent>
                   </Card>

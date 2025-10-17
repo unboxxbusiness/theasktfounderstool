@@ -102,8 +102,12 @@ export default function EquitySplitCalculatorPage() {
     params.set('weightTime', String(weights.time));
     params.set('weightMoney', String(weights.money));
     params.set('founders', encodeURIComponent(JSON.stringify(founderData)));
-    setShareUrl(`${window.location.origin}${window.location.pathname}?${params.toString()}`);
-  }, [name, company, weights, founderData]);
+    
+    const newUrl = `${window.location.origin}${window.location.pathname}?${params.toString()}`;
+    if (newUrl !== shareUrl) {
+      setShareUrl(newUrl);
+    }
+  }, [name, company, weights, founderData, shareUrl]);
 
 
   const handleWeightChange = (category: 'idea' | 'time' | 'money', value: number) => {
@@ -116,23 +120,23 @@ export default function EquitySplitCalculatorPage() {
 
   return (
     <TooltipProvider>
-      <div className="container mx-auto max-w-5xl py-12 px-4 md:px-6">
-        <div className="grid grid-cols-1 lg:grid-cols-5 gap-8">
+      <div className="container mx-auto max-w-5xl py-8 md:py-12 px-4 md:px-6">
+        <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 lg:gap-12">
           <div className="lg:col-span-3">
             <Card>
               <CardHeader>
-                <CardTitle className="text-3xl font-headline flex items-center gap-2">
-                  <Scale className="h-8 w-8 text-primary" />
+                <CardTitle className="text-2xl md:text-3xl font-headline flex items-center gap-2">
+                  <Scale className="h-7 w-7 md:h-8 md:w-8 text-primary" />
                   Fair Equity Split Calculator
                 </CardTitle>
                 <CardDescription>
-                  Find a fair equity split before it’s too late. Adjust contributions and weights to find the right balance for your team.
+                  Adjust contributions and weights to find the right balance for your co-founder team.
                 </CardDescription>
               </CardHeader>
               <CardContent>
                 <Form {...form}>
                   <form className="space-y-8">
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
                       <div className="space-y-2">
                           <Label htmlFor="name">Your Name</Label>
                           <Input id="name" value={name} onChange={(e) => setName(e.target.value)} placeholder="e.g., Jane Doe" />
@@ -144,7 +148,7 @@ export default function EquitySplitCalculatorPage() {
                     </div>
                     <Card>
                       <CardHeader>
-                        <CardTitle className='text-xl'>Contribution Weights</CardTitle>
+                        <CardTitle className='text-lg md:text-xl'>Contribution Weights</CardTitle>
                          <CardDescription>Adjust the importance of each contribution category.</CardDescription>
                       </CardHeader>
                       <CardContent className="space-y-4 pt-4">
@@ -167,7 +171,7 @@ export default function EquitySplitCalculatorPage() {
                       {fields.map((field, index) => (
                         <Card key={field.id} className="mb-4">
                           <CardHeader className='flex-row items-center justify-between'>
-                            <CardTitle className='text-xl'>{form.getValues(`founders.${index}.name`)}</CardTitle>
+                            <CardTitle className='text-lg md:text-xl'>{form.getValues(`founders.${index}.name`)}</CardTitle>
                             <Button variant="ghost" size="icon" onClick={() => remove(index)} disabled={fields.length <= 1}>
                               <Trash2 className="h-4 w-4" />
                             </Button>
@@ -235,7 +239,7 @@ export default function EquitySplitCalculatorPage() {
           <div className="lg:col-span-2 space-y-8">
             <Card>
               <CardHeader>
-                <CardTitle className="text-xl flex items-center gap-2">
+                <CardTitle className="text-lg md:text-xl flex items-center gap-2">
                     Equity Distribution
                     <Tooltip>
                         <TooltipTrigger asChild>
@@ -250,7 +254,7 @@ export default function EquitySplitCalculatorPage() {
               </CardHeader>
               <CardContent>
                 <ReportHeader name={name} company={company} />
-                <div className="w-full h-80">
+                <div className="w-full h-64 md:h-80">
                   <ResponsiveContainer>
                     <PieChart>
                       <Pie
@@ -259,7 +263,7 @@ export default function EquitySplitCalculatorPage() {
                         nameKey="name"
                         cx="50%"
                         cy="50%"
-                        outerRadius={100}
+                        outerRadius="80%"
                         fill="#8884d8"
                         label={({ name, value }) => `${name}: ${value.toFixed(1)}%`}
                       >

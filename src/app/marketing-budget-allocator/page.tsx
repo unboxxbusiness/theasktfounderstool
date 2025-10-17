@@ -59,25 +59,26 @@ export default function MarketingBudgetAllocatorPage() {
     params.set('goal', goal);
     
     const newUrl = `${window.location.origin}${window.location.pathname}?${params.toString()}`;
-    setShareUrl(newUrl);
-
-  }, [name, company, totalBudget, goal]);
+    if (newUrl !== shareUrl) {
+      setShareUrl(newUrl);
+    }
+  }, [name, company, totalBudget, goal, shareUrl]);
 
   return (
     <TooltipProvider>
-      <div className="container mx-auto max-w-5xl py-12 px-4 md:px-6">
-        <div className="grid grid-cols-1 lg:grid-cols-5 gap-8">
+      <div className="container mx-auto max-w-5xl py-8 md:py-12 px-4 md:px-6">
+        <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 lg:gap-12">
           <div className="lg:col-span-3">
             <Card>
               <CardHeader>
-                <CardTitle className="text-3xl font-headline flex items-center gap-2">
-                  <Megaphone className="h-8 w-8 text-primary" />
+                <CardTitle className="text-2xl md:text-3xl font-headline flex items-center gap-2">
+                  <Megaphone className="h-7 w-7 md:h-8 md:w-8 text-primary" />
                   Marketing Budget Allocator
                 </CardTitle>
-                <CardDescription>Get your ideal marketing mix instantly based on your startup's goals.</CardDescription>
+                <CardDescription>Get a recommended marketing mix based on your startup's primary goal.</CardDescription>
               </CardHeader>
               <CardContent className="space-y-8">
-                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
                     <div className="space-y-2">
                         <Label htmlFor="name">Your Name</Label>
                         <Input id="name" value={name} onChange={(e) => setName(e.target.value)} placeholder="e.g., Jane Doe" />
@@ -109,22 +110,22 @@ export default function MarketingBudgetAllocatorPage() {
                             </TooltipContent>
                         </Tooltip>
                     </div>
-                  <RadioGroup defaultValue={goal} onValueChange={(value: MarketingGoal) => setGoal(value)} className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                  <RadioGroup defaultValue={goal} onValueChange={(value: MarketingGoal) => setGoal(value)} className="grid grid-cols-1 sm:grid-cols-3 gap-2 md:gap-4">
                     <div>
                       <RadioGroupItem value="brand" id="brand" className="peer sr-only" />
-                      <Label htmlFor="brand" className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary">
+                      <Label htmlFor="brand" className="flex h-full flex-col items-center justify-center rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary">
                         Brand Awareness
                       </Label>
                     </div>
                     <div>
                       <RadioGroupItem value="leads" id="leads" className="peer sr-only" />
-                      <Label htmlFor="leads" className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary">
+                      <Label htmlFor="leads" className="flex h-full flex-col items-center justify-center rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary">
                         Lead Generation
                       </Label>
                     </div>
                     <div>
                       <RadioGroupItem value="sales" id="sales" className="peer sr-only" />
-                      <Label htmlFor="sales" className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary">
+                      <Label htmlFor="sales" className="flex h-full flex-col items-center justify-center rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary">
                         Sales/Conversions
                       </Label>
                     </div>
@@ -136,12 +137,12 @@ export default function MarketingBudgetAllocatorPage() {
           <div className="lg:col-span-2 space-y-8">
             <Card>
               <CardHeader>
-                <CardTitle className="text-xl">Budget Allocation</CardTitle>
+                <CardTitle className="text-lg md:text-xl">Budget Allocation</CardTitle>
                 <CardDescription>A visual breakdown of your recommended marketing mix.</CardDescription>
               </CardHeader>
               <CardContent>
                  <ReportHeader name={name} company={company} />
-                <div className="w-full h-80">
+                <div className="w-full h-64 md:h-80">
                   <ResponsiveContainer>
                     <PieChart>
                       <Pie
@@ -150,7 +151,7 @@ export default function MarketingBudgetAllocatorPage() {
                         nameKey="name"
                         cx="50%"
                         cy="50%"
-                        outerRadius={100}
+                        outerRadius="80%"
                         label={({ name, value }) => `${name}: ${value}%`}
                       >
                         {allocationData.map((entry, index) => (
@@ -164,9 +165,9 @@ export default function MarketingBudgetAllocatorPage() {
                 </div>
                  <Card className="bg-muted/50 mt-4">
                     <CardHeader>
-                        <CardTitle className="text-lg">Channel Breakdown</CardTitle>
+                        <CardTitle className="text-md md:text-lg">Channel Breakdown</CardTitle>
                     </CardHeader>
-                    <CardContent className="grid grid-cols-2 gap-4 text-sm">
+                    <CardContent className="grid grid-cols-1 sm:grid-cols-2 gap-2 md:gap-4 text-sm">
                         {allocationData.map(channel => (
                              <div key={channel.name} className="flex justify-between items-center">
                                 <span className="font-semibold">{channel.name}</span>

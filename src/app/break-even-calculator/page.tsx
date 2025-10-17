@@ -22,8 +22,6 @@ const formatCurrency = (value: number) => {
 
 export default function BreakEvenCalculatorPage() {
   const searchParams = useSearchParams();
-  const router = useRouter();
-
   const [name, setName] = useState(searchParams.get('name') || '');
   const [company, setCompany] = useState(searchParams.get('company') || '');
   const [fixedCosts, setFixedCosts] = useState(Number(searchParams.get('fixedCosts')) || 20000);
@@ -48,17 +46,18 @@ export default function BreakEvenCalculatorPage() {
     params.set('variableCostPerUnit', String(variableCostPerUnit));
     
     const newUrl = `${window.location.origin}${window.location.pathname}?${params.toString()}`;
-    setShareUrl(newUrl);
-
-  }, [name, company, fixedCosts, pricePerUnit, variableCostPerUnit]);
+    if (shareUrl !== newUrl) {
+      setShareUrl(newUrl);
+    }
+  }, [name, company, fixedCosts, pricePerUnit, variableCostPerUnit, shareUrl]);
 
 
   return (
-    <div className="container mx-auto max-w-3xl py-12 px-4 md:px-6">
+    <div className="container mx-auto max-w-4xl py-8 md:py-12 px-4 md:px-6">
       <Card>
         <CardHeader>
-          <CardTitle className="text-3xl font-headline flex items-center gap-2">
-            <Target className="h-8 w-8 text-primary" />
+          <CardTitle className="text-2xl md:text-3xl font-headline flex items-center gap-2">
+            <Target className="h-7 w-7 md:h-8 md:w-8 text-primary" />
             Break-Even Calculator
           </CardTitle>
           <CardDescription>
@@ -67,7 +66,7 @@ export default function BreakEvenCalculatorPage() {
         </CardHeader>
         <CardContent className="grid gap-8">
           <div className="space-y-6">
-             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
                 <div className="space-y-2">
                     <Label htmlFor="name">Your Name</Label>
                     <Input id="name" value={name} onChange={(e) => setName(e.target.value)} placeholder="e.g., Jane Doe" />
@@ -88,7 +87,7 @@ export default function BreakEvenCalculatorPage() {
                 placeholder="e.g., 20000"
               />
             </div>
-             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
                 <div className="space-y-2">
                     <Label htmlFor="pricePerUnit">Sale Price Per Unit</Label>
                     <Input
@@ -117,15 +116,15 @@ export default function BreakEvenCalculatorPage() {
           <ReportHeader name={name} company={company} />
 
           <div className="space-y-4 text-center bg-muted/50 p-6 rounded-lg">
-            <Label className="text-lg text-muted-foreground">Units to Break Even</Label>
+            <Label className="text-md md:text-lg text-muted-foreground">Units to Break Even</Label>
             {breakEvenUnits === Infinity ? (
-              <div className="text-5xl font-bold text-destructive">Unprofitable</div>
+              <div className="text-4xl md:text-5xl font-bold text-destructive">Unprofitable</div>
             ) : (
-              <div className="text-5xl font-bold text-primary">
-                {Math.ceil(breakEvenUnits).toLocaleString()} <span className="text-3xl">units/month</span>
+              <div className="text-4xl md:text-5xl font-bold text-primary">
+                {Math.ceil(breakEvenUnits).toLocaleString()} <span className="text-2xl md:text-3xl">units/month</span>
               </div>
             )}
-            <p className="text-muted-foreground">
+            <p className="text-sm md:text-base text-muted-foreground">
               Your contribution margin is {formatCurrency(contributionMargin)} per unit.
             </p>
           </div>
