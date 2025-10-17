@@ -39,7 +39,7 @@ export default function InvestorROICalculatorPage() {
   const [company, setCompany] = useState(searchParams.get('company') || '');
   const [investmentAmount, setInvestmentAmount] = useState(Number(searchParams.get('investmentAmount')) || 250000);
   const [equityPercentage, setEquityPercentage] = useState(Number(searchParams.get('equityPercentage')) || 10);
-  const [exitValuation, setExitValuation] = useState(Number(searchPajams.get('exitValuation')) || 100000000);
+  const [exitValuation, setExitValuation] = useState(Number(searchParams.get('exitValuation')) || 100000000);
   const [shareUrl, setShareUrl] = useState('');
 
   const { payout, roiMultiple } = useMemo(() => {

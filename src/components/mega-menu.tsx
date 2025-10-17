@@ -13,7 +13,15 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
+  DropdownMenuGroup,
+  DropdownMenuLabel
 } from "@/components/ui/dropdown-menu";
+import {
+    Accordion,
+    AccordionContent,
+    AccordionItem,
+    AccordionTrigger,
+  } from "@/components/ui/accordion"
 import { Button } from "./ui/button";
 
 const menuItems = [
@@ -54,39 +62,76 @@ const menuItems = [
 
 export function MegaMenu() {
   return (
-    <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <Button variant="ghost">
-          All Calculators
-          <ChevronDown className="ml-2 h-4 w-4" />
-        </Button>
-      </DropdownMenuTrigger>
-      <DropdownMenuContent className="w-screen max-w-md p-4" align="end">
-        <div className="grid grid-cols-2 gap-4">
-          {menuItems.map((item) => (
-            <div key={item.category} className="space-y-2">
-              <div className="flex items-center gap-2">
-                {item.icon}
-                <h3 className="font-semibold text-sm">{item.category}</h3>
-              </div>
-              <ul className="space-y-1">
-                {item.links.map((link) => (
-                  <li key={link.href}>
-                    <DropdownMenuItem asChild>
-                      <Link
-                        href={link.href}
-                        className="text-sm text-zinc-400 hover:text-foreground w-full justify-start"
-                      >
-                        {link.label}
-                      </Link>
-                    </DropdownMenuItem>
-                  </li>
+    <>
+    {/* Desktop Mega Menu */}
+    <div className="hidden md:block">
+        <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+                <Button variant="ghost">
+                All Calculators
+                <ChevronDown className="ml-2 h-4 w-4" />
+                </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent className="w-screen max-w-md p-4" align="end">
+                <div className="grid grid-cols-2 gap-4">
+                {menuItems.map((item) => (
+                    <DropdownMenuGroup key={item.category}>
+                    <DropdownMenuLabel className="flex items-center gap-2">
+                        {item.icon}
+                        <h3 className="font-semibold text-sm">{item.category}</h3>
+                    </DropdownMenuLabel>
+                    <div className="ml-2 mt-1 flex flex-col space-y-1">
+                        {item.links.map((link) => (
+                        <DropdownMenuItem key={link.href} asChild>
+                            <Link
+                            href={link.href}
+                            className="text-sm text-zinc-400 hover:text-foreground w-full justify-start cursor-pointer"
+                            >
+                            {link.label}
+                            </Link>
+                        </DropdownMenuItem>
+                        ))}
+                    </div>
+                    </DropdownMenuGroup>
                 ))}
-              </ul>
-            </div>
-          ))}
-        </div>
-      </DropdownMenuContent>
-    </DropdownMenu>
+                </div>
+            </DropdownMenuContent>
+        </DropdownMenu>
+    </div>
+    {/* Mobile Accordion Menu */}
+    <div className="md:hidden w-full">
+        <Accordion type="single" collapsible className="w-full">
+            <AccordionItem value="calculators">
+                <AccordionTrigger className="text-lg font-semibold">
+                    All Calculators
+                </AccordionTrigger>
+                <AccordionContent>
+                    <div className="flex flex-col space-y-4">
+                        {menuItems.map((item) => (
+                            <div key={item.category}>
+                                <h3 className="flex items-center gap-2 font-semibold text-md mb-2">
+                                {item.icon}
+                                {item.category}
+                                </h3>
+                                <ul className="space-y-2 pl-7">
+                                {item.links.map((link) => (
+                                    <li key={link.href}>
+                                    <Link
+                                        href={link.href}
+                                        className="text-md text-zinc-400 hover:text-foreground"
+                                    >
+                                        {link.label}
+                                    </Link>
+                                    </li>
+                                ))}
+                                </ul>
+                            </div>
+                        ))}
+                    </div>
+                </AccordionContent>
+            </AccordionItem>
+        </Accordion>
+    </div>
+    </>
   );
 }
