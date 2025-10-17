@@ -1,12 +1,17 @@
+
 'use client';
 
 import { useState, useMemo } from 'react';
+import { useSearchParams } from 'next/navigation';
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip as RechartsTooltip, Legend } from 'recharts';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { TrendingDown, HelpCircle } from 'lucide-react';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
+import { ReportHeader } from '@/components/report-header';
+import { SocialShare } from '@/components/social-share';
+
 
 const CHART_COLORS = ['hsl(var(--chart-1))', 'hsl(var(--chart-2))'];
 
@@ -31,9 +36,12 @@ const formatCompactCurrency = (value: number) => {
 }
 
 export default function DilutionCalculatorPage() {
-  const [founderShares, setFounderShares] = useState(1000000);
-  const [preMoneyValuation, setPreMoneyValuation] = useState(5000000);
-  const [investment, setInvestment] = useState(1000000);
+  const searchParams = useSearchParams();
+  const [name, setName] = useState(searchParams.get('name') || '');
+  const [company, setCompany] = useState(searchParams.get('company') || '');
+  const [founderShares, setFounderShares] = useState(Number(searchParams.get('founderShares')) || 1000000);
+  const [preMoneyValuation, setPreMoneyValuation] = useState(Number(searchParams.get('preMoneyValuation')) || 5000000);
+  const [investment, setInvestment] = useState(Number(searchParams.get('investment')) || 1000000);
 
   const { postMoneyValuation, postMoneyShares, investorOwnership, founderOwnership } = useMemo(() => {
     if (preMoneyValuation <= 0 || investment <= 0 || founderShares <= 0) {
@@ -50,6 +58,17 @@ export default function DilutionCalculatorPage() {
     
     return { postMoneyValuation, postMoneyShares, investorOwnership, founderOwnership };
   }, [founderShares, preMoneyValuation, investment]);
+
+  const shareUrl = useMemo(() => {
+    if (typeof window === 'undefined') return '';
+    const params = new URLSearchParams();
+    params.set('name', name);
+    params.set('company', company);
+    params.set('founderShares', String(founderShares));
+    params.set('preMoneyValuation', String(preMoneyValuation));
+    params.set('investment', String(investment));
+    return `${window.location.origin}${window.location.pathname}?${params.toString()}`;
+  }, [name, company, founderShares, preMoneyValuation, investment]);
 
   const chartData = [
     { name: 'Founder(s)', value: founderOwnership },
@@ -72,6 +91,16 @@ export default function DilutionCalculatorPage() {
                     </CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-6">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                      <div className="space-y-2">
+                          <Label htmlFor="name">Your Name</Label>
+                          <Input id="name" value={name} onChange={(e) => setName(e.target.value)} placeholder="e.g., Jane Doe" />
+                      </div>
+                      <div className="space-y-2">
+                          <Label htmlFor="company">Company Name</Label>
+                          <Input id="company" value={company} onChange={(e) => setCompany(e.target.value)} placeholder="e.g., Acme Inc." />
+                      </div>
+                    </div>
                     <div className="space-y-2">
                         <Label htmlFor="founderShares">Current Total Shares (Founder Pool)</Label>
                         <Input
@@ -106,17 +135,24 @@ export default function DilutionCalculatorPage() {
                         <CardHeader>
                             <CardTitle className="text-xl">Post-Funding Summary</CardTitle>
                         </CardHeader>
-                        <CardContent className="grid grid-cols-2 gap-4 text-sm">
-                            <div className="font-semibold">Post-Money Valuation:</div>
-                            <div>{formatCurrency(postMoneyValuation)}</div>
-                             <div className="font-semibold">Founder Ownership:</div>
-                            <div>{founderOwnership.toFixed(2)}%</div>
-                             <div className="font-semibold">Investor Ownership:</div>
-                            <div>{investorOwnership.toFixed(2)}%</div>
-                            <div className="font-semibold">Total Shares:</div>
-                            <div>{Math.round(postMoneyShares).toLocaleString()}</div>
+                        <CardContent className="grid gap-4 text-sm">
+                            <ReportHeader name={name} company={company} />
+                             <div className="grid grid-cols-2 gap-4">
+                                <div className="font-semibold">Post-Money Valuation:</div>
+                                <div>{formatCurrency(postMoneyValuation)}</div>
+                                <div className="font-semibold">Founder Ownership:</div>
+                                <div>{founderOwnership.toFixed(2)}%</div>
+                                <div className="font-semibold">Investor Ownership:</div>
+                                <div>{investorOwnership.toFixed(2)}%</div>
+                                <div className="font-semibold">Total Shares:</div>
+                                <div>{Math.round(postMoneyShares).toLocaleString()}</div>
+                             </div>
                         </CardContent>
                     </Card>
+                     <SocialShare 
+                        shareUrl={shareUrl}
+                        text={`I modeled my next funding round with TheASKT's free dilution calculator. Check out the potential impact on your cap table.`}
+                    />
                 </CardContent>
             </Card>
         </div>

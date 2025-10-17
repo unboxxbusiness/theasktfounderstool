@@ -1,9 +1,11 @@
+
 'use client';
 
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { useFieldArray, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
+import { useSearchParams } from 'next/navigation';
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip as RechartsTooltip, Legend } from 'recharts';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -13,6 +15,8 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '
 import { PlusCircle, Trash2, Scale, HelpCircle } from 'lucide-react';
 import { Slider } from '@/components/ui/slider';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
+import { ReportHeader } from '@/components/report-header';
+import { SocialShare } from '@/components/social-share';
 
 const founderSchema = z.object({
   name: z.string().min(1, 'Name is required'),
@@ -35,13 +39,36 @@ const CHART_COLORS = [
   'hsl(var(--chart-5))',
 ];
 
-export default function EquitySplitCalculatorPage() {
-  const [weights, setWeights] = useState({ idea: 40, time: 40, money: 20 });
+const getDefaultFounders = (searchParams: URLSearchParams) => {
+    const foundersParam = searchParams.get('founders');
+    if (foundersParam) {
+        try {
+            const decodedFounders = JSON.parse(decodeURIComponent(foundersParam));
+            if (Array.isArray(decodedFounders) && decodedFounders.length > 0) {
+                return decodedFounders;
+            }
+        } catch (e) {
+            console.error("Failed to parse founders from URL", e);
+        }
+    }
+    return [{ name: 'Founder 1', idea: 50, time: 50, money: 50 }];
+}
 
+
+export default function EquitySplitCalculatorPage() {
+  const searchParams = useSearchParams();
+  const [name, setName] = useState(searchParams.get('name') || '');
+  const [company, setCompany] = useState(searchParams.get('company') || '');
+  const [weights, setWeights] = useState({ 
+      idea: Number(searchParams.get('weightIdea')) || 40, 
+      time: Number(searchParams.get('weightTime')) || 40, 
+      money: Number(searchParams.get('weightMoney')) || 20 
+  });
+  
   const form = useForm<FounderFormState>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      founders: [{ name: 'Founder 1', idea: 50, time: 50, money: 50 }],
+      founders: getDefaultFounders(searchParams),
     },
   });
 
@@ -56,18 +83,28 @@ export default function EquitySplitCalculatorPage() {
     const totalContributions = founderData.map(f => {
         return (f.idea / 100) * weights.idea + (f.time / 100) * weights.time + (f.money / 100) * weights.money;
     });
-    
     const totalScore = totalContributions.reduce((acc, score) => acc + score, 0);
-
     if (totalScore === 0) {
         return founderData.map(f => ({ name: f.name, value: 100 / founderData.length }));
     }
-
     return founderData.map((f, index) => ({
       name: f.name,
       value: (totalContributions[index] / totalScore) * 100,
     }));
   }, [founderData, weights]);
+
+  const shareUrl = useMemo(() => {
+    if (typeof window === 'undefined') return '';
+    const params = new URLSearchParams();
+    params.set('name', name);
+    params.set('company', company);
+    params.set('weightIdea', String(weights.idea));
+    params.set('weightTime', String(weights.time));
+    params.set('weightMoney', String(weights.money));
+    params.set('founders', encodeURIComponent(JSON.stringify(founderData)));
+    return `${window.location.origin}${window.location.pathname}?${params.toString()}`;
+  }, [name, company, weights, founderData]);
+
 
   const handleWeightChange = (category: 'idea' | 'time' | 'money', value: number) => {
     setWeights(prev => ({ ...prev, [category]: value }));
@@ -95,6 +132,16 @@ export default function EquitySplitCalculatorPage() {
               <CardContent>
                 <Form {...form}>
                   <form className="space-y-8">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                      <div className="space-y-2">
+                          <Label htmlFor="name">Your Name</Label>
+                          <Input id="name" value={name} onChange={(e) => setName(e.target.value)} placeholder="e.g., Jane Doe" />
+                      </div>
+                      <div className="space-y-2">
+                          <Label htmlFor="company">Company Name</Label>
+                          <Input id="company" value={company} onChange={(e) => setCompany(e.target.value)} placeholder="e.g., Acme Inc." />
+                      </div>
+                    </div>
                     <Card>
                       <CardHeader>
                         <CardTitle className='text-xl'>Contribution Weights</CardTitle>
@@ -120,7 +167,7 @@ export default function EquitySplitCalculatorPage() {
                       {fields.map((field, index) => (
                         <Card key={field.id} className="mb-4">
                           <CardHeader className='flex-row items-center justify-between'>
-                            <CardTitle className='text-xl'>{`Founder ${index + 1}`}</CardTitle>
+                            <CardTitle className='text-xl'>{form.getValues(`founders.${index}.name`)}</CardTitle>
                             <Button variant="ghost" size="icon" onClick={() => remove(index)} disabled={fields.length <= 1}>
                               <Trash2 className="h-4 w-4" />
                             </Button>
@@ -185,7 +232,7 @@ export default function EquitySplitCalculatorPage() {
             </Card>
           </div>
 
-          <div className="lg:col-span-2">
+          <div className="lg:col-span-2 space-y-8">
             <Card>
               <CardHeader>
                 <CardTitle className="text-xl flex items-center gap-2">
@@ -202,6 +249,7 @@ export default function EquitySplitCalculatorPage() {
                 <CardDescription>A visual representation of the suggested equity split.</CardDescription>
               </CardHeader>
               <CardContent>
+                <ReportHeader name={name} company={company} />
                 <div className="w-full h-80">
                   <ResponsiveContainer>
                     <PieChart>
@@ -226,6 +274,10 @@ export default function EquitySplitCalculatorPage() {
                 </div>
               </CardContent>
             </Card>
+             <SocialShare 
+                shareUrl={shareUrl}
+                text={`We just calculated a fair co-founder equity split with TheASKT's toolkit! See our breakdown.`}
+            />
           </div>
         </div>
       </div>

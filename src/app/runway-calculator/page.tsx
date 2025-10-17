@@ -1,11 +1,16 @@
+
 'use client';
 
 import { useState, useMemo } from 'react';
+import { useSearchParams } from 'next/navigation';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { Hourglass, AlertTriangle, TrendingDown } from 'lucide-react';
+import { ReportHeader } from '@/components/report-header';
+import { SocialShare } from '@/components/social-share';
+
 
 const formatCurrency = (value: number) => {
   return new Intl.NumberFormat('en-US', {
@@ -17,15 +22,29 @@ const formatCurrency = (value: number) => {
 };
 
 export default function RunwayCalculatorPage() {
-  const [currentFunds, setCurrentFunds] = useState(500000);
-  const [monthlyBurn, setMonthlyBurn] = useState(50000);
-  const [teamSize, setTeamSize] = useState(5);
+  const searchParams = useSearchParams();
+  const [name, setName] = useState(searchParams.get('name') || '');
+  const [company, setCompany] = useState(searchParams.get('company') || '');
+  const [currentFunds, setCurrentFunds] = useState(Number(searchParams.get('currentFunds')) || 500000);
+  const [monthlyBurn, setMonthlyBurn] = useState(Number(searchParams.get('monthlyBurn')) || 50000);
+  const [teamSize, setTeamSize] = useState(Number(searchParams.get('teamSize')) || 5);
 
   const runwayMonths = useMemo(() => {
     if (monthlyBurn <= 0) return Infinity;
     const runway = currentFunds / monthlyBurn;
     return isNaN(runway) ? 0 : runway;
   }, [currentFunds, monthlyBurn]);
+
+  const shareUrl = useMemo(() => {
+    if (typeof window === 'undefined') return '';
+    const params = new URLSearchParams();
+    params.set('name', name);
+    params.set('company', company);
+    params.set('currentFunds', String(currentFunds));
+    params.set('monthlyBurn', String(monthlyBurn));
+    params.set('teamSize', String(teamSize));
+    return `${window.location.origin}${window.location.pathname}?${params.toString()}`;
+  }, [name, company, currentFunds, monthlyBurn, teamSize]);
 
   const isLowRunway = runwayMonths <= 6;
   const isVeryLowRunway = runwayMonths <= 3;
@@ -44,6 +63,16 @@ export default function RunwayCalculatorPage() {
         </CardHeader>
         <CardContent className="grid gap-8">
           <div className="space-y-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="space-y-2">
+                    <Label htmlFor="name">Your Name</Label>
+                    <Input id="name" value={name} onChange={(e) => setName(e.target.value)} placeholder="e.g., Jane Doe" />
+                </div>
+                <div className="space-y-2">
+                    <Label htmlFor="company">Company Name</Label>
+                    <Input id="company" value={company} onChange={(e) => setCompany(e.target.value)} placeholder="e.g., Acme Inc." />
+                </div>
+            </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="space-y-2">
                 <Label htmlFor="currentFunds">Current Funds</Label>
@@ -81,6 +110,8 @@ export default function RunwayCalculatorPage() {
             </div>
           </div>
           
+          <ReportHeader name={name} company={company} />
+
           <div className="space-y-4 text-center bg-muted/50 p-6 rounded-lg">
             <Label className="text-lg text-muted-foreground">Estimated Runway</Label>
             {runwayMonths === Infinity ? (
@@ -106,6 +137,11 @@ export default function RunwayCalculatorPage() {
               </AlertDescription>
             </Alert>
           )}
+
+           <SocialShare 
+            shareUrl={shareUrl}
+            text={`We have ${runwayMonths.toFixed(1)} months of runway! Calculated with TheASKT's free startup toolkit.`}
+          />
 
         </CardContent>
       </Card>

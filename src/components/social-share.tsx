@@ -1,3 +1,4 @@
+
 "use client";
 
 import { Facebook, Linkedin, Twitter, Link as LinkIcon } from "lucide-react";
@@ -27,7 +28,8 @@ export function SocialShare({ shareUrl, text }: SocialShareProps) {
   const facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}`;
 
   return (
-    <div className="space-y-4">
+    <div className="mt-8 space-y-4 rounded-lg border p-6">
+        <h3 className="text-lg font-semibold text-center">Share Your Report</h3>
         <div className="flex space-x-2">
             <Input value={shareUrl} readOnly />
             <Button variant="outline" onClick={handleCopy}>

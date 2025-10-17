@@ -1,11 +1,15 @@
+
 'use client';
 
 import { useState, useMemo } from 'react';
+import { useSearchParams } from 'next/navigation';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip as RechartsTooltip, ResponsiveContainer, Legend } from 'recharts';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
 import { TrendingUp, Users, DollarSign, Percent } from 'lucide-react';
+import { ReportHeader } from '@/components/report-header';
+import { SocialShare } from '@/components/social-share';
 
 const formatCurrency = (value: number) => {
   return new Intl.NumberFormat('en-US', {
@@ -17,10 +21,13 @@ const formatCurrency = (value: number) => {
 };
 
 export default function RevenueProjectionCalculatorPage() {
-  const [initialUsers, setInitialUsers] = useState(100);
-  const [growthRate, setGrowthRate] = useState(20);
-  const [arpu, setArpu] = useState(25);
-  const [churnRate, setChurnRate] = useState(5);
+  const searchParams = useSearchParams();
+  const [name, setName] = useState(searchParams.get('name') || '');
+  const [company, setCompany] = useState(searchParams.get('company') || '');
+  const [initialUsers, setInitialUsers] = useState(Number(searchParams.get('initialUsers')) || 100);
+  const [growthRate, setGrowthRate] = useState(Number(searchParams.get('growthRate')) || 20);
+  const [arpu, setArpu] = useState(Number(searchParams.get('arpu')) || 25);
+  const [churnRate, setChurnRate] = useState(Number(searchParams.get('churnRate')) || 5);
 
   const projectionData = useMemo(() => {
     const data = [];
@@ -48,6 +55,18 @@ export default function RevenueProjectionCalculatorPage() {
     return projectionData.reduce((acc, month) => acc + month.Revenue, 0);
   }, [projectionData]);
 
+  const shareUrl = useMemo(() => {
+    if (typeof window === 'undefined') return '';
+    const params = new URLSearchParams();
+    params.set('name', name);
+    params.set('company', company);
+    params.set('initialUsers', String(initialUsers));
+    params.set('growthRate', String(growthRate));
+    params.set('arpu', String(arpu));
+    params.set('churnRate', String(churnRate));
+    return `${window.location.origin}${window.location.pathname}?${params.toString()}`;
+  }, [name, company, initialUsers, growthRate, arpu, churnRate]);
+
   return (
     <div className="container mx-auto max-w-5xl py-12 px-4 md:px-6">
       <Card>
@@ -61,46 +80,58 @@ export default function RevenueProjectionCalculatorPage() {
           </CardDescription>
         </CardHeader>
         <CardContent className="grid gap-8">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            <div className="space-y-2">
-              <Label htmlFor="initialUsers" className='flex items-center gap-1'><Users className='h-4 w-4' />Initial Users</Label>
-              <Input
-                id="initialUsers"
-                type="number"
-                value={initialUsers}
-                onChange={(e) => setInitialUsers(Number(e.target.value))}
-                step="10"
-              />
+          <div className="space-y-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="space-y-2">
+                  <Label htmlFor="name">Your Name</Label>
+                  <Input id="name" value={name} onChange={(e) => setName(e.target.value)} placeholder="e.g., Jane Doe" />
+              </div>
+              <div className="space-y-2">
+                  <Label htmlFor="company">Company Name</Label>
+                  <Input id="company" value={company} onChange={(e) => setCompany(e.target.value)} placeholder="e.g., Acme Inc." />
+              </div>
             </div>
-            <div className="space-y-2">
-              <Label htmlFor="growthRate" className='flex items-center gap-1'><TrendingUp className='h-4 w-4' />Monthly Growth (%)</Label>
-              <Input
-                id="growthRate"
-                type="number"
-                value={growthRate}
-                onChange={(e) => setGrowthRate(Number(e.target.value))}
-                step="5"
-              />
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="arpu" className='flex items-center gap-1'><DollarSign className='h-4 w-4' />ARPU (Monthly)</Label>
-              <Input
-                id="arpu"
-                type="number"
-                value={arpu}
-                onChange={(e) => setArpu(Number(e.target.value))}
-                step="5"
-              />
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="churnRate" className='flex items-center gap-1'><Percent className='h-4 w-4' />Monthly Churn (%)</Label>
-              <Input
-                id="churnRate"
-                type="number"
-                value={churnRate}
-                onChange={(e) => setChurnRate(Number(e.target.value))}
-                step="1"
-              />
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+              <div className="space-y-2">
+                <Label htmlFor="initialUsers" className='flex items-center gap-1'><Users className='h-4 w-4' />Initial Users</Label>
+                <Input
+                  id="initialUsers"
+                  type="number"
+                  value={initialUsers}
+                  onChange={(e) => setInitialUsers(Number(e.target.value))}
+                  step="10"
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="growthRate" className='flex items-center gap-1'><TrendingUp className='h-4 w-4' />Monthly Growth (%)</Label>
+                <Input
+                  id="growthRate"
+                  type="number"
+                  value={growthRate}
+                  onChange={(e) => setGrowthRate(Number(e.target.value))}
+                  step="5"
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="arpu" className='flex items-center gap-1'><DollarSign className='h-4 w-4' />ARPU (Monthly)</Label>
+                <Input
+                  id="arpu"
+                  type="number"
+                  value={arpu}
+                  onChange={(e) => setArpu(Number(e.target.value))}
+                  step="5"
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="churnRate" className='flex items-center gap-1'><Percent className='h-4 w-4' />Monthly Churn (%)</Label>
+                <Input
+                  id="churnRate"
+                  type="number"
+                  value={churnRate}
+                  onChange={(e) => setChurnRate(Number(e.target.value))}
+                  step="1"
+                />
+              </div>
             </div>
           </div>
           
@@ -109,6 +140,7 @@ export default function RevenueProjectionCalculatorPage() {
                 <CardTitle className="text-xl">12-Month Projection</CardTitle>
             </CardHeader>
             <CardContent>
+                <ReportHeader name={name} company={company} />
                 <div className='text-center mb-6'>
                     <p className="text-muted-foreground">Estimated Annual Revenue</p>
                     <p className="text-4xl font-bold text-primary">{formatCurrency(totalRevenue)}</p>
@@ -129,6 +161,11 @@ export default function RevenueProjectionCalculatorPage() {
                 </div>
             </CardContent>
           </Card>
+
+          <SocialShare 
+            shareUrl={shareUrl}
+            text={`Projecting ${formatCurrency(totalRevenue)} in ARR for ${company || 'my startup'}! Modeled with TheASKT's free toolkit.`}
+          />
         </CardContent>
       </Card>
     </div>

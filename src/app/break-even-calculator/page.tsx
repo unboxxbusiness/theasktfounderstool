@@ -1,11 +1,15 @@
+
 'use client';
 
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
+import { useSearchParams, useRouter } from 'next/navigation';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { Target, Info } from 'lucide-react';
+import { ReportHeader } from '@/components/report-header';
+import { SocialShare } from '@/components/social-share';
 
 const formatCurrency = (value: number) => {
   return new Intl.NumberFormat('en-US', {
@@ -17,9 +21,14 @@ const formatCurrency = (value: number) => {
 };
 
 export default function BreakEvenCalculatorPage() {
-  const [fixedCosts, setFixedCosts] = useState(20000);
-  const [pricePerUnit, setPricePerUnit] = useState(50);
-  const [variableCostPerUnit, setVariableCostPerUnit] = useState(15);
+  const searchParams = useSearchParams();
+  const router = useRouter();
+
+  const [name, setName] = useState(searchParams.get('name') || '');
+  const [company, setCompany] = useState(searchParams.get('company') || '');
+  const [fixedCosts, setFixedCosts] = useState(Number(searchParams.get('fixedCosts')) || 20000);
+  const [pricePerUnit, setPricePerUnit] = useState(Number(searchParams.get('pricePerUnit')) || 50);
+  const [variableCostPerUnit, setVariableCostPerUnit] = useState(Number(searchParams.get('variableCostPerUnit')) || 15);
 
   const { breakEvenUnits, contributionMargin } = useMemo(() => {
     const contributionMargin = pricePerUnit - variableCostPerUnit;
@@ -28,6 +37,18 @@ export default function BreakEvenCalculatorPage() {
     const units = fixedCosts / contributionMargin;
     return { breakEvenUnits: isNaN(units) ? 0 : units, contributionMargin };
   }, [fixedCosts, pricePerUnit, variableCostPerUnit]);
+  
+  const shareUrl = useMemo(() => {
+    if (typeof window === 'undefined') return '';
+    const params = new URLSearchParams();
+    params.set('name', name);
+    params.set('company', company);
+    params.set('fixedCosts', String(fixedCosts));
+    params.set('pricePerUnit', String(pricePerUnit));
+    params.set('variableCostPerUnit', String(variableCostPerUnit));
+    return `${window.location.origin}${window.location.pathname}?${params.toString()}`;
+  }, [name, company, fixedCosts, pricePerUnit, variableCostPerUnit]);
+
 
   return (
     <div className="container mx-auto max-w-3xl py-12 px-4 md:px-6">
@@ -43,6 +64,16 @@ export default function BreakEvenCalculatorPage() {
         </CardHeader>
         <CardContent className="grid gap-8">
           <div className="space-y-6">
+             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="space-y-2">
+                    <Label htmlFor="name">Your Name</Label>
+                    <Input id="name" value={name} onChange={(e) => setName(e.target.value)} placeholder="e.g., Jane Doe" />
+                </div>
+                <div className="space-y-2">
+                    <Label htmlFor="company">Company Name</Label>
+                    <Input id="company" value={company} onChange={(e) => setCompany(e.target.value)} placeholder="e.g., Acme Inc." />
+                </div>
+            </div>
             <div className="space-y-2">
               <Label htmlFor="fixedCosts">Total Monthly Fixed Costs</Label>
               <Input
@@ -80,6 +111,8 @@ export default function BreakEvenCalculatorPage() {
             </div>
           </div>
           
+          <ReportHeader name={name} company={company} />
+
           <div className="space-y-4 text-center bg-muted/50 p-6 rounded-lg">
             <Label className="text-lg text-muted-foreground">Units to Break Even</Label>
             {breakEvenUnits === Infinity ? (
@@ -103,6 +136,11 @@ export default function BreakEvenCalculatorPage() {
               </AlertDescription>
             </Alert>
           )}
+
+           <SocialShare 
+            shareUrl={shareUrl}
+            text={`I calculated my break-even point with TheASKT's free startup toolkit! Check it out.`}
+           />
         </CardContent>
       </Card>
     </div>

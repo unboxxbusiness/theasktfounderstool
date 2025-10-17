@@ -1,11 +1,15 @@
+
 'use client';
 
 import { useState, useMemo } from 'react';
+import { useSearchParams } from 'next/navigation';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { DollarSign, Percent, Users, Scale } from 'lucide-react';
+import { ReportHeader } from '@/components/report-header';
+import { SocialShare } from '@/components/social-share';
 
 const formatCurrency = (value: number) => {
   if (value === Infinity || isNaN(value)) return '$0';
@@ -18,27 +22,40 @@ const formatCurrency = (value: number) => {
 };
 
 export default function CacLtvCalculatorPage() {
-  const [marketingSpend, setMarketingSpend] = useState(10000);
-  const [customersAcquired, setCustomersAcquired] = useState(500);
-  const [avgMonthlySpend, setAvgMonthlySpend] = useState(50);
-  const [grossMargin, setGrossMargin] = useState(80);
-  const [monthlyChurn, setMonthlyChurn] = useState(5);
+  const searchParams = useSearchParams();
+  const [name, setName] = useState(searchParams.get('name') || '');
+  const [company, setCompany] = useState(searchParams.get('company') || '');
+  const [marketingSpend, setMarketingSpend] = useState(Number(searchParams.get('marketingSpend')) || 10000);
+  const [customersAcquired, setCustomersAcquired] = useState(Number(searchParams.get('customersAcquired')) || 500);
+  const [avgMonthlySpend, setAvgMonthlySpend] = useState(Number(searchParams.get('avgMonthlySpend')) || 50);
+  const [grossMargin, setGrossMargin] = useState(Number(searchParams.get('grossMargin')) || 80);
+  const [monthlyChurn, setMonthlyChurn] = useState(Number(searchParams.get('monthlyChurn')) || 5);
 
   const { cac, ltv, ratio } = useMemo(() => {
     const cac = customersAcquired > 0 ? marketingSpend / customersAcquired : 0;
-
     const monthlyChurnRate = monthlyChurn / 100;
     const grossMarginRate = grossMargin / 100;
     const ltv = monthlyChurnRate > 0 ? (avgMonthlySpend * grossMarginRate) / monthlyChurnRate : 0;
-    
     const ratio = cac > 0 ? ltv / cac : 0;
-
     return { 
         cac: isNaN(cac) ? 0 : cac, 
         ltv: isNaN(ltv) ? 0 : ltv, 
         ratio: isNaN(ratio) ? 0 : ratio 
     };
   }, [marketingSpend, customersAcquired, avgMonthlySpend, grossMargin, monthlyChurn]);
+
+  const shareUrl = useMemo(() => {
+    if (typeof window === 'undefined') return '';
+    const params = new URLSearchParams();
+    params.set('name', name);
+    params.set('company', company);
+    params.set('marketingSpend', String(marketingSpend));
+    params.set('customersAcquired', String(customersAcquired));
+    params.set('avgMonthlySpend', String(avgMonthlySpend));
+    params.set('grossMargin', String(grossMargin));
+    params.set('monthlyChurn', String(monthlyChurn));
+    return `${window.location.origin}${window.location.pathname}?${params.toString()}`;
+  }, [name, company, marketingSpend, customersAcquired, avgMonthlySpend, grossMargin, monthlyChurn]);
 
   const getRatioMessage = () => {
     if (ratio >= 3) {
@@ -82,6 +99,16 @@ export default function CacLtvCalculatorPage() {
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-6">
+               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="space-y-2">
+                    <Label htmlFor="name">Your Name</Label>
+                    <Input id="name" value={name} onChange={(e) => setName(e.target.value)} placeholder="e.g., Jane Doe" />
+                </div>
+                <div className="space-y-2">
+                    <Label htmlFor="company">Company Name</Label>
+                    <Input id="company" value={company} onChange={(e) => setCompany(e.target.value)} placeholder="e.g., Acme Inc." />
+                </div>
+              </div>
               <div className="space-y-2">
                 <Label htmlFor="marketingSpend">Total Marketing & Sales Spend</Label>
                 <Input
@@ -142,6 +169,7 @@ export default function CacLtvCalculatorPage() {
                 <CardDescription>Your calculated CAC, LTV, and the all-important ratio.</CardDescription>
               </CardHeader>
               <CardContent className="space-y-4">
+                 <ReportHeader name={name} company={company} />
                 <div className="flex justify-between items-center p-4 bg-muted/50 rounded-lg">
                     <div className='flex items-center gap-2'>
                         <DollarSign className='h-5 w-5 text-muted-foreground'/>
@@ -170,6 +198,10 @@ export default function CacLtvCalculatorPage() {
               <AlertTitle>{ratioAlert.title}</AlertTitle>
               <AlertDescription>{ratioAlert.description}</AlertDescription>
             </Alert>
+             <SocialShare 
+                shareUrl={shareUrl}
+                text={`My startup's LTV:CAC ratio is ${ratio.toFixed(2)}:1! Calculated with TheASKT's free toolkit.`}
+            />
         </div>
       </div>
     </div>

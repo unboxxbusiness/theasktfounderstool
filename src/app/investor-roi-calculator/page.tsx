@@ -1,11 +1,14 @@
+
 'use client';
 
 import { useState, useMemo } from 'react';
+import { useSearchParams } from 'next/navigation';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
-import { PiggyBank, HelpCircle } from 'lucide-react';
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
+import { PiggyBank } from 'lucide-react';
+import { ReportHeader } from '@/components/report-header';
+import { SocialShare } from '@/components/social-share';
 
 const formatCurrency = (value: number) => {
   if (isNaN(value) || !isFinite(value)) return '$0';
@@ -31,9 +34,12 @@ const formatCompactCurrency = (value: number) => {
 
 
 export default function InvestorROICalculatorPage() {
-  const [investmentAmount, setInvestmentAmount] = useState(250000);
-  const [equityPercentage, setEquityPercentage] = useState(10);
-  const [exitValuation, setExitValuation] = useState(100000000);
+  const searchParams = useSearchParams();
+  const [name, setName] = useState(searchParams.get('name') || '');
+  const [company, setCompany] = useState(searchParams.get('company') || '');
+  const [investmentAmount, setInvestmentAmount] = useState(Number(searchParams.get('investmentAmount')) || 250000);
+  const [equityPercentage, setEquityPercentage] = useState(Number(searchParams.get('equityPercentage')) || 10);
+  const [exitValuation, setExitValuation] = useState(Number(searchParams.get('exitValuation')) || 100000000);
 
   const { payout, roiMultiple } = useMemo(() => {
     if (investmentAmount <= 0 || equityPercentage <= 0 || exitValuation <= 0) {
@@ -44,72 +50,98 @@ export default function InvestorROICalculatorPage() {
     return { payout, roiMultiple };
   }, [investmentAmount, equityPercentage, exitValuation]);
 
+  const shareUrl = useMemo(() => {
+    if (typeof window === 'undefined') return '';
+    const params = new URLSearchParams();
+    params.set('name', name);
+    params.set('company', company);
+    params.set('investmentAmount', String(investmentAmount));
+    params.set('equityPercentage', String(equityPercentage));
+    params.set('exitValuation', String(exitValuation));
+    return `${window.location.origin}${window.location.pathname}?${params.toString()}`;
+  }, [name, company, investmentAmount, equityPercentage, exitValuation]);
+
   return (
-    <TooltipProvider>
-      <div className="container mx-auto max-w-3xl py-12 px-4 md:px-6">
-        <Card>
-          <CardHeader>
-            <CardTitle className="text-3xl font-headline flex items-center gap-2">
-              <PiggyBank className="h-8 w-8 text-primary" />
-              Investor ROI Calculator
-            </CardTitle>
-            <CardDescription>
-              Estimate the potential return on investment for your investors based on a future exit valuation. See what your investors could make.
-            </CardDescription>
-          </CardHeader>
-          <CardContent className="grid gap-8">
-            <div className="space-y-6">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <div className="container mx-auto max-w-3xl py-12 px-4 md:px-6">
+      <Card>
+        <CardHeader>
+          <CardTitle className="text-3xl font-headline flex items-center gap-2">
+            <PiggyBank className="h-8 w-8 text-primary" />
+            Investor ROI Calculator
+          </CardTitle>
+          <CardDescription>
+            Estimate the potential return on investment for your investors based on a future exit valuation. See what your investors could make.
+          </CardDescription>
+        </CardHeader>
+        <CardContent className="grid gap-8">
+          <div className="space-y-6">
+             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="space-y-2">
-                  <Label htmlFor="investmentAmount">Investment Amount</Label>
-                  <Input
-                    id="investmentAmount"
-                    type="number"
-                    value={investmentAmount}
-                    onChange={(e) => setInvestmentAmount(Number(e.target.value))}
-                    step="50000"
-                  />
+                    <Label htmlFor="name">Your Name</Label>
+                    <Input id="name" value={name} onChange={(e) => setName(e.target.value)} placeholder="e.g., Jane Doe" />
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="equityPercentage">Equity Percentage (%)</Label>
-                  <Input
-                    id="equityPercentage"
-                    type="number"
-                    value={equityPercentage}
-                    onChange={(e) => setEquityPercentage(Number(e.target.value))}
-                    step="1"
-                  />
+                    <Label htmlFor="company">Company Name</Label>
+                    <Input id="company" value={company} onChange={(e) => setCompany(e.target.value)} placeholder="e.g., Acme Inc." />
                 </div>
               </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="space-y-2">
-                 <Label htmlFor="exitValuation">Projected Exit Valuation</Label>
+                <Label htmlFor="investmentAmount">Investment Amount</Label>
                 <Input
-                  id="exitValuation"
+                  id="investmentAmount"
                   type="number"
-                  value={exitValuation}
-                  onChange={(e) => setExitValuation(Number(e.target.value))}
-                  step="10000000"
+                  value={investmentAmount}
+                  onChange={(e) => setInvestmentAmount(Number(e.target.value))}
+                  step="50000"
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="equityPercentage">Equity Percentage (%)</Label>
+                <Input
+                  id="equityPercentage"
+                  type="number"
+                  value={equityPercentage}
+                  onChange={(e) => setEquityPercentage(Number(e.target.value))}
+                  step="1"
                 />
               </div>
             </div>
-            
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div className="space-y-4 text-center bg-muted/50 p-6 rounded-lg">
-                    <Label className="text-lg text-muted-foreground">Investor Payout at Exit</Label>
-                    <div className="text-5xl font-bold text-primary">
-                        {formatCompactCurrency(payout)}
-                    </div>
-                </div>
-                <div className="space-y-4 text-center bg-muted/50 p-6 rounded-lg">
-                    <Label className="text-lg text-muted-foreground">Return on Investment (ROI)</Label>
-                    <div className="text-5xl font-bold text-accent">
-                        {roiMultiple.toFixed(1)}x
-                    </div>
-                </div>
+            <div className="space-y-2">
+                <Label htmlFor="exitValuation">Projected Exit Valuation</Label>
+              <Input
+                id="exitValuation"
+                type="number"
+                value={exitValuation}
+                onChange={(e) => setExitValuation(Number(e.target.value))}
+                step="10000000"
+              />
             </div>
-          </CardContent>
-        </Card>
-      </div>
-    </TooltipProvider>
+          </div>
+          
+          <ReportHeader name={name} company={company} />
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div className="space-y-4 text-center bg-muted/50 p-6 rounded-lg">
+                  <Label className="text-lg text-muted-foreground">Investor Payout at Exit</Label>
+                  <div className="text-5xl font-bold text-primary">
+                      {formatCompactCurrency(payout)}
+                  </div>
+              </div>
+              <div className="space-y-4 text-center bg-muted/50 p-6 rounded-lg">
+                  <Label className="text-lg text-muted-foreground">Return on Investment (ROI)</Label>
+                  <div className="text-5xl font-bold text-accent">
+                      {roiMultiple.toFixed(1)}x
+                  </div>
+              </div>
+          </div>
+
+          <SocialShare 
+            shareUrl={shareUrl}
+            text={`A ${formatCurrency(investmentAmount)} investment could yield a ${roiMultiple.toFixed(1)}x return! Modeled with TheASKT's free toolkit.`}
+           />
+        </CardContent>
+      </Card>
+    </div>
   );
 }
