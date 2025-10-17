@@ -3,7 +3,6 @@
 
 import Link from "next/link";
 import {
-  Lightbulb,
   Banknote,
   Users,
   TrendingUp,

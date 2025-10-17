@@ -7,7 +7,8 @@ import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip as RechartsTooltip, L
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { ShieldCheck, HelpCircle } from 'lucide-react';
+import { ShieldCheck } from '@/components/icons';
+import { HelpCircle } from 'lucide-react';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { ReportHeader } from '@/components/report-header';
 import { SocialShare } from '@/components/social-share';
@@ -97,7 +98,7 @@ export default function SafeCalculatorPage() {
         <div className="lg:col-span-3">
             <Card>
                 <CardHeader>
-                    <CardTitle className="text-2xl md:text-3xl font-headline flex items-center gap-2">
+                    <CardTitle className="text-2xl md:text-3xl flex items-center gap-2">
                         <ShieldCheck className="h-7 w-7 md:h-8 md:w-8 text-primary" />
                         Post-Money SAFE Dilution Calculator
                     </CardTitle>

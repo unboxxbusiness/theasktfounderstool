@@ -4,9 +4,9 @@
 import { useState, useMemo, useEffect } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Label } from '@/componentsui/label';
+import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
-import { PiggyBank } from 'lucide-react';
+import { PiggyBank } from '@/components/icons';
 import { ReportHeader } from '@/components/report-header';
 import { SocialShare } from '@/components/social-share';
 
@@ -69,7 +69,7 @@ export default function InvestorROICalculatorPage() {
     <div className="container mx-auto max-w-4xl py-8 md:py-12 px-4 md:px-6">
       <Card>
         <CardHeader>
-          <CardTitle className="text-2xl md:text-3xl font-headline flex items-center gap-2">
+          <CardTitle className="text-2xl md:text-3xl flex items-center gap-2">
             <PiggyBank className="h-7 w-7 md:h-8 md:w-8 text-primary" />
             Investor ROI Calculator
           </CardTitle>
@@ -134,7 +134,7 @@ export default function InvestorROICalculatorPage() {
               </div>
               <div className="space-y-4 text-center bg-muted/50 p-6 rounded-lg">
                   <Label className="text-md md:text-lg text-muted-foreground">Return on Investment (ROI)</Label>
-                  <div className="text-4xl md:text-5xl font-bold text-accent">
+                  <div className="text-4xl md:text-5xl font-bold text-primary">
                       {roiMultiple.toFixed(1)}x
                   </div>
               </div>
