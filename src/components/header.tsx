@@ -11,14 +11,15 @@ export function Header() {
         <span className="sr-only">TheASKT Startup Toolkit</span>
       </Link>
       <div className="ml-4 flex flex-col sm:flex-row sm:items-center sm:gap-2">
-        <h1 className="font-bold text-lg leading-none">TheASKT Startup Toolkit</h1>
+        <h1 className="font-bold text-base sm:text-lg leading-none">TheASKT Startup Toolkit</h1>
         <span className="text-sm text-muted-foreground hidden sm:block">— Plan. Build. Grow.</span>
       </div>
-      <nav className="ml-auto flex flex-wrap items-center justify-end gap-2 sm:gap-4">
+      <nav className="ml-auto flex items-center gap-2 sm:gap-4">
         <MegaMenu />
         <Button asChild variant="default" size="sm">
             <a href="https://theaskt.org" target="_blank" rel="noopener noreferrer">
-                Join TheASKT Founders Group
+                <span className="hidden sm:inline">Join TheASKT Founders Group</span>
+                <span className="sm:hidden">Join</span>
             </a>
         </Button>
       </nav>
