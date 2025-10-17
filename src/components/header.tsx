@@ -3,7 +3,7 @@ import Link from "next/link";
 import { AppLogo } from "./icons";
 import { MegaMenu } from "./mega-menu";
 import { Button } from "./ui/button";
-import { Sheet, SheetContent, SheetTrigger } from "./ui/sheet";
+import { Sheet, SheetContent, SheetTitle, SheetTrigger } from "./ui/sheet";
 import { Menu } from "lucide-react";
 
 export function Header() {
@@ -31,6 +31,7 @@ export function Header() {
                     </Button>
                 </SheetTrigger>
                 <SheetContent side="right">
+                    <SheetTitle className="sr-only">Main Menu</SheetTitle>
                     <nav className="grid gap-6 text-lg font-medium mt-8">
                         <MegaMenu />
                          <Button asChild variant="default" size="sm" className="rounded-full shadow-lg shadow-primary/30 font-bold">
