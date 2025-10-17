@@ -37,15 +37,10 @@ export default function Home() {
     { icon: <Smile className="h-6 w-6 text-accent" />, text: "Data-driven confidence." },
     { icon: <Smile className="h-6 w-6 text-accent" />, text: "A clear path forward." },
     { icon: <Smile className="h-6 w-6 text-accent" />, text: "Mastery of your numbers." },
-    { icon: <Smile className="h-6 w-6 text-accent" />, text: "A pitch deck that gets meetings." },
+    { icon: <Smile className="h-6 w-6 text-accent" />, text: "A pitch that gets meetings." },
   ];
 
   const toolCategories = [
-      {
-          icon: <Lightbulb className="h-8 w-8 text-primary"/>,
-          title: "Idea & Validation",
-          tools: ["Idea Validator", "Branding Generator", "Funding Eligibility"]
-      },
       {
           icon: <Banknote className="h-8 w-8 text-primary"/>,
           title: "Financial Tools",
@@ -54,7 +49,7 @@ export default function Home() {
       {
           icon: <Users className="h-8 w-8 text-primary"/>,
           title: "Team & Equity",
-          tools: ["Equity Split", "Dilution Calculator"]
+          tools: ["Equity Split", "Dilution Calculator", "SAFE Calculator"]
       },
       {
           icon: <TrendingUp className="h-8 w-8 text-primary"/>,
@@ -73,11 +68,11 @@ export default function Home() {
                 The Founder's Toolkit for<br/>Building with Confidence.
               </h1>
               <p className="max-w-[700px] text-muted-foreground md:text-xl">
-                Stop guessing. Stop wasting money. Validate your idea, master your financials, and build a startup that’s built to last. For free.
+                Stop guessing. Stop wasting money. Master your financials, and build a startup that’s built to last. For free.
               </p>
               <Button asChild size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground text-lg px-8 py-6">
-                <Link href="/validate">
-                  Get Your Free Validation Score
+                <Link href="/equity-split-calculator">
+                  Explore the Calculators
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </Link>
               </Button>
@@ -157,7 +152,7 @@ export default function Home() {
                 </p>
               </div>
             </div>
-            <div className="mx-auto grid max-w-6xl items-stretch gap-6 sm:grid-cols-2 lg:grid-cols-4 mt-12">
+            <div className="mx-auto grid max-w-5xl items-stretch gap-6 sm:grid-cols-2 lg:grid-cols-3 mt-12">
                 {toolCategories.map((category) => (
                     <Card key={category.title} className="flex flex-col">
                         <CardHeader>
@@ -241,13 +236,13 @@ export default function Home() {
                     Ready to build something amazing?
                 </h2>
                 <p className="mx-auto max-w-[600px] text-muted-foreground md:text-xl/relaxed">
-                    The difference between success and failure can be one smart decision. Start making them now. Get your free, data-driven validation report and unlock the entire toolkit.
+                    The difference between success and failure can be one smart decision. Start making them now with our free suite of startup calculators.
                 </p>
                 </div>
                 <div className="flex justify-center">
                     <Button asChild size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground animate-pulse text-lg px-8 py-6">
-                        <Link href="/validate">
-                        Start Validating Your Idea
+                        <Link href="/valuation-calculator">
+                        Start Planning
                         <ArrowRight className="ml-2 h-5 w-5" />
                         </Link>
                     </Button>

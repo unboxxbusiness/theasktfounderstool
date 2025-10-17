@@ -17,15 +17,6 @@ import { Button } from "./ui/button";
 
 const menuItems = [
   {
-    category: "Idea & Validation",
-    icon: <Lightbulb className="h-5 w-5 text-primary" />,
-    links: [
-      { href: "/validate", label: "Idea Validator" },
-      { href: "/branding", label: "Branding Generator" },
-      { href: "/funding-eligibility", label: "Funding Eligibility" },
-    ],
-  },
-  {
     category: "Financial Tools",
     icon: <Banknote className="h-5 w-5 text-primary" />,
     links: [
@@ -44,6 +35,7 @@ const menuItems = [
     links: [
       { href: "/equity-split-calculator", label: "Equity Split" },
       { href: "/dilution-calculator", label: "Dilution Calculator" },
+      { href: "/safe-calculator", label: "SAFE Calculator" },
     ],
   },
   {
