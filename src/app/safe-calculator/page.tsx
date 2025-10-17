@@ -175,7 +175,7 @@ export default function SafeCalculatorPage() {
                     Post-Round Cap Table
                     <Tooltip>
                         <TooltipTrigger asChild>
-                            <HelpCircle className="h-4 w-4 text-muted-foreground cursor-help" />
+                            <HelpCircle className="h-4 w-4 text-zinc-400 cursor-help" />
                         </TooltipTrigger>
                         <TooltipContent>
                             <p className="max-w-xs">This shows the ownership split after the SAFE converts and the new round closes.</p>

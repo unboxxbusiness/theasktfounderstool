@@ -243,7 +243,7 @@ export default function EquitySplitCalculatorPage() {
                     Equity Distribution
                     <Tooltip>
                         <TooltipTrigger asChild>
-                            <HelpCircle className="h-4 w-4 text-muted-foreground cursor-help" />
+                            <HelpCircle className="h-4 w-4 text-zinc-400 cursor-help" />
                         </TooltipTrigger>
                         <TooltipContent>
                             <p className="max-w-xs">This is a suggested equity split based on the "Slicing Pie" model. It dynamically adjusts based on inputs.</p>

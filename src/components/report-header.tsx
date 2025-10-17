@@ -18,9 +18,9 @@ export function ReportHeader({ name, company }: ReportHeaderProps) {
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2">
         <div>
           <p className="font-bold text-md md:text-lg">{company || 'Your Company'}</p>
-          <p className="text-sm text-muted-foreground">Prepared for {name || 'Your Name'}</p>
+          <p className="text-sm text-zinc-400">Prepared for {name || 'Your Name'}</p>
         </div>
-        <div className="flex items-center gap-2 text-xs text-muted-foreground self-end sm:self-center">
+        <div className="flex items-center gap-2 text-xs text-zinc-400 self-end sm:self-center">
             <AppLogo className="h-4 w-4" />
             <span>Powered by TheASKT.org</span>
         </div>

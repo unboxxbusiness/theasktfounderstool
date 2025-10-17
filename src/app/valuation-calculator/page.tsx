@@ -159,10 +159,10 @@ export default function ValuationCalculatorPage() {
 
             <div className="space-y-4 text-center bg-muted/50 p-6 rounded-lg">
                 <div className='flex items-center justify-center gap-2'>
-                    <Label className="text-md md:text-lg text-muted-foreground">Estimated Valuation</Label>
+                    <Label className="text-md md:text-lg text-zinc-400">Estimated Valuation</Label>
                      <Tooltip>
                         <TooltipTrigger asChild>
-                            <HelpCircle className="h-4 w-4 text-muted-foreground cursor-help" />
+                            <HelpCircle className="h-4 w-4 text-zinc-400 cursor-help" />
                         </TooltipTrigger>
                         <TooltipContent>
                             <p className="max-w-xs">This is a simplified estimate for pre-revenue and early-stage startups. Actual valuations can vary significantly based on team, market, traction, and other factors.</p>

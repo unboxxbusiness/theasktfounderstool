@@ -122,10 +122,10 @@ export default function PricingStrategyCalculatorPage() {
 
             <div className="space-y-6">
                <div className='flex items-center justify-center gap-2'>
-                    <Label className="text-md md:text-lg text-muted-foreground">Recommended Price Points</Label>
+                    <Label className="text-md md:text-lg text-zinc-400">Recommended Price Points</Label>
                      <Tooltip>
                         <TooltipTrigger asChild>
-                            <HelpCircle className="h-4 w-4 text-muted-foreground cursor-help" />
+                            <HelpCircle className="h-4 w-4 text-zinc-400 cursor-help" />
                         </TooltipTrigger>
                         <TooltipContent>
                             <p className="max-w-xs">These are suggestions based on different pricing strategies. Your final price may vary based on market positioning, brand, and other factors.</p>

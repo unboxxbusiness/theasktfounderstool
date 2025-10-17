@@ -75,7 +75,7 @@ export function MegaMenu() {
                     <DropdownMenuItem asChild>
                       <Link
                         href={link.href}
-                        className="text-sm text-muted-foreground hover:text-foreground w-full justify-start"
+                        className="text-sm text-zinc-400 hover:text-foreground w-full justify-start"
                       >
                         {link.label}
                       </Link>

@@ -126,7 +126,7 @@ export default function Home() {
               <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight font-headline max-w-4xl">
                 The Financial Blind Spots That Are Secretly Killing Your Startup
               </h1>
-              <p className="max-w-[700px] text-zinc-300 text-base sm:text-lg md:text-xl">
+              <p className="max-w-[700px] text-zinc-400 text-base sm:text-lg md:text-xl">
                 Finally! A complete (and 100% free) toolkit of financial calculators to give you the clarity you need to build, grow, and fund your business like a pro.
               </p>
               <div className="flex flex-col gap-4">
@@ -136,7 +136,7 @@ export default function Home() {
                         <ArrowRight className="ml-2 h-5 w-5"/>
                     </Link>
                 </Button>
-                <p className="text-xs text-muted-foreground">No sign-up required. Ever.</p>
+                <p className="text-xs text-zinc-400">No sign-up required. Ever.</p>
               </div>
             </div>
           </div>
@@ -148,7 +148,7 @@ export default function Home() {
                  <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tighter font-headline">
                     Your Secret Financial Toolkit
                  </h2>
-                 <p className="max-w-[700px] mx-auto text-muted-foreground text-base sm:text-lg md:text-xl mt-4">
+                 <p className="max-w-[700px] mx-auto text-zinc-400 text-base sm:text-lg md:text-xl mt-4">
                     From valuation to dilution, get the answers you need in seconds. Stop guessing and start knowing.
                  </p>
             </div>
@@ -161,7 +161,7 @@ export default function Home() {
                                 <CardTitle className="text-xl">{tool.title}</CardTitle>
                             </CardHeader>
                             <CardContent className="flex-grow text-center">
-                                <p className="text-muted-foreground">{tool.description}</p>
+                                <p className="text-zinc-400">{tool.description}</p>
                             </CardContent>
                         </Card>
                     </Link>
@@ -176,7 +176,7 @@ export default function Home() {
               <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tighter font-headline max-w-3xl">
                 Don't Let Bad Math Kill Your Dream
               </h2>
-              <p className="max-w-[600px] text-muted-foreground text-lg">
+              <p className="max-w-[600px] text-zinc-400 text-lg">
                 This toolkit was built by founders, for founders, because we got tired of seeing great ideas fail due to simple, avoidable financial mistakes. We're making it free to give every founder a fighting chance.
               </p>
               <div className="w-full max-w-md space-y-3">

@@ -1,3 +1,4 @@
+
 "use client";
 
 import { cn } from "@/lib/utils";
@@ -57,10 +58,10 @@ export function ScoreGauge({ score, label, size = "md" }: ScoreGaugeProps) {
         </svg>
         <div className="absolute inset-0 flex flex-col items-center justify-center">
             <span className={cn("font-bold", textSize, "text-foreground")}>{score}</span>
-            {size === 'lg' && <span className="text-xs text-muted-foreground">/ 100</span>}
+            {size === 'lg' && <span className="text-xs text-zinc-400">/ 100</span>}
         </div>
       </div>
-      <span className="font-medium text-center text-muted-foreground">{label}</span>
+      <span className="font-medium text-center text-zinc-400">{label}</span>
     </div>
   );
 }

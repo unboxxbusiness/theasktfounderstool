@@ -116,7 +116,7 @@ export default function BreakEvenCalculatorPage() {
           <ReportHeader name={name} company={company} />
 
           <div className="space-y-4 text-center bg-muted/50 p-6 rounded-lg">
-            <Label className="text-md md:text-lg text-muted-foreground">Units to Break Even</Label>
+            <Label className="text-md md:text-lg text-zinc-400">Units to Break Even</Label>
             {breakEvenUnits === Infinity ? (
               <div className="text-4xl md:text-5xl font-bold text-destructive">Unprofitable</div>
             ) : (
@@ -124,7 +124,7 @@ export default function BreakEvenCalculatorPage() {
                 {Math.ceil(breakEvenUnits).toLocaleString()} <span className="text-2xl md:text-3xl">units/month</span>
               </div>
             )}
-            <p className="text-sm md:text-base text-muted-foreground">
+            <p className="text-sm md:text-base text-zinc-400">
               Your contribution margin is {formatCurrency(contributionMargin)} per unit.
             </p>
           </div>

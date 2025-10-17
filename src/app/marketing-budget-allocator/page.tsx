@@ -103,7 +103,7 @@ export default function MarketingBudgetAllocatorPage() {
                         <Label>Primary Marketing Goal</Label>
                         <Tooltip>
                             <TooltipTrigger asChild>
-                                <HelpCircle className="h-4 w-4 text-muted-foreground cursor-help" />
+                                <HelpCircle className="h-4 w-4 text-zinc-400 cursor-help" />
                             </TooltipTrigger>
                             <TooltipContent>
                                 <p className="max-w-xs">Your primary goal will influence which channels get more budget.</p>

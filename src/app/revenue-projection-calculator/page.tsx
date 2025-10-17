@@ -146,7 +146,7 @@ export default function RevenueProjectionCalculatorPage() {
             <CardContent>
                 <ReportHeader name={name} company={company} />
                 <div className='text-center mb-6'>
-                    <p className="text-md text-muted-foreground">Estimated Annual Revenue</p>
+                    <p className="text-md text-zinc-400">Estimated Annual Revenue</p>
                     <p className="text-3xl md:text-4xl font-bold text-primary">{formatCurrency(totalRevenue)}</p>
                 </div>
                 <div className="w-full h-72 md:h-80">

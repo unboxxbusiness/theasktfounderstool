@@ -176,21 +176,21 @@ export default function CacLtvCalculatorPage() {
                  <ReportHeader name={name} company={company} />
                 <div className="flex justify-between items-center p-3 md:p-4 bg-muted/50 rounded-lg">
                     <div className='flex items-center gap-2'>
-                        <DollarSign className='h-5 w-5 text-muted-foreground'/>
+                        <DollarSign className='h-5 w-5 text-zinc-400'/>
                         <span className="font-semibold text-sm md:text-base">Customer Acquisition Cost (CAC)</span>
                     </div>
                     <span className="text-xl md:text-2xl font-bold">{formatCurrency(cac)}</span>
                 </div>
                 <div className="flex justify-between items-center p-3 md:p-4 bg-muted/50 rounded-lg">
                     <div className='flex items-center gap-2'>
-                        <Users className='h-5 w-5 text-muted-foreground'/>
+                        <Users className='h-5 w-5 text-zinc-400'/>
                         <span className="font-semibold text-sm md:text-base">Customer Lifetime Value (LTV)</span>
                     </div>
                     <span className="text-xl md:text-2xl font-bold">{formatCurrency(ltv)}</span>
                 </div>
                  <div className="flex justify-between items-center p-3 md:p-4 bg-muted/50 rounded-lg">
                     <div className='flex items-center gap-2'>
-                        <Percent className='h-5 w-5 text-muted-foreground'/>
+                        <Percent className='h-5 w-5 text-zinc-400'/>
                         <span className="font-semibold text-sm md:text-base">LTV to CAC Ratio</span>
                     </div>
                     <span className={`text-xl md:text-2xl font-bold ${ratioAlert.color}`}>{ratio.toFixed(2)} : 1</span>

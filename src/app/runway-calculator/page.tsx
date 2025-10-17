@@ -6,7 +6,7 @@ import { useSearchParams } from 'next/navigation';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
-import { Alert, AlertDescription, AlertTitle } from '@/componentsui/alert';
+import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { Hourglass, AlertTriangle, TrendingDown } from 'lucide-react';
 import { ReportHeader } from '@/components/report-header';
 import { SocialShare } from '@/components/social-share';
@@ -105,7 +105,7 @@ export default function RunwayCalculatorPage() {
           <ReportHeader name={name} company={company} />
 
           <div className="space-y-4 text-center bg-muted/50 p-6 rounded-lg">
-            <Label className="text-md md:text-lg text-muted-foreground">Estimated Runway</Label>
+            <Label className="text-md md:text-lg text-zinc-400">Estimated Runway</Label>
             {runwayMonths === Infinity ? (
               <div className="text-4xl md:text-5xl font-bold text-accent">Infinite</div>
             ) : (
@@ -113,7 +113,7 @@ export default function RunwayCalculatorPage() {
                 {runwayMonths.toFixed(1)} <span className="text-2xl md:text-3xl">months</span>
               </div>
             )}
-            <p className="text-sm md:text-base text-muted-foreground">
+            <p className="text-sm md:text-base text-zinc-400">
               Your remaining runway is based on a burn rate of {formatCurrency(monthlyBurn)}/month.
             </p>
           </div>

@@ -103,7 +103,7 @@ export default function FundraisingGoalCalculatorPage() {
                     <Label htmlFor="buffer">Contingency Buffer (%)</Label>
                     <Tooltip>
                         <TooltipTrigger asChild>
-                            <HelpCircle className="h-4 w-4 text-muted-foreground cursor-help" />
+                            <HelpCircle className="h-4 w-4 text-zinc-400 cursor-help" />
                         </TooltipTrigger>
                         <TooltipContent>
                             <p className="max-w-xs">A 20-30% buffer is recommended to cover unexpected expenses and provide capital for growth opportunities.</p>
@@ -124,11 +124,11 @@ export default function FundraisingGoalCalculatorPage() {
             <ReportHeader name={name} company={company} />
             
             <div className="space-y-4 text-center bg-muted/50 p-6 rounded-lg">
-              <Label className="text-md md:text-lg text-muted-foreground">Ideal Funding Goal</Label>
+              <Label className="text-md md:text-lg text-zinc-400">Ideal Funding Goal</Label>
               <div className="text-4xl md:text-5xl font-bold text-primary">
                 {formatCurrency(fundingGoal)}
               </div>
-              <p className="text-sm md:text-base text-muted-foreground">
+              <p className="text-sm md:text-base text-zinc-400">
                 This gives you {targetRunway} months of runway with a {buffer}% buffer.
               </p>
             </div>
