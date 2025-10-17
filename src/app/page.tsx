@@ -126,7 +126,7 @@ export default function Home() {
               <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight font-headline max-w-4xl">
                 The Financial Blind Spots That Are Secretly Killing Your Startup
               </h1>
-              <p className="max-w-[700px] text-muted-foreground text-base sm:text-lg md:text-xl">
+              <p className="max-w-[700px] text-zinc-300 text-base sm:text-lg md:text-xl">
                 Finally! A complete (and 100% free) toolkit of financial calculators to give you the clarity you need to build, grow, and fund your business like a pro.
               </p>
               <div className="flex flex-col gap-4">
@@ -155,7 +155,7 @@ export default function Home() {
             <div className="mx-auto grid max-w-6xl items-stretch gap-6 sm:grid-cols-2 lg:grid-cols-3">
                 {tools.map((tool) => (
                     <Link href={tool.link} key={tool.title} className="flex flex-col group">
-                        <Card className="flex-grow flex flex-col bg-card border-2 border-transparent hover:border-primary/80 hover:shadow-2xl hover:shadow-primary/10 transition-all duration-300">
+                        <Card className="flex-grow flex flex-col bg-card border-2 border-input hover:border-primary/80 hover:shadow-2xl hover:shadow-primary/10 transition-all duration-300">
                             <CardHeader className="flex flex-col items-center text-center gap-4">
                                 {tool.icon}
                                 <CardTitle className="text-xl">{tool.title}</CardTitle>
@@ -200,5 +200,3 @@ export default function Home() {
     </div>
   );
 }
-
-    
