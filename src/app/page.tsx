@@ -1,13 +1,10 @@
 
 import Link from "next/link";
-import Image from "next/image";
 import {
   ArrowRight,
   Banknote,
   Users,
   TrendingUp,
-  Frown,
-  Smile,
   ShieldCheck,
   Scale,
   Calculator,
@@ -16,7 +13,6 @@ import {
   Landmark,
   DollarSign,
   Megaphone,
-  Heart,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
@@ -26,9 +22,6 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { PlaceHolderImages } from "@/lib/placeholder-images";
-
-const heroImage = PlaceHolderImages.find((img) => img.id === 'community-image');
 
 export default function Home() {
 
@@ -110,14 +103,10 @@ export default function Home() {
   return (
     <div className="flex flex-col min-h-dvh">
       <main className="flex-1">
-        <section className="w-full py-20 md:py-24 text-center relative">
-          <div
-            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-[800px] h-[800px] bg-primary/10 rounded-full blur-[150px] "
-            aria-hidden="true"
-          />
-          <div className="container px-4 md:px-6 relative">
-            <div className="flex flex-col items-center space-y-6">
-              <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tighter font-headline bg-clip-text text-transparent bg-gradient-to-br from-foreground to-muted-foreground leading-tight">
+        <section className="w-full py-20 md:py-24 text-center">
+          <div className="container px-4 md:px-6">
+            <div className="flex flex-col items-center space-y-4">
+              <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tighter font-headline">
                 The Founder's Financial Toolkit
               </h1>
               <p className="max-w-[700px] text-muted-foreground text-base sm:text-lg md:text-xl">
@@ -130,7 +119,7 @@ export default function Home() {
                     href="https://theaskt.org"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="font-semibold underline-offset-4 hover:underline text-foreground"
+                    className="font-semibold underline-offset-4 hover:underline text-primary"
                   >TheASKT.org</a>
                 </p>
             </div>
