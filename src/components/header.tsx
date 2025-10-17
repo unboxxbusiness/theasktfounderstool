@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { AppLogo } from "./icons";
 import { MegaMenu } from "./mega-menu";
+import { Button } from "./ui/button";
 
 export function Header() {
   return (
@@ -13,8 +14,13 @@ export function Header() {
         <h1 className="font-bold text-lg leading-none">TheASKT Startup Toolkit</h1>
         <span className="text-sm text-muted-foreground hidden sm:block">— Plan. Build. Grow.</span>
       </div>
-      <nav className="ml-auto flex flex-wrap justify-end gap-1 sm:gap-2">
+      <nav className="ml-auto flex flex-wrap items-center justify-end gap-2 sm:gap-4">
         <MegaMenu />
+        <Button asChild variant="default" size="sm">
+            <a href="https://theaskt.org" target="_blank" rel="noopener noreferrer">
+                Join TheASKT Founders Group
+            </a>
+        </Button>
       </nav>
     </header>
   );
