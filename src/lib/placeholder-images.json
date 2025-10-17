@@ -14,9 +14,9 @@
     },
     {
       "id": "community-image",
-      "description": "Image of diverse founders collaborating or working.",
-      "imageUrl": "https://picsum.photos/seed/founders/800/800",
-      "imageHint": "founders collaborating"
+      "description": "Image of a modern desk with a calculator, notebook, and financial charts.",
+      "imageUrl": "https://picsum.photos/seed/calculator/800/800",
+      "imageHint": "financial planning"
     }
   ]
 }
