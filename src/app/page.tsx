@@ -3,13 +3,15 @@ import Image from "next/image";
 import {
   ArrowRight,
   CheckCircle,
-  Lightbulb,
   Banknote,
   Users,
   TrendingUp,
   Heart,
   Frown,
   Smile,
+  ShieldCheck,
+  Scale,
+  Calculator,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
@@ -22,57 +24,80 @@ import {
 import { PlaceHolderImages } from "@/lib/placeholder-images";
 
 const heroImage = PlaceHolderImages.find((img) => img.id === 'hero-image');
-const beforeAfterImage = PlaceHolderImages.find((img) => img.id === 'before-after-image');
-const communityImage = PlaceHolderImages.find((img) => img.id === 'community-image');
 
 export default function Home() {
   const beforeItems = [
-    { icon: <Frown className="h-6 w-6 text-destructive" />, text: "Uncertainty and self-doubt." },
-    { icon: <Frown className="h-6 w-6 text-destructive" />, text: "Wasted time on unviable ideas." },
-    { icon: <Frown className="h-6 w-6 text-destructive" />, text: "Confusing spreadsheets & financials." },
-    { icon: <Frown className="h-6 w-6 text-destructive" />, text: "Fear of talking to investors." },
+    { text: "Guessing your valuation" },
+    { text: "Confusing cap tables" },
+    { text: "Fear of dilution" },
+    { text: "Unclear financial future" },
   ];
 
   const afterItems = [
-    { icon: <Smile className="h-6 w-6 text-accent" />, text: "Data-driven confidence." },
-    { icon: <Smile className="h-6 w-6 text-accent" />, text: "A clear path forward." },
-    { icon: <Smile className="h-6 w-6 text-accent" />, text: "Mastery of your numbers." },
-    { icon: <Smile className="h-6 w-6 text-accent" />, text: "A pitch that gets meetings." },
+    { text: "Data-driven decisions" },
+    { text: "Clarity on ownership" },
+    { text: "Investor-ready numbers" },
+    { text: "A clear path to growth" },
   ];
 
-  const toolCategories = [
+  const tools = [
       {
-          icon: <Banknote className="h-8 w-8 text-primary"/>,
-          title: "Financial Tools",
-          tools: ["Valuation Calculator", "Fundraising Goal", "Runway Calculator", "Break-Even Point", "CAC vs LTV", "Pricing Strategy", "Investor ROI"]
+          icon: <Calculator className="h-6 w-6 mb-2 text-primary"/>,
+          title: "Valuation Calculator",
+          description: "Get a data-backed estimate of your startup's worth.",
+          link: "/valuation-calculator"
       },
       {
-          icon: <Users className="h-8 w-8 text-primary"/>,
-          title: "Team & Equity",
-          tools: ["Equity Split", "Dilution Calculator", "SAFE Calculator"]
+          icon: <Scale className="h-6 w-6 mb-2 text-primary"/>,
+          title: "Equity Split",
+          description: "Define a fair equity split for your co-founders.",
+           link: "/equity-split-calculator"
       },
       {
-          icon: <TrendingUp className="h-8 w-8 text-primary"/>,
-          title: "Growth Tools",
-          tools: ["Revenue Projection", "Marketing Budget"]
-      }
+          icon: <TrendingUp className="h-6 w-6 mb-2 text-primary"/>,
+          title: "Revenue Projection",
+          description: "Visualize your next 12 months of growth.",
+          link: "/revenue-projection-calculator"
+      },
+      {
+          icon: <ShieldCheck className="h-6 w-6 mb-2 text-primary"/>,
+          title: "SAFE Calculator",
+          description: "Model how a SAFE note impacts your ownership.",
+          link: "/safe-calculator"
+      },
+      {
+          icon: <Users className="h-6 w-6 mb-2 text-primary"/>,
+          title: "Dilution Calculator",
+          description: "Understand the impact of a new funding round.",
+          link: "/dilution-calculator"
+      },
+      {
+          icon: <Banknote className="h-6 w-6 mb-2 text-primary"/>,
+          title: "CAC & LTV",
+          description: "Analyze your customer acquisition economics.",
+          link: "/cac-ltv-calculator"
+      },
   ]
 
   return (
     <div className="flex flex-col min-h-dvh">
       <main className="flex-1">
-        <section className="w-full py-20 md:py-32 lg:py-40 bg-card text-center">
-          <div className="container px-4 md:px-6">
+        <section className="w-full py-24 md:py-32 lg:py-48 text-center relative overflow-hidden">
+          <div
+            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary/20 rounded-full blur-[150px] animate-pulse"
+            aria-hidden="true"
+          />
+          <div className="container px-4 md:px-6 relative">
             <div className="flex flex-col items-center space-y-6">
-              <h1 className="text-4xl font-bold tracking-tighter sm:text-5xl md:text-6xl lg:text-7xl/none font-headline">
-                The Founder's Toolkit for<br/>Building with Confidence.
+              <h1 className="text-4xl font-bold tracking-tighter sm:text-5xl md:text-6xl lg:text-7xl/none font-headline bg-clip-text text-transparent bg-gradient-to-br from-foreground to-muted-foreground">
+                Stop Guessing. Start Building.
               </h1>
               <p className="max-w-[700px] text-muted-foreground md:text-xl">
-                Stop guessing. Stop wasting money. Master your financials, and build a startup that’s built to last. For free.
+                The ultimate free toolkit for founders. Master your financials, make data-driven decisions, and build a startup that’s investor-ready from day one.
               </p>
-              <Button asChild size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground text-lg px-8 py-6">
-                <Link href="/equity-split-calculator">
-                  Explore the Calculators
+              <Button asChild size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground text-lg px-8 py-6 rounded-full shadow-lg shadow-primary/30">
+                <Link href="/valuation-calculator">
+                  Explore Calculators
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </Link>
               </Button>
@@ -83,7 +108,7 @@ export default function Home() {
                     href="https://theaskt.org"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="font-semibold underline-offset-4 hover:underline"
+                    className="font-semibold underline-offset-4 hover:underline text-foreground"
                   >TheASKT.org</a> for the next generation of founders.
                 </p>
             </div>
@@ -93,84 +118,67 @@ export default function Home() {
         <section id="before-after" className="w-full py-12 md:py-24 lg:py-32">
             <div className="container px-4 md:px-6">
                  <div className="text-center max-w-3xl mx-auto">
-                    <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl font-headline">From Chaos to Clarity</h2>
-                    <p className="mt-4 text-muted-foreground md:text-xl">You're juggling a million things. Our toolkit brings order to the chaos so you can focus on what matters: building.</p>
+                    <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl font-headline">From Founder Chaos to Financial Clarity</h2>
+                    <p className="mt-4 text-muted-foreground md:text-xl">Go from spreadsheets and uncertainty to a clear, fundable plan. </p>
                 </div>
 
-                <div className="mt-12 grid gap-8 md:grid-cols-2 items-center">
-                    <Card className="border-destructive/20 border-2">
-                        <CardHeader>
-                            <CardTitle className="text-2xl font-semibold">Before: The Founder's Mess</CardTitle>
-                        </CardHeader>
-                        <CardContent className="space-y-4">
+                <div className="mt-12 grid gap-8 md:grid-cols-2 items-center max-w-4xl mx-auto">
+                    <div className="rounded-xl bg-card p-8 border">
+                        <h3 className="text-2xl font-semibold mb-4 text-muted-foreground">Before</h3>
+                        <ul className="space-y-3">
                             {beforeItems.map((item, index) => (
-                                <div key={index} className="flex items-center gap-3">
-                                    {item.icon}
+                                <li key={index} className="flex items-center gap-3">
+                                    <Frown className="h-5 w-5 text-destructive" />
                                     <span className="text-lg text-muted-foreground">{item.text}</span>
-                                </div>
+                                </li>
                             ))}
-                        </CardContent>
-                    </Card>
-                     <Card className="border-accent/20 border-2 bg-accent/5">
-                        <CardHeader>
-                            <CardTitle className="text-2xl font-semibold">After: The Confident Founder</CardTitle>
-                        </CardHeader>
-                        <CardContent className="space-y-4">
-                             {afterItems.map((item, index) => (
-                                <div key={index} className="flex items-center gap-3">
-                                    {item.icon}
-                                    <span className="text-lg font-medium">{item.text}</span>
-                                </div>
-                            ))}
-                        </CardContent>
-                    </Card>
-                </div>
-                 {beforeAfterImage && (
-                    <div className="mt-12">
-                        <Image
-                            alt="Before and After"
-                            className="mx-auto rounded-xl object-cover"
-                            data-ai-hint={beforeAfterImage.imageHint}
-                            height="600"
-                            src={beforeAfterImage.imageUrl}
-                            width="1200"
-                        />
+                        </ul>
                     </div>
-                 )}
+                     <div className="rounded-xl bg-card p-8 border-2 border-primary/50 shadow-2xl shadow-primary/20">
+                        <h3 className="text-2xl font-semibold mb-4 text-foreground">After</h3>
+                        <ul className="space-y-3">
+                             {afterItems.map((item, index) => (
+                                <li key={index} className="flex items-center gap-3">
+                                    <Smile className="h-5 w-5 text-primary" />
+                                    <span className="text-lg font-medium text-foreground">{item.text}</span>
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+                </div>
             </div>
         </section>
         
-        <section id="tools" className="w-full py-12 md:py-24 lg:py-32 bg-secondary">
+        <section id="tools" className="w-full py-12 md:py-24 lg:py-32 bg-card">
           <div className="container px-4 md:px-6">
              <div className="flex flex-col items-center justify-center space-y-4 text-center">
               <div className="space-y-2">
+                 <div className="inline-block rounded-lg bg-muted px-3 py-1 text-sm font-medium text-primary">The Toolkit</div>
                 <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl font-headline">
-                  Your Complete Startup Toolkit. <span className="text-primary">All Free.</span>
+                  Everything You Need. <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary to-purple-400">Nothing You Don't.</span>
                 </h2>
                 <p className="max-w-[900px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
-                  Why pay for expensive consultants or complicated software? Everything you need to plan, build, and grow is right here.
+                  Ditch the complex software and expensive consultants. These simple, powerful calculators are all you need to plan, build, and grow.
                 </p>
               </div>
             </div>
-            <div className="mx-auto grid max-w-5xl items-stretch gap-6 sm:grid-cols-2 lg:grid-cols-3 mt-12">
-                {toolCategories.map((category) => (
-                    <Card key={category.title} className="flex flex-col">
+            <div className="mx-auto grid max-w-6xl items-stretch gap-6 sm:grid-cols-2 lg:grid-cols-3 mt-12">
+                {tools.map((tool) => (
+                    <Card key={tool.title} className="flex flex-col hover:border-primary/50 hover:bg-muted/30 transition-all duration-200">
                         <CardHeader>
-                            <div className="flex items-center gap-4">
-                                {category.icon}
-                                <CardTitle>{category.title}</CardTitle>
-                            </div>
+                            {tool.icon}
+                            <CardTitle>{tool.title}</CardTitle>
                         </CardHeader>
-                        <CardContent>
-                            <ul className="space-y-2 text-sm text-muted-foreground">
-                                {category.tools.map((tool) => (
-                                    <li key={tool} className="flex items-center gap-2">
-                                        <CheckCircle className="h-4 w-4 text-accent" />
-                                        {tool}
-                                    </li>
-                                ))}
-                            </ul>
+                        <CardContent className="flex-grow">
+                            <p className="text-muted-foreground">{tool.description}</p>
                         </CardContent>
+                        <div className="p-6 pt-0">
+                            <Button asChild variant="link" className="p-0">
+                                <Link href={tool.link}>
+                                    Use Calculator <ArrowRight className="ml-2 h-4 w-4"/>
+                                </Link>
+                            </Button>
+                        </div>
                     </Card>
                 ))}
             </div>
@@ -179,13 +187,13 @@ export default function Home() {
 
         <section id="community" className="w-full py-12 md:py-24 lg:py-32">
           <div className="container px-4 md:px-6">
-            <div className="grid gap-10 lg:grid-cols-2 lg:gap-16">
+            <div className="grid gap-10 lg:grid-cols-2 lg:gap-16 items-center">
               <div className="space-y-4">
-                <div className="inline-block rounded-lg bg-secondary px-3 py-1 text-sm">
-                  Join the Community
+                <div className="inline-block rounded-lg bg-muted px-3 py-1 text-sm font-medium text-primary">
+                  For Founders, By Founders
                 </div>
                 <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl font-headline">
-                  Built for Founders, by Founders.
+                  You're Not Alone on This Journey.
                 </h2>
                  <p className="text-muted-foreground md:text-xl/relaxed">
                   This toolkit is a free project from{" "}
@@ -199,9 +207,6 @@ export default function Home() {
                   </a>
                   , a non-profit dedicated to providing resources, mentorship, and community for early-stage entrepreneurs. We believe every founder deserves a fair shot at success.
                 </p>
-                <p className="text-muted-foreground md:text-xl/relaxed">
-                  These tools are just the beginning. Sign up to get access to our full platform, connect with other founders, and get the support you need to grow.
-                </p>
                 <Button asChild size="lg">
                   <a
                     href="https://theaskt.org"
@@ -209,21 +214,21 @@ export default function Home() {
                     rel="noopener noreferrer"
                   >
                     <Heart className="mr-2" />
-                    Sign Up at TheASKT.org
+                    Join TheASKT Founders Group
                   </a>
                 </Button>
               </div>
-              {communityImage && (
-                <div className="flex items-center justify-center">
-                  <Image
-                    alt="Community"
-                    className="mx-auto aspect-square overflow-hidden rounded-xl object-cover"
-                    data-ai-hint={communityImage.imageHint}
-                    height="550"
-                    src={communityImage.imageUrl}
-                    width="555"
-                  />
-                </div>
+               {heroImage && (
+                    <div className="flex items-center justify-center">
+                    <Image
+                        alt="Community"
+                        className="mx-auto aspect-video overflow-hidden rounded-xl object-cover"
+                        data-ai-hint="abstract network"
+                        height="550"
+                        src={heroImage.imageUrl}
+                        width="555"
+                    />
+                    </div>
               )}
             </div>
           </div>
@@ -232,17 +237,17 @@ export default function Home() {
         <section className="w-full py-20 md:py-32 bg-card">
             <div className="container grid items-center justify-center gap-4 px-4 text-center md:px-6">
                 <div className="space-y-4">
-                <h2 className="text-4xl font-bold tracking-tighter md:text-5xl/tight">
+                <h2 className="text-4xl font-bold tracking-tighter md:text-5xl/tight font-headline">
                     Ready to build something amazing?
                 </h2>
                 <p className="mx-auto max-w-[600px] text-muted-foreground md:text-xl/relaxed">
-                    The difference between success and failure can be one smart decision. Start making them now with our free suite of startup calculators.
+                    The difference between an idea and a business is a plan. Start building yours now.
                 </p>
                 </div>
                 <div className="flex justify-center">
-                    <Button asChild size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground animate-pulse text-lg px-8 py-6">
+                    <Button asChild size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground text-lg px-8 py-6 rounded-full shadow-lg shadow-primary/30 animate-pulse">
                         <Link href="/valuation-calculator">
-                        Start Planning
+                        Start Planning for Free
                         <ArrowRight className="ml-2 h-5 w-5" />
                         </Link>
                     </Button>

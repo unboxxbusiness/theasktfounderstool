@@ -6,11 +6,14 @@ import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
 import { Toaster } from "@/components/ui/toaster";
 
-const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
+const inter = Inter({ 
+  subsets: ["latin"], 
+  variable: "--font-sans" 
+});
 
 export const metadata: Metadata = {
-  title: "ValidateAI",
-  description: "Get AI-powered validation for your startup idea.",
+  title: "TheASKT Startup Toolkit",
+  description: "Free tools for founders to plan, build, and grow.",
 };
 
 export default function RootLayout({
