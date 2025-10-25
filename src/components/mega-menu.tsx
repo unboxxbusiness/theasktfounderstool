@@ -34,7 +34,6 @@ const menuItems = [
     links: [
       { href: "/news", label: "Top Startup News" },
       { href: "/indian-startup-schemes", label: "Indian Startup Schemes" },
-      { href: "/idea-of-the-day", label: "Quote of the Day" },
     ],
   },
   {
