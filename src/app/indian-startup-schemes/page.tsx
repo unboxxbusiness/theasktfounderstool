@@ -1,9 +1,11 @@
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Building, ExternalLink } from 'lucide-react';
+import { Building, ExternalLink, ArrowRight } from 'lucide-react';
 import type { Metadata } from 'next';
 import { BackButton } from '@/components/back-button';
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import Link from 'next/link';
 
 export const metadata: Metadata = {
     title: "Indian Government Startup Schemes | Browse All Schemes | TheASKT",
@@ -53,6 +55,17 @@ async function getStartupSchemes(): Promise<{ schemes?: Scheme[]; error?: string
 export default async function StartupSchemesPage() {
   const { schemes, error } = await getStartupSchemes();
 
+  const womenSchemes = schemes?.filter(scheme => 
+    scheme.schemeName.toLowerCase().includes('women') || 
+    scheme.schemeDescription.toLowerCase().includes('women') ||
+    scheme.schemeName.toLowerCase().includes('woman') ||
+    scheme.schemeDescription.toLowerCase().includes('woman') ||
+    scheme.schemeName.toLowerCase().includes('her') ||
+    scheme.schemeDescription.toLowerCase().includes('her') ||
+    scheme.schemeName.toLowerCase().includes('she') ||
+    scheme.schemeDescription.toLowerCase().includes('she')
+  ) || [];
+
   return (
     <div className="container mx-auto max-w-6xl py-8 md:py-12 px-4 md:px-6">
       <BackButton />
@@ -72,6 +85,39 @@ export default async function StartupSchemesPage() {
                     <p className="text-lg text-destructive">{error}</p>
                 </div>
             ) : (
+                <>
+                {womenSchemes.length > 0 && (
+                  <Accordion type="single" collapsible className="w-full">
+                    <AccordionItem value="women-schemes">
+                      <AccordionTrigger className="text-lg md:text-xl font-semibold text-primary hover:no-underline">
+                        Top Government Schemes for Women Entrepreneurs
+                      </AccordionTrigger>
+                      <AccordionContent>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-4">
+                          {womenSchemes.map((scheme) => (
+                             <Card key={scheme.sno} className="bg-muted/50">
+                               <CardHeader>
+                                   <CardTitle as="h3" className="text-md font-semibold">{scheme.schemeName}</CardTitle>
+                               </CardHeader>
+                                <CardContent>
+                                   <p className="text-sm line-clamp-3">{scheme.schemeDescription}</p>
+                               </CardContent>
+                                <CardFooter>
+                                   <Button asChild variant="link" size="sm" className="p-0 h-auto">
+                                       <a href={scheme.link} target="_blank" rel="noopener noreferrer">
+                                           Learn More <ArrowRight className="ml-2 h-4 w-4" />
+                                       </a>
+                                   </Button>
+                               </CardFooter>
+                           </Card>
+                          ))}
+                        </div>
+                      </AccordionContent>
+                    </AccordionItem>
+                  </Accordion>
+                )}
+
+                <h2 className="text-xl md:text-2xl font-bold pt-4">All Startup Schemes</h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                     {schemes?.map((scheme) => (
                         <Card key={scheme.sno} className="flex flex-col">
@@ -94,6 +140,7 @@ export default async function StartupSchemesPage() {
                         </Card>
                     ))}
                 </div>
+                </>
             )}
         </CardContent>
       </Card>
