@@ -1,64 +1,73 @@
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Newspaper, ExternalLink, ArrowUp, MessageSquare } from 'lucide-react';
+import { Newspaper, ExternalLink } from 'lucide-react';
 import type { Metadata } from 'next';
+import Parser from 'rss-parser';
 
 export const metadata: Metadata = {
     title: "Top Startup News | Daily News for Founders | TheASKT",
-    description: "Get the latest top stories in the startup and tech world, powered by the Hacker News API. Stay informed with TheASKT's free founder toolkit.",
+    description: "Get the latest top stories in the startup and tech world from TechCrunch, VentureBeat, and more. Stay informed with TheASKT's free founder toolkit.",
 };
 
-interface Story {
-  id: number;
-  title: string;
-  url?: string;
-  score: number;
-  by: string;
-  descendants?: number;
-  time: number;
+interface FeedItem extends Parser.Item {
+  feedTitle?: string;
 }
 
-async function getTopStories(): Promise<{ stories?: Story[]; error?: string }> {
-    try {
-        const topStoriesResponse = await fetch('https://hacker-news.firebaseio.com/v0/topstories.json', {
-            next: { revalidate: 3600 } // Revalidate every hour
-        });
+const feedUrls = [
+  { title: 'TechCrunch', url: 'https://techcrunch.com/feed/' },
+  { title: 'VentureBeat', url: 'https://feeds.feedburner.com/venturebeat/SZYF' },
+  { title: 'Wired Business', url: 'https://www.wired.com/feed/category/business/latest/rss' },
+];
 
-        if (!topStoriesResponse.ok) {
-            throw new Error('Failed to fetch top story IDs from Hacker News.');
-        }
-
-        const topStoryIds = await topStoriesResponse.json();
-        const storiesToFetch = topStoryIds.slice(0, 10);
-
-        const storyPromises = storiesToFetch.map((id: number) => 
-            fetch(`https://hacker-news.firebaseio.com/v0/item/${id}.json`).then(res => res.json())
-        );
-
-        const stories = await Promise.all(storyPromises);
-
-        return { stories };
-
-    } catch (error) {
-        console.error("Error fetching startup news:", error);
-        return {
-            error: 'Could not fetch startup news at this time. Please try again later.'
-        }
+async function getNewsFromFeeds(): Promise<{ items?: FeedItem[]; error?: string }> {
+  const parser: Parser<any, FeedItem> = new Parser({
+    customFields: {
+        item: ['feedTitle']
     }
+  });
+
+  try {
+    const feedPromises = feedUrls.map(feedInfo =>
+      parser.parseURL(feedInfo.url).then(feed => {
+        // Add the feed title to each item for context
+        feed.items.forEach(item => {
+          item.feedTitle = feedInfo.title;
+        });
+        return feed.items;
+      })
+    );
+
+    const allItems = (await Promise.all(feedPromises)).flat();
+
+    // Sort by publication date, descending
+    allItems.sort((a, b) => {
+      const dateA = a.pubDate ? new Date(a.pubDate).getTime() : 0;
+      const dateB = b.pubDate ? new Date(b.pubDate).getTime() : 0;
+      return dateB - dateA;
+    });
+
+    return { items: allItems.slice(0, 15) };
+
+  } catch (error) {
+    console.error("Error fetching or parsing RSS feeds:", error);
+    return {
+      error: 'Could not fetch startup news at this time. Please try again later.'
+    };
+  }
 }
 
 function getDomainFromUrl(url: string | undefined): string {
-    if (!url) return 'news.ycombinator.com';
+    if (!url) return '';
     try {
         return new URL(url).hostname.replace(/^www\./, '');
     } catch {
-        return 'news.ycombinator.com';
+        return '';
     }
 }
 
 export default async function NewsPage() {
-  const { stories, error } = await getTopStories();
+  const { items, error } = await getNewsFromFeeds();
 
   return (
     <div className="container mx-auto max-w-4xl py-8 md:py-12 px-4 md:px-6">
@@ -69,7 +78,7 @@ export default async function NewsPage() {
             Top Startup News
           </CardTitle>
           <CardDescription>
-            The latest top stories from the Hacker News community, served fresh.
+            The latest top stories from the startup world, served fresh from leading tech publications.
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-6">
@@ -79,31 +88,28 @@ export default async function NewsPage() {
                 </div>
             ) : (
                 <div className="space-y-4">
-                    {stories?.map((story) => (
-                        <Card key={story.id} className="p-4">
+                    {items?.map((item, index) => (
+                        <Card key={item.guid || item.link || index} className="p-4">
                             <CardHeader className="p-0">
-                                <CardTitle as="h2" className="text-lg md:text-xl font-semibold">
-                                    <a href={story.url || `https://news.ycombinator.com/item?id=${story.id}`} target="_blank" rel="noopener noreferrer" className="hover:underline">
-                                        {story.title}
+                                <CardDescription className="text-xs text-primary font-bold">
+                                    {item.feedTitle || getDomainFromUrl(item.link)}
+                                </CardDescription>
+                                <CardTitle as="h2" className="text-lg md:text-xl font-semibold pt-1">
+                                    <a href={item.link} target="_blank" rel="noopener noreferrer" className="hover:underline">
+                                        {item.title}
                                     </a>
                                 </CardTitle>
-                                <CardDescription className="text-xs pt-1">
-                                    ({getDomainFromUrl(story.url)})
+                                <CardDescription className="text-sm pt-2">
+                                    {item.contentSnippet?.substring(0, 150)}{item.contentSnippet && item.contentSnippet.length > 150 ? '...' : ''}
                                 </CardDescription>
                             </CardHeader>
                             <CardFooter className="p-0 pt-3 flex justify-between items-center text-sm text-zinc-400">
-                                <div className="flex items-center gap-4">
-                                    <span className="flex items-center gap-1">
-                                        <ArrowUp className="h-4 w-4" /> {story.score}
-                                    </span>
-                                    <span className="flex items-center gap-1">
-                                        <MessageSquare className="h-4 w-4" /> {story.descendants || 0}
-                                    </span>
-                                    <span>by {story.by}</span>
-                                </div>
+                                <span className="text-xs">
+                                    {item.pubDate ? new Date(item.pubDate).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric'}) : ''}
+                                </span>
                                 <Button asChild variant="ghost" size="sm">
-                                    <a href={`https://news.ycombinator.com/item?id=${story.id}`} target="_blank" rel="noopener noreferrer">
-                                        Discuss <ExternalLink className="ml-2 h-4 w-4" />
+                                    <a href={item.link} target="_blank" rel="noopener noreferrer">
+                                        Read More <ExternalLink className="ml-2 h-4 w-4" />
                                     </a>
                                 </Button>
                             </CardFooter>
