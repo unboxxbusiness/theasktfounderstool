@@ -10,9 +10,6 @@ export const metadata: Metadata = {
     description: "Get a fresh dose of inspiration every day to fuel your entrepreneurial journey. Your next big breakthrough could be a quote away.",
 };
 
-// This page will now revalidate on every request to get a new quote.
-export const revalidate = 0; 
-
 interface Quote {
     quote: string;
     author: string;
@@ -47,8 +44,14 @@ async function getQuoteOfTheDay(): Promise<{ quote?: Quote; error?: string }> {
   } catch (error) {
     console.error("Error fetching quote:", error);
     const errorMessage = error instanceof Error ? error.message : 'An unknown error occurred.';
+    // Fallback quote in case of API failure to ensure the page still has content for SEO
+    const fallbackQuote: Quote = {
+        quote: "The secret of getting ahead is getting started.",
+        author: "Mark Twain"
+    };
     return {
-      error: `Could not fetch a quote at this time. Error: ${errorMessage}`
+      quote: fallbackQuote,
+      error: `Could not fetch a new quote, showing a classic instead. Error: ${errorMessage}`
     };
   }
 }
@@ -70,11 +73,12 @@ export default async function IdeaOfTheDayPage() {
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-6">
-            {error ? (
-                 <div className="text-center p-8 bg-muted/50 rounded-lg">
-                    <p className="text-lg text-destructive">{error}</p>
+            {error && (
+                 <div className="text-center p-4 bg-muted/50 rounded-lg">
+                    <p className="text-sm text-yellow-500">{error}</p>
                 </div>
-            ) : quote ? (
+            )}
+            {quote ? (
                 <Card className="bg-muted/30">
                     <CardContent className="p-6">
                         <blockquote className="text-xl md:text-2xl text-center italic">
@@ -86,9 +90,11 @@ export default async function IdeaOfTheDayPage() {
                     </CardFooter>
                 </Card>
             ) : (
-                <div className="text-center p-8 bg-muted/50 rounded-lg">
-                    <p className="text-lg">No quote found. Please check back later.</p>
-                </div>
+                !error && (
+                    <div className="text-center p-8 bg-muted/50 rounded-lg">
+                        <p className="text-lg">No quote found. Please check back later.</p>
+                    </div>
+                )
             )}
         </CardContent>
       </Card>
