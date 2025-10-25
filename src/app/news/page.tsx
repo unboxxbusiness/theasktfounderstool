@@ -10,6 +10,9 @@ export const metadata: Metadata = {
     description: "Get the latest top stories in the startup and tech world from TechCrunch, VentureBeat, and more. Stay informed with TheASKT's free founder toolkit.",
 };
 
+// This tells Next.js to re-fetch the news every hour (3600 seconds)
+export const revalidate = 3600; 
+
 interface FeedItem extends Parser.Item {
   feedTitle?: string;
 }
