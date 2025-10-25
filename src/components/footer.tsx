@@ -17,10 +17,10 @@ export function Footer() {
         . We're on a mission to help founders succeed.
       </p>
       <nav className="sm:ml-auto flex gap-4 sm:gap-6">
-        <Link href="#" className="text-xs text-zinc-400 hover:text-primary underline-offset-4" prefetch={false}>
-          Terms of Service
+        <Link href="https://theaskt.org/terms" target="_blank" rel="noopener noreferrer" className="text-xs text-zinc-400 hover:text-primary underline-offset-4" prefetch={false}>
+          Terms of Use
         </Link>
-        <Link href="#" className="text-xs text-zinc-400 hover:text-primary underline-offset-4" prefetch={false}>
+        <Link href="https://theaskt.org/privacy" target="_blank" rel="noopener noreferrer" className="text-xs text-zinc-400 hover:text-primary underline-offset-4" prefetch={false}>
           Privacy Policy
         </Link>
       </nav>
