@@ -24,7 +24,7 @@ interface Scheme {
 
 async function getStartupSchemes(): Promise<{ schemes?: Scheme[]; error?: string }> {
   try {
-    const response = await fetch('https://api.startupindia.gov.in/public/rest/getAllSchemes', {
+    const response = await fetch('https://api.startupindia.gov.in/sih/api/public/rest/getAllSchemes', {
         headers: {
             'Accept': 'application/json'
         },
