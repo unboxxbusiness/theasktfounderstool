@@ -15,7 +15,9 @@ import { SocialShare } from '@/components/social-share';
 import type { Metadata } from 'next';
 import { BackButton } from '@/components/back-button';
 
-export const metadata: Metadata = {
+// Note: Metadata is defined here but will be overridden by the page component's export.
+// This is a placeholder for static analysis.
+const metadata: Metadata = {
     title: "Startup Marketing Budget Allocator | Free Tool by TheASKT",
     description: "Get a recommended marketing budget allocation based on your startup's #1 goal (brand, leads, or sales). Stop wasting money and get results with a data-driven plan.",
 };

@@ -12,7 +12,9 @@ import { SocialShare } from '@/components/social-share';
 import type { Metadata } from 'next';
 import { BackButton } from '@/components/back-button';
 
-export const metadata: Metadata = {
+// Note: Metadata is defined here but will be overridden by the page component's export.
+// This is a placeholder for static analysis.
+const metadata: Metadata = {
     title: "Startup Fundraising Goal Calculator | How Much To Raise | TheASKT",
     description: "Calculate a strategic fundraising goal. Stop guessing and use our free tool to determine how much cash you need to raise based on runway and burn rate.",
 };

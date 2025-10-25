@@ -12,7 +12,9 @@ import { SocialShare } from '@/components/social-share';
 import type { Metadata } from 'next';
 import { BackButton } from '@/components/back-button';
 
-export const metadata: Metadata = {
+// Note: Metadata is defined here but will be overridden by the page component's export.
+// This is a placeholder for static analysis.
+const metadata: Metadata = {
     title: "Startup Runway Calculator | How Long Can You Survive? | TheASKT",
     description: "Calculate your startup's cash runway and find your 'zero cash date.' Our free tool helps you understand your burn rate and plan your fundraising timeline.",
 };

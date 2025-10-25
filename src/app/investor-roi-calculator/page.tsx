@@ -11,7 +11,9 @@ import { SocialShare } from '@/components/social-share';
 import type { Metadata } from 'next';
 import { BackButton } from '@/components/back-button';
 
-export const metadata: Metadata = {
+// Note: Metadata is defined here but will be overridden by the page component's export.
+// This is a placeholder for static analysis.
+const metadata: Metadata = {
     title: "Investor ROI Calculator for Startups | Model Potential Returns | TheASKT",
     description: "Show investors their potential return on investment. Our free ROI calculator helps founders get investors excited about their vision and potential payout.",
 };

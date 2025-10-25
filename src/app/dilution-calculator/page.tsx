@@ -13,7 +13,9 @@ import { SocialShare } from '@/components/social-share';
 import type { Metadata } from 'next';
 import { BackButton } from '@/components/back-button';
 
-export const metadata: Metadata = {
+// Note: Metadata is defined here but will be overridden by the page component's export.
+// This is a placeholder for static analysis.
+const metadata: Metadata = {
     title: "Startup Funding Dilution Calculator | Model Your Cap Table | TheASKT",
     description: "How much of your company will you give away? Model the impact of a new investment on your cap table with our free funding dilution calculator for founders.",
 };

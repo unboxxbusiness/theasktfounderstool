@@ -12,7 +12,9 @@ import { SocialShare } from '@/components/social-share';
 import type { Metadata } from 'next';
 import { BackButton } from '@/components/back-button';
 
-export const metadata: Metadata = {
+// Note: Metadata is defined here but will be overridden by the page component's export.
+// This is a placeholder for static analysis.
+const metadata: Metadata = {
     title: "LTV to CAC Ratio Calculator for Startups | Free Tool by TheASKT",
     description: "Is your business model sustainable? Use our free LTV:CAC ratio calculator to analyze customer profitability and guide your growth strategy as a founder.",
 };

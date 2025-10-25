@@ -7,7 +7,7 @@ import Parser from 'rss-parser';
 import { BackButton } from '@/components/back-button';
 
 export const metadata: Metadata = {
-    title: "Top Startup News | Daily News for Founders | TheASKT",
+    title: "Top Startup News | Daily Tech News for Founders",
     description: "Get the latest top stories in the startup and tech world from TechCrunch, VentureBeat, and more. Stay informed with TheASKT's free founder toolkit.",
 };
 

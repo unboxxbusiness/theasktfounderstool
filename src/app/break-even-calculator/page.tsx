@@ -12,7 +12,9 @@ import { SocialShare } from '@/components/social-share';
 import type { Metadata } from 'next';
 import { BackButton } from '@/components/back-button';
 
-export const metadata: Metadata = {
+// Note: Metadata is defined here but will be overridden by the page component's export.
+// This is a placeholder for static analysis.
+const metadata: Metadata = {
     title: "Startup Break-Even Point Calculator | Free Tool by TheASKT",
     description: "Find out how many units you need to sell to become profitable. Our free break-even point calculator helps founders make smarter financial decisions.",
 };
