@@ -15,6 +15,7 @@ import {
   CheckCircle,
   TrendingDown,
   Lightbulb,
+  Newspaper,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
@@ -29,10 +30,10 @@ import { ShieldCheck, PiggyBank } from "@/components/icons";
 export default function Home() {
   const tools = [
       {
-          icon: <Lightbulb className="h-8 w-8 text-primary"/>,
-          title: "Startup Idea of the Day",
-          description: "Get a fresh, validated startup idea served daily.",
-          link: "/idea-of-the-day"
+          icon: <Newspaper className="h-8 w-8 text-primary"/>,
+          title: "Top Startup News",
+          description: "Get the latest top stories from the startup world.",
+          link: "/news"
       },
       {
           icon: <Calculator className="h-8 w-8 text-primary"/>,

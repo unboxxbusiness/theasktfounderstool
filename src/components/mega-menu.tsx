@@ -8,6 +8,7 @@ import {
   TrendingUp,
   ChevronDown,
   Lightbulb,
+  Newspaper,
 } from "lucide-react";
 import {
   DropdownMenu,
@@ -27,10 +28,10 @@ import { Button } from "./ui/button";
 
 const menuItems = [
   {
-    category: "Ideation & Validation",
-    icon: <Lightbulb className="h-5 w-5 text-primary" />,
+    category: "Insights & News",
+    icon: <Newspaper className="h-5 w-5 text-primary" />,
     links: [
-      { href: "/idea-of-the-day", label: "Startup Idea of the Day" },
+      { href: "/news", label: "Top Startup News" },
     ],
   },
   {
