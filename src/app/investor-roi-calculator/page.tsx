@@ -8,6 +8,13 @@ import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
 import { PiggyBank } from '@/components/icons';
 import { SocialShare } from '@/components/social-share';
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
+    title: "Investor ROI Calculator for Startups | Model Potential Returns",
+    description: "Show investors their potential return on investment. Our free ROI calculator helps founders get investors excited about their vision.",
+};
+
 
 const formatCurrency = (value: number) => {
   if (isNaN(value) || !isFinite(value)) return '$0';
@@ -64,9 +71,9 @@ export default function InvestorROICalculatorPage() {
     <div className="container mx-auto max-w-4xl py-8 md:py-12 px-4 md:px-6">
       <Card>
         <CardHeader>
-          <CardTitle className="text-2xl md:text-3xl flex items-center gap-2">
+          <CardTitle as="h1" className="text-2xl md:text-3xl flex items-center gap-2">
             <PiggyBank className="h-7 w-7 md:h-8 md:w-8 text-primary" />
-            What Could Your Investors Make? (ROI Calculator)
+            Investor ROI Calculator
           </CardTitle>
           <CardDescription>
             Show investors their potential return with this simple ROI calculator. It's a great way to get them excited about your vision.

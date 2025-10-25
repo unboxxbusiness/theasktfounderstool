@@ -9,6 +9,13 @@ import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
 import { TrendingUp, Users, DollarSign, Percent } from 'lucide-react';
 import { SocialShare } from '@/components/social-share';
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
+    title: "Startup Revenue Projection Calculator | Free Forecast Tool",
+    description: "Project your startup's next 12 months of revenue and user growth. Our free financial projection calculator helps you forecast the future.",
+};
+
 
 const formatCurrency = (value: number) => {
   return new Intl.NumberFormat('en-US', {
@@ -79,9 +86,9 @@ export default function RevenueProjectionCalculatorPage() {
     <div className="container mx-auto max-w-5xl py-8 md:py-12 px-4 md:px-6">
       <Card>
         <CardHeader>
-          <CardTitle className="text-2xl md:text-3xl font-headline flex items-center gap-2">
+          <CardTitle as="h1" className="text-2xl md:text-3xl font-headline flex items-center gap-2">
             <TrendingUp className="h-7 w-7 md:h-8 md:w-8 text-primary" />
-            How Fast Could You Grow? (Revenue Projection)
+            Revenue & Growth Projection Calculator
           </CardTitle>
           <CardDescription>
             See what the next 12 months could look like for your startup. Model your revenue and user growth based on your key metrics.

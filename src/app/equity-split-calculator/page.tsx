@@ -16,6 +16,12 @@ import { PlusCircle, Trash2, Scale, HelpCircle } from 'lucide-react';
 import { Slider } from '@/components/ui/slider';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { SocialShare } from '@/components/social-share';
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
+    title: "Co-Founder Equity Split Calculator | Fair Equity Distribution",
+    description: "How should you split equity with your co-founders? Use our free, data-driven calculator based on the 'Slicing Pie' model for a fair negotiation.",
+};
 
 const founderSchema = z.object({
   name: z.string().min(1, 'Name is required'),
@@ -120,7 +126,7 @@ export default function EquitySplitCalculatorPage() {
           <div className="lg:col-span-3">
             <Card>
               <CardHeader>
-                <CardTitle className="text-2xl md:text-3xl font-headline flex items-center gap-2">
+                <CardTitle as="h1" className="text-2xl md:text-3xl font-headline flex items-center gap-2">
                   <Scale className="h-7 w-7 md:h-8 md:w-8 text-primary" />
                   Co-Founder Equity Split Calculator
                 </CardTitle>

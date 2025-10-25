@@ -7,8 +7,14 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
-import { Hourglass, AlertTriangle, TrendingDown } from 'lucide-react';
+import { Hourglass, AlertTriangle } from 'lucide-react';
 import { SocialShare } from '@/components/social-share';
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
+    title: "Startup Runway Calculator | How Long Can You Survive?",
+    description: "Calculate your startup's cash runway and find your 'zero cash date.' Our free tool helps you understand how long you can operate before running out of money.",
+};
 
 
 const formatCurrency = (value: number) => {
@@ -57,9 +63,9 @@ export default function RunwayCalculatorPage() {
     <div className="container mx-auto max-w-4xl py-8 md:py-12 px-4 md:px-6">
       <Card>
         <CardHeader>
-          <CardTitle className="text-2xl md:text-3xl font-headline flex items-center gap-2">
+          <CardTitle as="h1" className="text-2xl md:text-3xl font-headline flex items-center gap-2">
             <Hourglass className="h-7 w-7 md:h-8 md:w-8 text-primary" />
-            How Long Until You Run Out Of Money?
+            Cash Runway Calculator
           </CardTitle>
           <CardDescription>
             Calculate your startup's cash runway and find your "zero cash date" based on your current burn rate.

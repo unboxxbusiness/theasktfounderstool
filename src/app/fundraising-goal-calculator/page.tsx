@@ -9,6 +9,12 @@ import { Input } from '@/components/ui/input';
 import { Landmark, HelpCircle } from 'lucide-react';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { SocialShare } from '@/components/social-share';
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
+    title: "Startup Fundraising Goal Calculator | How Much to Raise",
+    description: "Calculate a strategic fundraising goal for your startup. Stop guessing and use our free tool to determine how much cash you need to raise based on runway and burn rate.",
+};
 
 const formatCurrency = (value: number) => {
   return new Intl.NumberFormat('en-US', {
@@ -49,9 +55,9 @@ export default function FundraisingGoalCalculatorPage() {
       <div className="container mx-auto max-w-4xl py-8 md:py-12 px-4 md:px-6">
         <Card>
           <CardHeader>
-            <CardTitle className="text-2xl md:text-3xl font-headline flex items-center gap-2">
+            <CardTitle as="h1" className="text-2xl md:text-3xl font-headline flex items-center gap-2">
               <Landmark className="h-7 w-7 md:h-8 md:w-8 text-primary" />
-              How Much Money Should You *Really* Raise?
+              Fundraising Goal Calculator
             </CardTitle>
             <CardDescription>
               Stop pulling numbers out of thin air. Calculate a strategic fundraising goal that gives you enough runway to hit your next milestones.

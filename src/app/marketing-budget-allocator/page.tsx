@@ -12,6 +12,12 @@ import { Badge } from '@/components/ui/badge';
 import { Megaphone, HelpCircle } from 'lucide-react';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { SocialShare } from '@/components/social-share';
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
+    title: "Startup Marketing Budget Allocator | Free Tool",
+    description: "Get a recommended marketing budget allocation based on your startup's #1 goal (brand, leads, or sales). Stop wasting money and get results.",
+};
 
 const CHART_COLORS = ['hsl(var(--chart-1))', 'hsl(var(--chart-2))', 'hsl(var(--chart-3))', 'hsl(var(--chart-4))'];
 const CHANNELS = ['Google Ads', 'Meta Ads', 'SEO/Content', 'Events'];
@@ -66,7 +72,7 @@ export default function MarketingBudgetAllocatorPage() {
           <div className="lg:col-span-3">
             <Card>
               <CardHeader>
-                <CardTitle className="text-2xl md:text-3xl font-headline flex items-center gap-2">
+                <CardTitle as="h1" className="text-2xl md:text-3xl font-headline flex items-center gap-2">
                   <Megaphone className="h-7 w-7 md:h-8 md:w-8 text-primary" />
                   Marketing Budget Allocator
                 </CardTitle>

@@ -10,6 +10,12 @@ import { Badge } from '@/components/ui/badge';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { DollarSign, HelpCircle } from 'lucide-react';
 import { SocialShare } from '@/components/social-share';
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
+    title: "Startup Pricing Strategy Calculator | Find Your Price Point",
+    description: "What should you charge for your product? Use our free calculator to analyze cost-plus, competitive, and value-based pricing strategies.",
+};
 
 const formatCurrency = (value: number) => {
   if (isNaN(value) || !isFinite(value)) return '$0';
@@ -55,9 +61,9 @@ export default function PricingStrategyCalculatorPage() {
       <div className="container mx-auto max-w-4xl py-8 md:py-12 px-4 md:px-6">
         <Card>
           <CardHeader>
-            <CardTitle className="text-2xl md:text-3xl font-headline flex items-center gap-2">
+            <CardTitle as="h1" className="text-2xl md:text-3xl font-headline flex items-center gap-2">
               <DollarSign className="h-7 w-7 md:h-8 md:w-8 text-primary" />
-              What Should You Charge For Your Product?
+              Product Pricing Strategy Calculator
             </CardTitle>
             <CardDescription>
               Stop guessing on price. Use this calculator to analyze your costs, desired margin, and competitor pricing to find your sweet spot.

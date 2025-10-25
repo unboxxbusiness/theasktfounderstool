@@ -10,6 +10,12 @@ import { Label } from '@/components/ui/label';
 import { TrendingDown, HelpCircle } from 'lucide-react';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { SocialShare } from '@/components/social-share';
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
+    title: "Startup Funding Dilution Calculator | Model Your Next Round",
+    description: "How much of your company will you give away? Model the impact of a new investment on your cap table with our free funding dilution calculator.",
+};
 
 
 const CHART_COLORS = ['hsl(var(--chart-1))', 'hsl(var(--chart-2))'];
@@ -70,9 +76,9 @@ export default function DilutionCalculatorPage() {
         <div className="lg:col-span-3">
             <Card>
                 <CardHeader>
-                    <CardTitle className="text-2xl md:text-3xl font-headline flex items-center gap-2">
+                    <CardTitle as="h1" className="text-2xl md:text-3xl font-headline flex items-center gap-2">
                         <TrendingDown className="h-7 w-7 md:h-8 md:w-8 text-primary" />
-                        How Much Will This Funding Round Dilute You?
+                        Funding Round Dilution Calculator
                     </CardTitle>
                     <CardDescription>
                         Model the impact of a new investment on your cap table and see exactly how much of your company you'll be giving away.

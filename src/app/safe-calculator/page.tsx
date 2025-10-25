@@ -11,6 +11,12 @@ import { ShieldCheck } from '@/components/icons';
 import { HelpCircle } from 'lucide-react';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { SocialShare } from '@/components/social-share';
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
+    title: "SAFE Note Dilution Calculator | Model Your Cap Table",
+    description: "How will a SAFE note impact your ownership? Model exactly how your SAFE will convert and dilute your equity in a priced funding round with our free calculator.",
+};
 
 const CHART_COLORS = ['hsl(var(--chart-1))', 'hsl(var(--chart-2))', 'hsl(var(--chart-3))'];
 
@@ -93,7 +99,7 @@ export default function SafeCalculatorPage() {
         <div className="lg:col-span-3">
             <Card>
                 <CardHeader>
-                    <CardTitle className="text-2xl md:text-3xl flex items-center gap-2">
+                    <CardTitle as="h1" className="text-2xl md:text-3xl flex items-center gap-2">
                         <ShieldCheck className="h-7 w-7 md:h-8 md:w-8 text-primary" />
                         SAFE Note Dilution Calculator
                     </CardTitle>

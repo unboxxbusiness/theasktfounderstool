@@ -9,6 +9,12 @@ import { Input } from '@/components/ui/input';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { DollarSign, Percent, Users, Scale } from 'lucide-react';
 import { SocialShare } from '@/components/social-share';
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
+    title: "LTV to CAC Ratio Calculator for Startups | Free Tool",
+    description: "Is your business model sustainable? Use our free LTV to CAC ratio calculator to analyze customer profitability and guide your growth strategy.",
+};
 
 const formatCurrency = (value: number) => {
   if (value === Infinity || isNaN(value)) return '$0';
@@ -89,9 +95,9 @@ export default function CacLtvCalculatorPage() {
         <div>
           <Card>
             <CardHeader>
-              <CardTitle className="text-2xl md:text-3xl font-headline flex items-center gap-2">
+              <CardTitle as="h1" className="text-2xl md:text-3xl font-headline flex items-center gap-2">
                 <Scale className="h-7 w-7 md:h-8 md:w-8 text-primary" />
-                Are Your Customers Actually Profitable? (LTV vs CAC)
+                LTV to CAC Ratio Calculator
               </CardTitle>
               <CardDescription>
                 Quickly analyze the relationship between your Customer Lifetime Value (LTV) and Customer Acquisition Cost (CAC) to see if your business model is sustainable.
