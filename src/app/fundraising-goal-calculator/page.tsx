@@ -10,6 +10,7 @@ import { Landmark, HelpCircle } from 'lucide-react';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { SocialShare } from '@/components/social-share';
 import type { Metadata } from 'next';
+import { BackButton } from '@/components/back-button';
 
 export const metadata: Metadata = {
     title: "Startup Fundraising Goal Calculator | How Much To Raise | TheASKT",
@@ -53,6 +54,7 @@ export default function FundraisingGoalCalculatorPage() {
   return (
     <TooltipProvider>
       <div className="container mx-auto max-w-4xl py-8 md:py-12 px-4 md:px-6">
+        <BackButton />
         <Card>
           <CardHeader>
             <CardTitle as="h1" className="text-2xl md:text-3xl font-headline flex items-center gap-2">

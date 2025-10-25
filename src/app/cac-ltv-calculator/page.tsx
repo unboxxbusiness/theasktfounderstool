@@ -10,6 +10,7 @@ import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { DollarSign, Percent, Users, Scale } from 'lucide-react';
 import { SocialShare } from '@/components/social-share';
 import type { Metadata } from 'next';
+import { BackButton } from '@/components/back-button';
 
 export const metadata: Metadata = {
     title: "LTV to CAC Ratio Calculator for Startups | Free Tool by TheASKT",
@@ -91,6 +92,7 @@ export default function CacLtvCalculatorPage() {
 
   return (
     <div className="container mx-auto max-w-5xl py-8 md:py-12 px-4 md:px-6">
+      <BackButton />
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
         <div>
           <Card>

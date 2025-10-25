@@ -10,6 +10,7 @@ import { Input } from '@/components/ui/input';
 import { TrendingUp, Users, DollarSign, Percent } from 'lucide-react';
 import { SocialShare } from '@/components/social-share';
 import type { Metadata } from 'next';
+import { BackButton } from '@/components/back-button';
 
 export const metadata: Metadata = {
     title: "Startup Revenue Projection Calculator | Free Forecast Tool | TheASKT",
@@ -84,6 +85,7 @@ export default function RevenueProjectionCalculatorPage() {
 
   return (
     <div className="container mx-auto max-w-5xl py-8 md:py-12 px-4 md:px-6">
+      <BackButton />
       <Card>
         <CardHeader>
           <CardTitle as="h1" className="text-2xl md:text-3xl font-headline flex items-center gap-2">

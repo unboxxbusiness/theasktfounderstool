@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Newspaper, ExternalLink } from 'lucide-react';
 import type { Metadata } from 'next';
 import Parser from 'rss-parser';
+import { BackButton } from '@/components/back-button';
 
 export const metadata: Metadata = {
     title: "Top Startup News | Daily News for Founders | TheASKT",
@@ -74,6 +75,7 @@ export default async function NewsPage() {
 
   return (
     <div className="container mx-auto max-w-4xl py-8 md:py-12 px-4 md:px-6">
+      <BackButton />
       <Card>
         <CardHeader>
           <CardTitle as="h1" className="text-2xl md:text-3xl font-headline flex items-center gap-2">

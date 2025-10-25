@@ -3,6 +3,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter }
 import { Button } from '@/components/ui/button';
 import { Building, ExternalLink } from 'lucide-react';
 import type { Metadata } from 'next';
+import { BackButton } from '@/components/back-button';
 
 export const metadata: Metadata = {
     title: "Indian Government Startup Schemes | Startup India | TheASKT",
@@ -58,6 +59,7 @@ export default async function StartupSchemesPage() {
 
   return (
     <div className="container mx-auto max-w-6xl py-8 md:py-12 px-4 md:px-6">
+      <BackButton />
       <Card>
         <CardHeader>
           <CardTitle as="h1" className="text-2xl md:text-3xl font-headline flex items-center gap-2">

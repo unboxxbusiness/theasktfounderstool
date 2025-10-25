@@ -17,6 +17,7 @@ import { Slider } from '@/components/ui/slider';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { SocialShare } from '@/components/social-share';
 import type { Metadata } from 'next';
+import { BackButton } from '@/components/back-button';
 
 export const metadata: Metadata = {
     title: "Co-Founder Equity Split Calculator | Fair Equity Distribution | TheASKT",
@@ -122,6 +123,7 @@ export default function EquitySplitCalculatorPage() {
   return (
     <TooltipProvider>
       <div className="container mx-auto max-w-5xl py-8 md:py-12 px-4 md:px-6">
+        <BackButton />
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 lg:gap-12">
           <div className="lg:col-span-3">
             <Card>
