@@ -25,6 +25,9 @@ async function getStartupIdea() {
     try {
         // Fetch top post from the last 24 hours from r/startup_ideas
         const response = await fetch('https://www.reddit.com/r/startup_ideas/top.json?t=day&limit=1', {
+            headers: {
+                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/111.0.0.0 Safari/537.36',
+            },
             next: {
                 // Revalidate every 6 hours to get a new idea
                 revalidate: 21600 
@@ -86,7 +89,7 @@ export default async function IdeaOfTheDayPage() {
             ) : (
                 <div className="space-y-4">
                     <h2 className="text-xl md:text-2xl font-bold font-headline">{idea.title}</h2>
-                    <div className="flex items-center gap-4 text-sm text-zinc-400">
+                    <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-sm text-zinc-400">
                         <span>by /u/{idea.author}</span>
                         <span>{idea.votes} upvotes</span>
                         <span>{idea.comments} comments</span>
