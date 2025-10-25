@@ -44,8 +44,8 @@ export default function Home() {
       },
       {
           icon: <Lightbulb className="h-8 w-8 text-primary" />,
-          title: "Startup Idea of the Day",
-          description: "Get a fresh, top-voted startup idea from Reddit daily.",
+          title: "Quote of the Day",
+          description: "Get a daily dose of inspiration for your journey.",
           link: "/idea-of-the-day",
       },
       {
