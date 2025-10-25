@@ -12,8 +12,8 @@ import { SocialShare } from '@/components/social-share';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-    title: "Startup Revenue Projection Calculator | Free Forecast Tool",
-    description: "Project your startup's next 12 months of revenue and user growth. Our free financial projection calculator helps you forecast the future.",
+    title: "Startup Revenue Projection Calculator | Free Forecast Tool | TheASKT",
+    description: "Project your startup's next 12 months of revenue and user growth. Our free financial projection calculator helps you forecast the future and plan ahead.",
 };
 
 

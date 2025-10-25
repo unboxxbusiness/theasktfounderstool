@@ -13,8 +13,8 @@ import { SocialShare } from '@/components/social-share';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-    title: "Startup Pricing Strategy Calculator | Find Your Price Point",
-    description: "What should you charge for your product? Use our free calculator to analyze cost-plus, competitive, and value-based pricing strategies.",
+    title: "Startup Pricing Strategy Calculator | Find Your Price Point | TheASKT",
+    description: "What should you charge for your product? Use our free calculator to analyze cost-plus, competitive, and value-based pricing strategies for your startup.",
 };
 
 const formatCurrency = (value: number) => {

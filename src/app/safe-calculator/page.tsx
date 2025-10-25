@@ -14,7 +14,7 @@ import { SocialShare } from '@/components/social-share';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-    title: "SAFE Note Dilution Calculator | Model Your Cap Table",
+    title: "SAFE Note Dilution Calculator | Model Your Cap Table | TheASKT",
     description: "How will a SAFE note impact your ownership? Model exactly how your SAFE will convert and dilute your equity in a priced funding round with our free calculator.",
 };
 

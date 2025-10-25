@@ -12,8 +12,8 @@ import { SocialShare } from '@/components/social-share';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-    title: "LTV to CAC Ratio Calculator for Startups | Free Tool",
-    description: "Is your business model sustainable? Use our free LTV to CAC ratio calculator to analyze customer profitability and guide your growth strategy.",
+    title: "LTV to CAC Ratio Calculator for Startups | Free Tool by TheASKT",
+    description: "Is your business model sustainable? Use our free LTV:CAC ratio calculator to analyze customer profitability and guide your growth strategy as a founder.",
 };
 
 const formatCurrency = (value: number) => {

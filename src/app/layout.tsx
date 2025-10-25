@@ -13,8 +13,8 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "The Ultimate Startup Calculator Toolkit | Free Financial Models for Founders",
-  description: "Stop guessing. Get the data-driven answers you need to build, grow, and fund your startup with our 100% free toolkit of financial calculators.",
+  title: "The Ultimate Startup Calculator Toolkit for Founders | TheASKT.org",
+  description: "Stop guessing. Get the data-driven answers you need to build, grow, and fund your startup with our 100% free toolkit of financial calculators for founders.",
 };
 
 export default function RootLayout({

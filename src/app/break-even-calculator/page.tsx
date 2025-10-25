@@ -12,8 +12,8 @@ import { SocialShare } from '@/components/social-share';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-    title: "Startup Break-Even Point Calculator | Free Tool for Founders",
-    description: "Find out how many units you need to sell to become profitable. Our free break-even point calculator helps startups make smarter financial decisions.",
+    title: "Startup Break-Even Point Calculator | Free Tool by TheASKT",
+    description: "Find out how many units you need to sell to become profitable. Our free break-even point calculator helps founders make smarter financial decisions.",
 };
 
 const formatCurrency = (value: number) => {

@@ -11,8 +11,8 @@ import { SocialShare } from '@/components/social-share';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-    title: "Investor ROI Calculator for Startups | Model Potential Returns",
-    description: "Show investors their potential return on investment. Our free ROI calculator helps founders get investors excited about their vision.",
+    title: "Investor ROI Calculator for Startups | Model Potential Returns | TheASKT",
+    description: "Show investors their potential return on investment. Our free ROI calculator helps founders get investors excited about their vision and potential payout.",
 };
 
 

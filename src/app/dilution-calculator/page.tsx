@@ -13,8 +13,8 @@ import { SocialShare } from '@/components/social-share';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-    title: "Startup Funding Dilution Calculator | Model Your Next Round",
-    description: "How much of your company will you give away? Model the impact of a new investment on your cap table with our free funding dilution calculator.",
+    title: "Startup Funding Dilution Calculator | Model Your Cap Table | TheASKT",
+    description: "How much of your company will you give away? Model the impact of a new investment on your cap table with our free funding dilution calculator for founders.",
 };
 
 

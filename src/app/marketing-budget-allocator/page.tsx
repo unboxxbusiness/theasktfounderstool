@@ -15,8 +15,8 @@ import { SocialShare } from '@/components/social-share';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-    title: "Startup Marketing Budget Allocator | Free Tool",
-    description: "Get a recommended marketing budget allocation based on your startup's #1 goal (brand, leads, or sales). Stop wasting money and get results.",
+    title: "Startup Marketing Budget Allocator | Free Tool by TheASKT",
+    description: "Get a recommended marketing budget allocation based on your startup's #1 goal (brand, leads, or sales). Stop wasting money and get results with a data-driven plan.",
 };
 
 const CHART_COLORS = ['hsl(var(--chart-1))', 'hsl(var(--chart-2))', 'hsl(var(--chart-3))', 'hsl(var(--chart-4))'];

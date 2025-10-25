@@ -12,8 +12,8 @@ import { SocialShare } from '@/components/social-share';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-    title: "Startup Runway Calculator | How Long Can You Survive?",
-    description: "Calculate your startup's cash runway and find your 'zero cash date.' Our free tool helps you understand how long you can operate before running out of money.",
+    title: "Startup Runway Calculator | How Long Can You Survive? | TheASKT",
+    description: "Calculate your startup's cash runway and find your 'zero cash date.' Our free tool helps you understand your burn rate and plan your fundraising timeline.",
 };
 
 

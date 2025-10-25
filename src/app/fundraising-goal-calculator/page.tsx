@@ -12,8 +12,8 @@ import { SocialShare } from '@/components/social-share';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-    title: "Startup Fundraising Goal Calculator | How Much to Raise",
-    description: "Calculate a strategic fundraising goal for your startup. Stop guessing and use our free tool to determine how much cash you need to raise based on runway and burn rate.",
+    title: "Startup Fundraising Goal Calculator | How Much To Raise | TheASKT",
+    description: "Calculate a strategic fundraising goal. Stop guessing and use our free tool to determine how much cash you need to raise based on runway and burn rate.",
 };
 
 const formatCurrency = (value: number) => {

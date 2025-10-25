@@ -19,7 +19,7 @@ import { SocialShare } from '@/components/social-share';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-    title: "Co-Founder Equity Split Calculator | Fair Equity Distribution",
+    title: "Co-Founder Equity Split Calculator | Fair Equity Distribution | TheASKT",
     description: "How should you split equity with your co-founders? Use our free, data-driven calculator based on the 'Slicing Pie' model for a fair negotiation.",
 };
 
