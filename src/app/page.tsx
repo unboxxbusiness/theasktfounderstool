@@ -16,6 +16,7 @@ import {
   TrendingDown,
   Lightbulb,
   Newspaper,
+  Building,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
@@ -34,6 +35,12 @@ export default function Home() {
           title: "Top Startup News",
           description: "Get the latest top stories from the startup world.",
           link: "/news"
+      },
+      {
+          icon: <Building className="h-8 w-8 text-primary" />,
+          title: "Indian Startup Schemes",
+          description: "Browse official government funding schemes for startups.",
+          link: "/indian-startup-schemes",
       },
       {
           icon: <Calculator className="h-8 w-8 text-primary"/>,

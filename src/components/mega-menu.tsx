@@ -9,6 +9,7 @@ import {
   ChevronDown,
   Lightbulb,
   Newspaper,
+  Building,
 } from "lucide-react";
 import {
   DropdownMenu,
@@ -32,6 +33,7 @@ const menuItems = [
     icon: <Newspaper className="h-5 w-5 text-primary" />,
     links: [
       { href: "/news", label: "Top Startup News" },
+      { href: "/indian-startup-schemes", label: "Indian Startup Schemes" },
     ],
   },
   {
