@@ -67,7 +67,7 @@ const schemes: Scheme[] = [
         schemeName: "Udyogini Scheme",
         agency: "Women Development Corporation (under Government of India)",
         schemeDescription: "Offers subsidized loans to aspiring women entrepreneurs from rural and underdeveloped areas, encouraging business ownership and financial independence.",
-        link: "https://www.kviconline.gov.in/pmegp/pmegpweb/docs/pdf/UdyoginiScheme.pdf",
+        link: "https://wcd.nic.in/schemes/udyogini-scheme",
         isForWomen: true,
     },
 ];
@@ -85,7 +85,7 @@ export default function StartupSchemesPage() {
             Indian Government Startup Schemes
           </CardTitle>
           <CardDescription>
-            A curated list of key central and state government schemes available to Indian startups.
+            A curated list of key central and state government schemes available to Indian startups. All links point to official government websites.
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-6">
@@ -101,6 +101,9 @@ export default function StartupSchemesPage() {
                          <Card key={scheme.sno} className="bg-muted/50">
                            <CardHeader>
                                <CardTitle as="h3" className="text-md font-semibold">{scheme.schemeName}</CardTitle>
+                               <CardDescription className="text-xs pt-1">
+                                By {scheme.agency}
+                            </CardDescription>
                            </CardHeader>
                             <CardContent>
                                <p className="text-sm line-clamp-3">{scheme.schemeDescription}</p>
