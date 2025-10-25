@@ -7,6 +7,7 @@ import {
   Users,
   TrendingUp,
   ChevronDown,
+  Lightbulb,
 } from "lucide-react";
 import {
   DropdownMenu,
@@ -25,6 +26,13 @@ import {
 import { Button } from "./ui/button";
 
 const menuItems = [
+  {
+    category: "Ideation & Validation",
+    icon: <Lightbulb className="h-5 w-5 text-primary" />,
+    links: [
+      { href: "/idea-of-the-day", label: "Startup Idea of the Day" },
+    ],
+  },
   {
     category: "Financial Planning",
     icon: <Banknote className="h-5 w-5 text-primary" />,
@@ -82,8 +90,8 @@ export function MegaMenu({ setMobileMenuOpen }: MegaMenuProps) {
                 <ChevronDown className="ml-2 h-4 w-4" />
                 </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent className="w-screen max-w-md p-4" align="end">
-                <div className="grid grid-cols-2 gap-4">
+            <DropdownMenuContent className="w-screen max-w-xl p-4" align="start">
+                <div className="grid grid-cols-2 lg:grid-cols-3 gap-4">
                 {menuItems.map((item) => (
                     <DropdownMenuGroup key={item.category}>
                     <DropdownMenuLabel className="flex items-center gap-2">

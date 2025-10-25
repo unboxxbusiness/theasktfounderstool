@@ -14,6 +14,7 @@ import {
   Megaphone,
   CheckCircle,
   TrendingDown,
+  Lightbulb,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
@@ -27,6 +28,12 @@ import { ShieldCheck, PiggyBank } from "@/components/icons";
 
 export default function Home() {
   const tools = [
+      {
+          icon: <Lightbulb className="h-8 w-8 text-primary"/>,
+          title: "Startup Idea of the Day",
+          description: "Get a fresh, validated startup idea served daily.",
+          link: "/idea-of-the-day"
+      },
       {
           icon: <Calculator className="h-8 w-8 text-primary"/>,
           title: "What's Your Startup Worth?",
@@ -109,7 +116,7 @@ export default function Home() {
             <div className="flex flex-col items-center space-y-6 text-center">
               <p className="text-primary font-bold">FOR STARTUP FOUNDERS WHO HATE GUESSING</p>
               <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight font-headline max-w-4xl">
-                Finally! The Financial Clarity You Need To Build An Empire
+                The Financial Clarity You Need To Build An Empire
               </h1>
               <p className="max-w-[700px] text-zinc-300 text-base sm:text-lg md:text-xl">
                 This 100% free toolkit of battle-tested financial calculators gives you the power to <strong className="text-primary">stop guessing</strong> and <strong className="text-primary">start knowing</strong> your numbers—so you can build, grow, and fund your business like a seasoned pro.
@@ -137,7 +144,7 @@ export default function Home() {
                     From valuation to dilution, get the mission-critical answers you need in seconds.
                  </p>
             </div>
-            <div className="mx-auto grid max-w-6xl items-stretch gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            <div className="mx-auto grid max-w-6xl items-stretch gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
                 {tools.map((tool) => (
                     <Link href={tool.link} key={tool.title} className="flex flex-col group">
                         <Card className="flex-grow flex flex-col bg-card border-2 border-input hover:border-primary/80 hover:shadow-2xl hover:shadow-primary/10 transition-all duration-300">
