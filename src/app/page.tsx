@@ -43,10 +43,10 @@ export default function Home() {
           link: "/indian-startup-schemes",
       },
       {
-        icon: <Lightbulb className="h-8 w-8 text-primary" />,
-        title: "Startup Ideas for Women",
-        description: "Explore business ideas tailored for women entrepreneurs.",
-        link: "/startup-ideas-for-women",
+          icon: <Lightbulb className="h-8 w-8 text-primary" />,
+          title: "Startup Idea of the Day",
+          description: "Get a fresh, top-voted startup idea from Reddit daily.",
+          link: "/idea-of-the-day",
       },
       {
           icon: <Calculator className="h-8 w-8 text-primary"/>,
