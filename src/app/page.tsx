@@ -30,47 +30,13 @@ import { ShieldCheck, PiggyBank } from "@/components/icons";
 import { QuotePopup, type Quote } from "@/components/quote-popup";
 
 
-async function getQuoteOfTheDay(): Promise<{ quote?: Quote; error?: string }> {
-  try {
-    const response = await fetch('https://zenquotes.io/api/random', {
-      cache: 'no-store', 
-    });
-
-    if (!response.ok) {
-        throw new Error(`Failed to fetch quote. Status: ${response.status}`);
-    }
-
-    const data = await response.json();
-    const topQuote = data[0];
-
-    if (!topQuote || !topQuote.q || !topQuote.a) {
-      throw new Error('Invalid quote format received from the API.');
-    }
-
-    const quote: Quote = {
-      quote: topQuote.q,
-      author: topQuote.a,
-    };
-
-    return { quote };
-
-  } catch (error) {
-    console.error("Error fetching quote:", error);
-    const errorMessage = error instanceof Error ? error.message : 'An unknown error occurred.';
-    const fallbackQuote: Quote = {
-        quote: "The secret of getting ahead is getting started.",
-        author: "Mark Twain"
-    };
-    return {
-      quote: fallbackQuote,
-      error: `Could not fetch a new quote, showing a classic instead. Error: ${errorMessage}`
-    };
-  }
-}
+const fallbackQuote: Quote = {
+    quote: "The secret of getting ahead is getting started.",
+    author: "Mark Twain"
+};
 
 
 export default async function Home() {
-  const { quote, error } = await getQuoteOfTheDay();
 
   const tools = [
       {
@@ -161,7 +127,7 @@ export default async function Home() {
 
   return (
     <div className="flex flex-col min-h-dvh">
-      {quote && <QuotePopup quote={quote} error={error} />}
+      <QuotePopup initialQuote={fallbackQuote} />
       <main className="flex-1">
         <section className="w-full py-20 md:py-28 bg-background">
           <div className="container px-4 md:px-6">
