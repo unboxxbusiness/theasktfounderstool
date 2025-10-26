@@ -9,16 +9,7 @@ import { Input } from '@/components/ui/input';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { Hourglass, AlertTriangle } from 'lucide-react';
 import { SocialShare } from '@/components/social-share';
-import type { Metadata } from 'next';
 import { BackButton } from '@/components/back-button';
-
-// Note: Metadata is defined here but will be overridden by the page component's export.
-// This is a placeholder for static analysis.
-const metadata: Metadata = {
-    title: "Startup Runway Calculator | How Long Can You Survive? | TheASKT",
-    description: "Calculate your startup's cash runway and find your 'zero cash date.' Our free tool helps you understand your burn rate and plan your fundraising timeline.",
-};
-
 
 const formatCurrency = (value: number) => {
   return new Intl.NumberFormat('en-US', {
@@ -120,8 +111,7 @@ export default function RunwayCalculatorPage() {
           {isLowRunway && runwayMonths !== Infinity && (
             <Alert variant={isVeryLowRunway ? "destructive" : "default"} className={!isVeryLowRunway ? 'border-yellow-500/50 text-yellow-600 dark:border-yellow-500/50 dark:text-yellow-400' : ''}>
               <AlertTriangle className={`h-4 w-4 ${isVeryLowRunway ? '' : 'text-yellow-600 dark:text-yellow-400'}`} />
-              <AlertTitle>{isVeryLowRunway ? 'Code Red: You Are Almost Out of Money!' : 'Warning: Your Runway Is Getting Short!'}</AlertTitle>
-              <AlertDescription>
+              <AlertTitle>{isVeryLowRunway ? 'Code Red: You Are Almost Out of Money!' : 'Warning: Your Runway Is Getting Short!'}</AlertTitle>              <AlertDescription>
                 {isVeryLowRunway 
                   ? "Your runway is critically low. It's time to take immediate and drastic action. Either raise more money or cut costs NOW." 
                   : "You have less than 6 months of cash left. Now is the time to start your next fundraising round or find a path to profitability."}

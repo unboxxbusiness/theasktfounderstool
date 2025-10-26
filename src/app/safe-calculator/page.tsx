@@ -11,15 +11,7 @@ import { ShieldCheck } from '@/components/icons';
 import { HelpCircle } from 'lucide-react';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { SocialShare } from '@/components/social-share';
-import type { Metadata } from 'next';
 import { BackButton } from '@/components/back-button';
-
-// Note: Metadata is defined here but will be overridden by the page component's export.
-// This is a placeholder for static analysis.
-const metadata: Metadata = {
-    title: "SAFE Note Dilution Calculator | Model Your Cap Table | TheASKT",
-    description: "How will a SAFE note impact your ownership? Model exactly how your SAFE will convert and dilute your equity in a priced funding round with our free calculator.",
-};
 
 const CHART_COLORS = ['hsl(var(--chart-1))', 'hsl(var(--chart-2))', 'hsl(var(--chart-3))'];
 

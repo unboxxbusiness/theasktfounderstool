@@ -12,15 +12,7 @@ import { Badge } from '@/components/ui/badge';
 import { Megaphone, HelpCircle } from 'lucide-react';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { SocialShare } from '@/components/social-share';
-import type { Metadata } from 'next';
 import { BackButton } from '@/components/back-button';
-
-// Note: Metadata is defined here but will be overridden by the page component's export.
-// This is a placeholder for static analysis.
-const metadata: Metadata = {
-    title: "Startup Marketing Budget Allocator | Free Tool by TheASKT",
-    description: "Get a recommended marketing budget allocation based on your startup's #1 goal (brand, leads, or sales). Stop wasting money and get results with a data-driven plan.",
-};
 
 const CHART_COLORS = ['hsl(var(--chart-1))', 'hsl(var(--chart-2))', 'hsl(var(--chart-3))', 'hsl(var(--chart-4))'];
 const CHANNELS = ['Google Ads', 'Meta Ads', 'SEO/Content', 'Events'];

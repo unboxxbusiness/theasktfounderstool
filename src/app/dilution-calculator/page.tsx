@@ -10,16 +10,7 @@ import { Label } from '@/components/ui/label';
 import { TrendingDown, HelpCircle } from 'lucide-react';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { SocialShare } from '@/components/social-share';
-import type { Metadata } from 'next';
 import { BackButton } from '@/components/back-button';
-
-// Note: Metadata is defined here but will be overridden by the page component's export.
-// This is a placeholder for static analysis.
-const metadata: Metadata = {
-    title: "Startup Funding Dilution Calculator | Model Your Cap Table | TheASKT",
-    description: "How much of your company will you give away? Model the impact of a new investment on your cap table with our free funding dilution calculator for founders.",
-};
-
 
 const CHART_COLORS = ['hsl(var(--chart-1))', 'hsl(var(--chart-2))'];
 

@@ -10,15 +10,7 @@ import { Badge } from '@/components/ui/badge';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { DollarSign, HelpCircle } from 'lucide-react';
 import { SocialShare } from '@/components/social-share';
-import type { Metadata } from 'next';
 import { BackButton } from '@/components/back-button';
-
-// Note: Metadata is defined here but will be overridden by the page component's export.
-// This is a placeholder for static analysis.
-const metadata: Metadata = {
-    title: "Startup Pricing Strategy Calculator | Find Your Price Point | TheASKT",
-    description: "What should you charge for your product? Use our free calculator to analyze cost-plus, competitive, and value-based pricing strategies for your startup.",
-};
 
 const formatCurrency = (value: number) => {
   if (isNaN(value) || !isFinite(value)) return '$0';

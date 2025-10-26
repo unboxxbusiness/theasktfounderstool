@@ -9,16 +9,7 @@ import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
 import { TrendingUp, Users, DollarSign, Percent } from 'lucide-react';
 import { SocialShare } from '@/components/social-share';
-import type { Metadata } from 'next';
 import { BackButton } from '@/components/back-button';
-
-// Note: Metadata is defined here but will be overridden by the page component's export.
-// This is a placeholder for static analysis.
-const metadata: Metadata = {
-    title: "Startup Revenue Projection Calculator | Free Forecast Tool | TheASKT",
-    description: "Project your startup's next 12 months of revenue and user growth. Our free financial projection calculator helps you forecast the future and plan ahead.",
-};
-
 
 const formatCurrency = (value: number) => {
   return new Intl.NumberFormat('en-US', {

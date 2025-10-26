@@ -16,15 +16,7 @@ import { PlusCircle, Trash2, Scale, HelpCircle } from 'lucide-react';
 import { Slider } from '@/components/ui/slider';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { SocialShare } from '@/components/social-share';
-import type { Metadata } from 'next';
 import { BackButton } from '@/components/back-button';
-
-// Note: Metadata is defined here but will be overridden by the page component's export.
-// This is a placeholder for static analysis.
-const metadata: Metadata = {
-    title: "Co-Founder Equity Split Calculator | Fair Equity Distribution | TheASKT",
-    description: "How should you split equity with your co-founders? Use our free, data-driven calculator based on the 'Slicing Pie' model for a fair negotiation.",
-};
 
 const founderSchema = z.object({
   name: z.string().min(1, 'Name is required'),
@@ -61,7 +53,6 @@ const getDefaultFounders = (searchParams: URLSearchParams) => {
     }
     return [{ name: 'Founder 1', idea: 50, time: 50, money: 50 }];
 }
-
 
 export default function EquitySplitCalculatorPage() {
   const searchParams = useSearchParams();
