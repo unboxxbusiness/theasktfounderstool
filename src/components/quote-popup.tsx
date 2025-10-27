@@ -43,7 +43,8 @@ export function QuotePopup({ initialQuote }: QuotePopupProps) {
   useEffect(() => {
     const fetchQuote = async () => {
         try {
-          const response = await fetch('https://zenquotes.io/api/random');
+          // Using a CORS proxy to bypass browser restrictions on the ZenQuotes API
+          const response = await fetch('https://cors-anywhere.herokuapp.com/https://zenquotes.io/api/random');
           if (!response.ok) {
             throw new Error(`Failed to fetch quote. Status: ${response.status}`);
           }
