@@ -35,8 +35,29 @@ const fallbackQuote: Quote = {
     author: "Mark Twain"
 };
 
+async function getQuote(): Promise<Quote> {
+    try {
+        const response = await fetch('https://zenquotes.io/api/random', {
+            next: { revalidate: 86400 } // Re-fetch once a day
+        });
+        if (!response.ok) {
+            return fallbackQuote;
+        }
+        const data = await response.json();
+        const topQuote = data[0];
+        if (!topQuote || !topQuote.q || !topQuote.a) {
+            return fallbackQuote;
+        }
+        return { quote: topQuote.q, author: topQuote.a };
+    } catch (err) {
+        console.error(err);
+        return fallbackQuote;
+    }
+}
+
 
 export default async function Home() {
+  const quote = await getQuote();
 
   const tools = [
       {
@@ -127,7 +148,7 @@ export default async function Home() {
 
   return (
     <div className="flex flex-col min-h-dvh">
-      <QuotePopup initialQuote={fallbackQuote} />
+      <QuotePopup initialQuote={quote} />
       <main className="flex-1">
         <section className="w-full py-20 md:py-28 bg-background">
           <div className="container px-4 md:px-6">
